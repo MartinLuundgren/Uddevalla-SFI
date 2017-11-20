@@ -3,5 +3,90 @@
     ViewBag.Title = "Index";
 }
 
+<head>
+    <script src="http://www.fastlearning.in/controller/js/jquery-1.9.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <link href="~/Quiz.css" rel="stylesheet" />
+
+    <script type="text/javascript">
+
+    // ####### ÄNDRA KNAPPARNAS FÄRG
+	$(document).ready(function() {
+    $('label').click(function() {
+        $('label').removeClass('worngans');
+        $(this).addClass('worngans');
+    });
+        });
+
+    // ####### ÄNDRA KNAPPARNAS FÄRG
+
+    </script>
+
+    <script type="text/javascript">
+        // ####### SPELA IN LJUD
+        navigator.mediaDevices.getUserMedia({ audio: true })
+            .then(stream => {
+                rec = new MediaRecorder(stream);
+                rec.ondataavailable = e => {
+                    audioChunks.push(e.data);
+                    if (rec.state == "inactive") {
+                        let blob = new Blob(audioChunks, { type: 'audio/x-mpeg-3' });
+                        recordedAudio.src = URL.createObjectURL(blob);
+                        recordedAudio.controls = true;
+                        recordedAudio.autoplay = true;
+                        audioDownload.href = recordedAudio.src;
+                        audioDownload.download = 'mp3';
+                        audioDownload.innerHTML = 'download';
+                    }
+                }
+            })
+            .catch(e => console.log(e));
+
+        startRecord.onclick = e => {
+            startRecord.disabled = true;
+            stopRecord.disabled = false;
+            audioChunks = [];
+            rec.start();
+        }
+        stopRecord.onclick = e => {
+            startRecord.disabled = false;
+            stopRecord.disabled = true;
+            rec.stop();
+        }
+        // ###### SPELA IN LJUD
+    </script>
+</head>
+
+
 <h2>Index</h2>
+<audio controls="controls">
+    <source src="~/green.wav" />
+</audio>
+
+
+
+
+<div class="scp-quizzes-main">
+    <div class="scp-quizzes-data">
+        <input type="radio" id="RightAnswer" name="question1">
+        <label for="RightAnswer">Green</label><br />
+
+        <input type="radio" name="question1">
+        <label>Red</label><br />
+
+    </div>
+</div>
+
+<div>
+    <h2>Audio record and playback</h2>
+    <p>
+        <button id=startRecord>start</button>
+        <button id=stopRecord disabled>stop</button>
+    </p>
+    <p>
+        <audio id=recordedAudio></audio>
+        <a id=audioDownload></a>
+    </p>
+</div>
 
