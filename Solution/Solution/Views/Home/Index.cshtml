@@ -9,15 +9,16 @@
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-
     <div>
         <h2>Audio record and playback</h2>
         <p>
-            <button id=startRecord>start</button>
-            <button id=stopRecord disabled>stop</button>
+            <button type="button" class="btn btn-success" id=startRecord>start</button>
+            <button type="button" class="btn btn-danger" id=stopRecord disabled>stop</button>
         </p>
+        <audio id=recordedAudio></audio>
+    </div>
+    <div>
         <p>
-            <audio id=recordedAudio></audio>
             <audio controls="controls">
                 <source src="~/green.wav" />
             </audio>
