@@ -12,6 +12,7 @@ namespace Solution.Controllers
         public ActionResult Index()
         {
             return View();
+            //NS LOCALE
         }
     }
 }
