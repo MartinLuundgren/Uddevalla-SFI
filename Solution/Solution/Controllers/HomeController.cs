@@ -13,6 +13,7 @@ namespace Solution.Controllers
         {
             return View();
             //NS LOCALE
+            //Vatos locos
         }
 
         public ActionResult Category()
