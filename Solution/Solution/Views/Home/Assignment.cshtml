@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "Assignment";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Assignment</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link href="~/navbar.css" rel="stylesheet" />
+
+
+</head>
+<body>
+    <ul>
+        <li><a href="#home">@Html.ActionLink("Startsidan", "Index", "Home")</a></li>
+        <li><a href="#contact">@Html.ActionLink("Kategorier", "Category", "Home")</a></li>
+        <li><a class="active" href="#about">@Html.ActionLink("Uppgifter", "Assigment", "Home")</a></li>
+    </ul>
+    <h1>Uppgiftssidan</h1>
+</body>
+</html>
+
