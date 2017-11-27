@@ -8,94 +8,16 @@
     <title>Recorder</title>
     <link rel="stylesheet" href="css/main.css">
     <link href="~/Quiz.css" rel="stylesheet" />
+    <link href="~/navbar.css" rel="stylesheet" />
 
     <script src="http://www.fastlearning.in/controller/js/jquery-1.9.1.min.js"></script>
 
 </head>
 <body>
-    <div>
-        <h2>Spela in dig själv och jämför</h2>
-        <p>
-            <button type="button" class="btn btn-success" id=startRecord>start</button>
-            <button type="button" class="btn btn-danger" id=stopRecord disabled>stop</button>
-        </p>
-        <audio id=recordedAudio></audio>
-    </div>
-    <div>
-        <p>
-            <audio controls="controls">
-                <source src="~/Boll.wav" />
-            </audio>
-        </p>
-    </div>
-
-    <h1>Klicka på rätt ord</h1>
-    <img src="~/Content/img/train.jpg" width="400" height="277" />
-    <div>
-        <p>
-            <audio controls="controls">
-                <source src="~/T_g.wav" />
-            </audio>
-        </p>
-    </div>
-
-
-    <div class="scp-quizzes-main">
-        <div class="scp-quizzes-data">
-            <input type="radio" id="Tåg" name="question1">
-            <label for="Tåg">Tåg</label><br />
-            <input type="radio" name="question1">
-            <label>Tog</label><br />
-        </div>
-    </div>
-
-</body>
+    <ul>
+        <li><a class="active" href="#home">@Html.ActionLink("Startsidan", "Index", "Home")</a></li>
+        <li><a href="#contact">@Html.ActionLink("Kategorier", "Category", "Home")</a></li>
+        <li><a href="#about">@Html.ActionLink("Uppgifter", "Assignment", "Home")</a></li>
+    </ul>
+    </body>
 </html>
-
-<!-- ######## SPELA IN LJUD  #######-->
-<script>
-navigator.mediaDevices.getUserMedia({audio:true})
-.then(stream => {
-rec = new MediaRecorder(stream);
-rec.ondataavailable = e => {
-audioChunks.push(e.data);
-if (rec.state == "inactive"){
-let blob = new Blob(audioChunks,{type:'audio/x-mpeg-3'});
-recordedAudio.src = URL.createObjectURL(blob);
-recordedAudio.controls=true;
-recordedAudio.autoplay=true;
-audioDownload.href = recordedAudio.src;
-audioDownload.download = 'mp3';
-audioDownload.innerHTML = 'download';
-}
-}
-})
-.catch(e=>console.log(e));
-
-startRecord.onclick = e => {
-startRecord.disabled = true;
-stopRecord.disabled=false;
-audioChunks = [];
-rec.start();
-}
-stopRecord.onclick = e => {
-startRecord.disabled = false;
-stopRecord.disabled=true;
-rec.stop();
-}
-</script>
-
-<!-- ######## SPELA IN LJUD  #######-->
-
-
-<!-- ######## QUIZ CHANGE COLOR  #######-->
-<script type="text/javascript">
-         $(document).ready(function () {
-             $('label').click(function () {
-                 $('label').removeClass('worngans');
-                 $(this).addClass('worngans');
-             });
-         });
-</script>
-
-<!-- ######## QUIZ CHANGE COLOR  #######-->

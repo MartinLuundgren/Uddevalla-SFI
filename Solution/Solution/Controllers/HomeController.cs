@@ -14,5 +14,15 @@ namespace Solution.Controllers
             return View();
             //NS LOCALE
         }
+
+        public ActionResult Category()
+        {
+            return View();
+        }
+
+        public ActionResult Assignment()
+        {
+            return View();
+        }
     }
 }
