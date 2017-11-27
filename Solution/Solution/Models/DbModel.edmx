@@ -1,0 +1,246 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SFI_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Assignments">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Categories_ID" Type="int" Nullable="false" />
+          <Property Name="Assignment_Type" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Audio_File" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Answer_One" Type="nvarchar" MaxLength="50" />
+          <Property Name="Answer_Two" Type="nvarchar" MaxLength="50" />
+          <Property Name="Answer_Three" Type="nvarchar" MaxLength="50" />
+          <Property Name="Answer_Four" Type="nvarchar" MaxLength="50" />
+          <Property Name="Answer_Five" Type="nvarchar" MaxLength="50" />
+          <Property Name="Answer_Six" Type="nvarchar" MaxLength="50" />
+          <Property Name="Correct_Answer" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Segment_ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Login">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Segments">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="URL" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Assignments_Categories">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
+          <End Role="Assignments" Type="Self.Assignments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Assignments">
+              <PropertyRef Name="Categories_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_Segments">
+          <End Role="Segments" Type="Self.Segments" Multiplicity="1" />
+          <End Role="Categories" Type="Self.Categories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Segments">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Categories">
+              <PropertyRef Name="Segment_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SFI_DBModelStoreContainer">
+          <EntitySet Name="Assignments" EntityType="Self.Assignments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Segments" EntityType="Self.Segments" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Assignments_Categories" Association="Self.FK_Assignments_Categories">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Assignments" EntitySet="Assignments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_Segments" Association="Self.FK_Table_Segments">
+            <End Role="Segments" EntitySet="Segments" />
+            <End Role="Categories" EntitySet="Categories" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SFI_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Assignment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Categories_ID" Type="Int32" Nullable="false" />
+          <Property Name="Assignment_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Audio_File" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Answer_One" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Answer_Two" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Answer_Three" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Answer_Four" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Answer_Five" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Answer_Six" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Correct_Answer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_Assignments_Categories" FromRole="Assignments" ToRole="Categories" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Segment_ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Assignments" Relationship="Self.FK_Assignments_Categories" FromRole="Categories" ToRole="Assignments" />
+          <NavigationProperty Name="Segment" Relationship="Self.FK_Table_Segments" FromRole="Categories" ToRole="Segments" />
+        </EntityType>
+        <EntityType Name="Login">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Segment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="URL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Categories" Relationship="Self.FK_Table_Segments" FromRole="Segments" ToRole="Categories" />
+        </EntityType>
+        <Association Name="FK_Assignments_Categories">
+          <End Role="Categories" Type="Self.Category" Multiplicity="1" />
+          <End Role="Assignments" Type="Self.Assignment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Assignments">
+              <PropertyRef Name="Categories_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_Segments">
+          <End Role="Segments" Type="Self.Segment" Multiplicity="1" />
+          <End Role="Categories" Type="Self.Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Segments">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Categories">
+              <PropertyRef Name="Segment_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SFI_DBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Assignments" EntityType="Self.Assignment" />
+          <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="Logins" EntityType="Self.Login" />
+          <EntitySet Name="Segments" EntityType="Self.Segment" />
+          <AssociationSet Name="FK_Assignments_Categories" Association="Self.FK_Assignments_Categories">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Assignments" EntitySet="Assignments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_Segments" Association="Self.FK_Table_Segments">
+            <End Role="Segments" EntitySet="Segments" />
+            <End Role="Categories" EntitySet="Categories" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SFI_DBModelStoreContainer" CdmEntityContainer="SFI_DBEntities">
+          <EntitySetMapping Name="Assignments">
+            <EntityTypeMapping TypeName="SFI_DBModel.Assignment">
+              <MappingFragment StoreEntitySet="Assignments">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Categories_ID" ColumnName="Categories_ID" />
+                <ScalarProperty Name="Assignment_Type" ColumnName="Assignment_Type" />
+                <ScalarProperty Name="Audio_File" ColumnName="Audio_File" />
+                <ScalarProperty Name="Answer_One" ColumnName="Answer_One" />
+                <ScalarProperty Name="Answer_Two" ColumnName="Answer_Two" />
+                <ScalarProperty Name="Answer_Three" ColumnName="Answer_Three" />
+                <ScalarProperty Name="Answer_Four" ColumnName="Answer_Four" />
+                <ScalarProperty Name="Answer_Five" ColumnName="Answer_Five" />
+                <ScalarProperty Name="Answer_Six" ColumnName="Answer_Six" />
+                <ScalarProperty Name="Correct_Answer" ColumnName="Correct_Answer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="SFI_DBModel.Category">
+              <MappingFragment StoreEntitySet="Categories">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Segment_ID" ColumnName="Segment_ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logins">
+            <EntityTypeMapping TypeName="SFI_DBModel.Login">
+              <MappingFragment StoreEntitySet="Login">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Segments">
+            <EntityTypeMapping TypeName="SFI_DBModel.Segment">
+              <MappingFragment StoreEntitySet="Segments">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
