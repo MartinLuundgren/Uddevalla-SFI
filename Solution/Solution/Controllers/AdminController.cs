@@ -14,10 +14,9 @@ namespace Solution.Controllers
         // GET: Admin
         public ActionResult Index()
         {
+            var Segments = (from s in db.Segments select s).ToList();
             //Test
-            // Boomfunk Mc ROCKA MAJKROFÅN!!!!
-            return View();
-            
+            return View(Segments);
         }
         [HttpPost]
         public ActionResult Index(Segment segment)
