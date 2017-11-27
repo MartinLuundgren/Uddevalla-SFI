@@ -1,0 +1,15 @@
+﻿@model Solution.Models.Segment
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Admin Index</h2>
+@using (Html.BeginForm())
+{
+    <div>
+        Namn: @Html.EditorFor(model => model.Name)
+        Videolänk: @Html.EditorFor(model => model.URL)
+        <input type="submit" value="Lägg till" />
+    </div>
+}
+
