@@ -15,7 +15,9 @@ namespace Solution.Controllers
         public ActionResult Index()
         {
             //Test
+            // Boomfunk Mc ROCKA MAJKROFÅN!!!!
             return View();
+            
         }
         [HttpPost]
         public ActionResult Index(Segment segment)
