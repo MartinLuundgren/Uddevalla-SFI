@@ -2,18 +2,35 @@
 @{
     ViewBag.Title = "newAssignment";
 }
+    <style>
+        hr.style1 {
+            border-top: 1px solid #8c8b8b;
+        }
+
+        .entry:not(:first-of-type) {
+            margin-top: 10px;
+        }
+
+        .glyphicon {
+            font-size: 12px;
+        }
+            
+    </style>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
 <h2>Create new Assignment</h2>
 
 <div class="container">
 
-    <!--<form>-->
+    <form>
         <div class="form-group">
             <label for="assignment">Namn på Uppgift:</label>
             <input type="text" class="form-control" id="assignment">
         </div>
         <div>
-            @using (Html.BeginForm("newAssignment", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 <span>Select File:</span>
                 <input type="file" name="postedFile" />
@@ -24,5 +41,76 @@
             }
         </div>
         <!--https://www.aspsnippets.com/Articles/Simple-File-Upload-example-in-ASPNet-MVC-Razor.aspx-->
-    <!--</form>-->
+    </form>
 </div>
+<br>
+<hr class="style1">
+<br>
+<h2>Typ av Uppgift</h2>
+<div class="col-md-4">
+    <div class="col-md-6">
+        <div class="funkyradio">
+            <div class="funkyradio-default">
+                <input type="radio" name="radio" id="radio1" />
+                <label for="radio1">Göra</label>
+            </div>
+            <div class="funkyradio-primary">
+                <input type="radio" name="radio" id="radio2" checked />
+                <label for="radio2">Höra</label>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="control-group" id="fields">
+<h2>Svaralternativ</h2>
+            <div class="controls">
+                <form role="form" autocomplete="off">
+                    <div class="entry input-group">
+                        <input class="form-control" name="fields[]" type="text" placeholder="Skriv alternativ" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-success btn-add" type="button">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+                <br>
+                <small>Tryck på <span class="glyphicon glyphicon-plus gs"></span> för att lägga till fler alternativ.</small>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<button class="btn btn-block btn-primary btn-lg">Spara Uppgift</button>
+
+<script>
+    $(function () {
+        $(document).on('click', '.btn-add', function (e) {
+            e.preventDefault();
+
+            var controlForm = $('.controls form:first'),
+                currentEntry = $(this).parents('.entry:first'),
+                newEntry = $(currentEntry.clone()).appendTo(controlForm);
+
+            newEntry.find('input').val('');
+            controlForm.find('.entry:not(:last) .btn-add')
+                .removeClass('btn-add').addClass('btn-remove')
+                .removeClass('btn-success').addClass('btn-danger')
+                .html('<span class="glyphicon glyphicon-minus"></span>');
+        }).on('click', '.btn-remove', function (e) {
+            $(this).parents('.entry:first').remove();
+
+            e.preventDefault();
+            return false;
+        });
+    });
+
+</script>
+
+
+
+
