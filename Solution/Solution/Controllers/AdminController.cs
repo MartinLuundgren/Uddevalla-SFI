@@ -12,21 +12,30 @@ namespace Solution.Controllers
     public class AdminController : Controller
     {
         private SFI_DBEntities db = new SFI_DBEntities();
+        
         // GET: Admin
-
-        [HttpGet]
         public ActionResult Index()
-        {
-            
+        {    
             return View();
         }
 
-
-        public ActionResult newSegment()
+        [HttpPost]
+        public ActionResult newSegment(Segment segment)
         {
-
-            
-
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    db.Segments.Add(segment);
+                    db.SaveChanges();
+                    return RedirectToAction("Index", "Admin");
+                }
+                //TODO: Add exception, maybe custom error page? 
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
             return View();
         }
         public ActionResult newCategory()
