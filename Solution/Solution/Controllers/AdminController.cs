@@ -19,6 +19,14 @@ namespace Solution.Controllers
             return View();
         }
 
+        public ActionResult newSegment()
+        {
+            //TODO: add functionality
+            var segments = (from s in db.Segments
+                            orderby s.Name
+                            select s).ToList();
+            return View();
+        }
         [HttpPost]
         public ActionResult newSegment(Segment segment)
         {
