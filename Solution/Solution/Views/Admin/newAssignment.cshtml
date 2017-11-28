@@ -5,3 +5,24 @@
 
 <h2>Create new Assignment</h2>
 
+<div class="container">
+
+    <form>
+        <div class="form-group">
+            <label for="segment">Namn på segment:</label>
+            <input type="text" class="form-control" id="segment">
+        </div>
+        <div>
+            @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <span>Select File:</span>
+                <input type="file" name="postedFile" />
+                <hr />
+                <input type="submit" value="Upload" />
+                <br />
+                <span style="color:green">@ViewBag.Message</span>
+            }
+        </div>
+        <!--https://www.aspsnippets.com/Articles/Simple-File-Upload-example-in-ASPNet-MVC-Razor.aspx-->
+    </form>
+</div>

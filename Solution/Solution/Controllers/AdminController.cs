@@ -22,9 +22,19 @@ namespace Solution.Controllers
         }
 
 
-        public ActionResult newSegment(HttpPostedFileBase postedFile)
+        public ActionResult newSegment()
         {
 
+            
+
+            return View();
+        }
+        public ActionResult newCategory()
+        {
+            return View();
+        }
+        public ActionResult newAssignment(HttpPostedFileBase postedFile)
+        {
             if (postedFile != null)
             {
                 string path = Server.MapPath("~/Uploads/");
@@ -36,15 +46,6 @@ namespace Solution.Controllers
                 postedFile.SaveAs(path + Path.GetFileName(postedFile.FileName));
                 ViewBag.Message = "File uploaded successfully.";
             }
-
-            return View();
-        }
-        public ActionResult newCategory()
-        {
-            return View();
-        }
-        public ActionResult newAssignment()
-        {
             return View();
         }
     }
