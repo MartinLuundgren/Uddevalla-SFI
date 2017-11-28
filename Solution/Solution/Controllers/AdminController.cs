@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Solution.Models;
+using System.IO;
 
 namespace Solution.Controllers
 {
@@ -12,30 +13,39 @@ namespace Solution.Controllers
     {
         private SFI_DBEntities db = new SFI_DBEntities();
         // GET: Admin
+
+        [HttpGet]
         public ActionResult Index()
         {
-            var Segments = (from s in db.Segments select s).ToList();
-            //Test
-            return View(Segments);
-        }
-        [HttpPost]
-        public ActionResult Index(Segment segment)
-        {
-            db.Segments.Add(segment);
-            db.SaveChanges();
+            
             return View();
         }
 
+
         public ActionResult newSegment()
         {
+
+            
+
             return View();
         }
         public ActionResult newCategory()
         {
             return View();
         }
-        public ActionResult newAssignment()
+        public ActionResult newAssignment(HttpPostedFileBase postedFile)
         {
+            if (postedFile != null)
+            {
+                string path = Server.MapPath("~/Uploads/");
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+
+                postedFile.SaveAs(path + Path.GetFileName(postedFile.FileName));
+                ViewBag.Message = "File uploaded successfully.";
+            }
             return View();
         }
     }
