@@ -8,6 +8,19 @@
     <title>Assignment</title>
     <link rel="stylesheet" href="css/main.css">
     <link href="~/navbar.css" rel="stylesheet" />
+    <link href="~/Quiz.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <style>
+        hr.style1 {
+            border-top: 1px solid #8c8b8b;
+        }
+
+
+    </style>
 
 
 </head>
@@ -19,41 +32,151 @@
     </ul>
     <h1>Uppgiftssidan</h1>
 
-    <div>
-        <h2>Spela in dig själv och jämför</h2>
-        <p>
-            <button type="button" class="btn btn-success" id=startRecord>start</button>
-            <button type="button" class="btn btn-danger" id=stopRecord disabled>stop</button>
-        </p>
-        <audio id=recordedAudio></audio>
-    </div>
-    <div>
-        <p>
-            <audio controls="controls">
-                <source src="~/Boll.wav" />
-            </audio>
-        </p>
-    </div>
+    <div class="card text-center">
+        <div class="card-block">
+            <div>
+                <h3>Spela in dig själv och jämför</h3>
+                <p>
+                    <input type="image" src="~/Content/img/record.jpg" alt="Submit" id="startRecord" width="48" height="48">
+                    <input type="image" src="~/Content/img/stoprecord.jpg" alt="Submit" id="stopRecord" width="48" height="48">
 
-    <h1>Klicka på rätt ord</h1>
-    <img src="~/Content/img/train.jpg" width="400" height="277" />
-    <div>
-        <p>
-            <audio controls="controls">
-                <source src="~/T_g.wav" />
-            </audio>
-        </p>
-    </div>
-
-
-    <div class="scp-quizzes-main">
-        <div class="scp-quizzes-data">
-            <input type="radio" id="Tåg" name="question1">
-            <label for="Tåg">Tåg</label><br />
-            <input type="radio" name="question1">
-            <label>Tog</label><br />
+                    <!--Martin Lundgrens knappar-->
+                    <!--Nackdelen med bildknapparna är att det inte syns vilken knapp som har tryckts på-->
+                    <!--<button type="button" class="btn btn-success" id=startRecord>start</button>-->
+                    <!--<button type="button" class="btn btn-danger" id=stopRecord disabled>stop</button>-->
+                </p>
+                <p>Din inspelning:</p>
+                <audio id=recordedAudio></audio>
+            </div>
+            
+            <hr class="style1">
+            
+            <div>
+                <p>
+                    <p>Jämför:</p>
+                    <audio controls="controls">
+                        <source src="~/Boll.wav" />
+                    </audio>
+                </p>
+            </div>
+            <div class="container">
+                <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">Visa ord</button>
+                <div id="demo" class="collapse">
+                    <br />
+                    <p>"Boll"</p>
+                </div>
+                <br />
+            </div>
         </div>
     </div>
+    <br />
+    <br />
+    
+    <div class="card text-center border: 25px">
+        <div class="card-block">
+            <h1>Klicka på rätt ord</h1>
+            <img src="~/Content/img/train.jpg" width="400" height="277" />
+            <div>
+                <p>
+                    <audio controls="controls">
+                        <source src="~/T_g.wav" />
+                    </audio>
+                </p>
+            </div>
+
+
+            <div class="scp-quizzes-main">
+                <div class="scp-quizzes-data">
+                    <input type="radio" id="Tåg" name="question1">
+                    <label for="Tåg">Tåg</label><br />
+                    <input type="radio" name="question1">
+                    <label>Tog</label><br />
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <br />
+    <br />
+
+    <div class="card text-center">
+        <div class="card-block">
+            <div>
+                <h3>Spela in dig själv och jämför</h3>
+                <p>
+                    <input type="image" src="~/Content/img/record.jpg" alt="Submit" id="startRecord" width="48" height="48">
+                    <input type="image" src="~/Content/img/stoprecord.jpg" alt="Submit" id="stopRecord" width="48" height="48">
+
+                    <!--Martin Lundgrens knappar-->
+                    <!--Nackdelen med bildknapparna är att det inte syns vilken knapp som har tryckts på-->
+                    <!--<button type="button" class="btn btn-success" id=startRecord>start</button>-->
+                    <!--<button type="button" class="btn btn-danger" id=stopRecord disabled>stop</button>-->
+                </p>
+                <p>Din inspelning:</p>
+                <audio id=recordedAudio></audio>
+            </div>
+
+            <hr class="style1">
+
+            <div>
+                <p>
+                <p>Jämför:</p>
+                <audio controls="controls">
+                    <source src="~/syr.wav" />
+                </audio>
+                </p>
+            </div>
+            <div class="container">
+                <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#syr">Visa ord</button>
+                <div id="syr" class="collapse">
+                    <br />
+                    <p>"Syr"</p>
+                </div>
+                <br />
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <br />
+
+    <div class="card text-center border: 25px">
+        <div class="card-block">
+            <h1>Klicka på rätt ord</h1>
+
+
+            <div class="container">
+                <img src="~/Content/img/Sol.jpg" class="img-rounded" alt="Sol" width="304" height="236">
+            </div>
+
+            <div>
+                <p>
+                    <audio controls="controls">
+                        <source src="~/T_g.wav" />
+                    </audio>
+                </p>
+            </div>
+
+
+            <div class="scp-quizzes-main">
+                <div class="scp-quizzes-data">
+                    <input type="radio" name="question2">
+                    <label>Sul</label><br />
+                    
+                    <input type="radio" id="Sol" name="question2">
+                    <label for="Sol">Sol</label>
+                    
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    
+
+    
 
 </body>
 </html>
