@@ -26,5 +26,19 @@ namespace Solution.Controllers
             db.SaveChanges();
             return View();
         }
+
+        public ActionResult newSegment()
+        {
+            //Saknar vy
+            return View();
+        }
+        public ActionResult newCategory()
+        {
+            return View();
+        }
+        public ActionResult newAssignment()
+        {
+            return View();
+        }
     }
 }
