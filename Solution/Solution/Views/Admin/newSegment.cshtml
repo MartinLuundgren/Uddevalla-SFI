@@ -2,23 +2,46 @@
 @{
     ViewBag.Title = "newSegment";
 }
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        hr.style1 {
+            border-top: 1px solid #8c8b8b;
+        }
+    </style>
 
-<h2>Create new Segment</h2>
+</head>
+<body>
+    <h2>Create new Segment</h2>
 
-<div class="container">
+    <div class="container">
 
-    <form>
-        <div class="form-group">
-            <label for="segmentName">Namn på segment:</label>
-            <input type="text" class="form-control" id="segmentName">
-        </div>
-        <div class="form-group">
-            <label for="segmentUrl">Länk:</label>
-            <input type="text" class="form-control" id="segmentUrl">
-        </div>
-    </form>
-    <button type="button" class="btn btn-success">Spara Segment</button>
-</div>
+        <form>
+            <div class="form-group">
+                <label for="segmentName">Namn på segment:</label>
+                <input type="text" class="form-control" id="segmentName">
+            </div>
+            <div class="form-group">
+                <label for="segmentUrl">Länk:</label>
+                <input type="text" class="form-control" id="segmentUrl">
+            </div>
+        </form>
+        <button type="button" class="btn btn-success">Spara Segment</button>
+    </div>
+
+    <h2>Segment som finns:</h2>
+    <br>
+    <hr class="style1">
+    <br>
+
+    <h4>Segment 1</h4>
+    <h4>Segment 2</h4>
+    <h4>Segment 3</h4>
+    <h4>Segment 4</h4>
+    <h4>Segment 5</h4>
+</body>
+</html>
 
 
 

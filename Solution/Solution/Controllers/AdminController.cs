@@ -21,7 +21,7 @@ namespace Solution.Controllers
             return View();
         }
 
-
+        
         public ActionResult newSegment()
         {
 
