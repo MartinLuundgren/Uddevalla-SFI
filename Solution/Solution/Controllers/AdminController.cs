@@ -14,20 +14,12 @@ namespace Solution.Controllers
         // GET: Admin
         public ActionResult Index()
         {
-            var Segments = (from s in db.Segments select s).ToList();
-            //Test
-            return View(Segments);
-        }
-        [HttpPost]
-        public ActionResult Index(Segment segment)
-        {
-            db.Segments.Add(segment);
-            db.SaveChanges();
+            
             return View();
         }
-
         public ActionResult newSegment()
         {
+       
             return View();
         }
         public ActionResult newCategory()
