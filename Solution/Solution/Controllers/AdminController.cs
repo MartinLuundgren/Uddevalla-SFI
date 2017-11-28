@@ -33,6 +33,12 @@ namespace Solution.Controllers
         {
             return View();
         }
+        [HttpGet]
+        public ActionResult newAssignment()
+        {
+            return View();
+        }
+        [HttpPost]
         public ActionResult newAssignment(HttpPostedFileBase postedFile)
         {
             if (postedFile != null)
