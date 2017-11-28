@@ -28,6 +28,7 @@ namespace Solution.Controllers
 
         public ActionResult newSegment()
         {
+            //Saknar vy
             return View();
         }
         public ActionResult newCategory()
