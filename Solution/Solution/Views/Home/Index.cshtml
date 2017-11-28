@@ -1,23 +1,10 @@
-﻿
+﻿@model IEnumerable<Solution.Models.Segment>
 @{
     ViewBag.Title = "Index";
 }
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Recorder</title>
-    <link rel="stylesheet" href="css/main.css">
-    <link href="~/Quiz.css" rel="stylesheet" />
-    <link href="~/navbar.css" rel="stylesheet" />
-
-    <script src="http://www.fastlearning.in/controller/js/jquery-1.9.1.min.js"></script>
-
-</head>
-<body>
-    <ul>
-        <li><a class="active" href="#home">@Html.ActionLink("Startsidan", "Index", "Home")</a></li>
-        <li><a href="#contact">@Html.ActionLink("Kategorier", "Category", "Home")</a></li>
-        <li><a href="#about">@Html.ActionLink("Uppgifter", "Assignment", "Home")</a></li>
-    </ul>
-    </body>
-</html>
+@foreach (var item in Model)
+{
+    <br />
+    <button class="btn btn-block btn-primary btn-lg">@item.Name</button>
+    <br />
+}
