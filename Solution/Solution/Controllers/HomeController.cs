@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Solution.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,13 +9,16 @@ namespace Solution.Controllers
 {
     public class HomeController : Controller
     {
+        private SFI_DBEntities db = new SFI_DBEntities();
         // GET: Home
         //Pull fail comment
         public ActionResult Index()
         {
-            return View();
-            //NS LOCALE
-            //Vatos locos
+            var getSegments = (from s in db.Segments
+                               orderby s.Name
+                               select s).ToList();
+
+            return View(getSegments);
         }
 
         public ActionResult Category()
