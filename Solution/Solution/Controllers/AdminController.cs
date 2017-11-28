@@ -16,6 +16,7 @@ namespace Solution.Controllers
         {
             var Segments = (from s in db.Segments select s).ToList();
             //Test
+            //En kommentar för att synka
             return View(Segments);
         }
         [HttpPost]
