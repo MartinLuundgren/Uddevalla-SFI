@@ -2,9 +2,13 @@
 @{
     ViewBag.Title = "Index";
 }
-@foreach (var item in Model)
+
+@using (Html.BeginForm("Category", "Home", FormMethod.Post))
 {
-    <br />
-    <button class="btn btn-block btn-primary btn-lg">@item.Name</button>
-    <br />
+    foreach (var item in Model)
+    {
+        <button class="btn btn-block btn-lg btn-primary" name="segment" value="@item.ID">@item.Name</button>
+    }
 }
+<!--test-->
+

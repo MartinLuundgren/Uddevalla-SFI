@@ -14,17 +14,19 @@
         .glyphicon {
             font-size: 12px;
         }
+
+
             
     </style>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-
+<body>
 <h2>Create new Assignment</h2>
 
-<div class="container">
+    <div class="container">
 
-    
+
         <div class="form-group">
             <label for="assignment">Namn på Uppgift:</label>
             <input type="text" class="form-control" id="assignment">
@@ -39,78 +41,97 @@
                 <br />
                 <span style="color:green">@ViewBag.Message</span>
             }
-        </div>
-        <!--https://www.aspsnippets.com/Articles/Simple-File-Upload-example-in-ASPNet-MVC-Razor.aspx-->
-    
-</div>
-<br>
-<hr class="style1">
-<br>
-<h2>Typ av Uppgift</h2>
-<div class="col-md-4">
-    <div class="col-md-6">
-        <div class="funkyradio">
-            <div class="funkyradio-default">
-                <input type="radio" name="radio" id="radio1" />
-                <label for="radio1">Göra</label>
-            </div>
-            <div class="funkyradio-primary">
-                <input type="radio" name="radio" id="radio2" checked />
-                <label for="radio2">Höra</label>
-            </div>
-        </div>
-    </div>
-</div>
 
+            <!--https://www.aspsnippets.com/Articles/Simple-File-Upload-example-in-ASPNet-MVC-Razor.aspx-->
 
-<div class="container">
-    <div class="row">
-        <div class="control-group" id="fields">
-<h2>Svaralternativ</h2>
-            <div class="controls">
-                <form role="form" autocomplete="off">
-                    <div class="entry input-group">
-                        <input class="form-control" name="fields[]" type="text" placeholder="Skriv alternativ" />
-                        <span class="input-group-btn">
-                            <button class="btn btn-success btn-add" type="button">
-                                <span class="glyphicon glyphicon-plus"></span>
-                            </button>
-                        </span>
+        </div>
+        <br>
+        <hr class="style1">
+        <br>
+        <div class="container">
+            <h2>Typ av Uppgift</h2>
+            <div class="col-md-4">
+                <div class="col-md-6">
+                    <div class="funkyradio">
+                        <div class="funkyradio-default">
+                            <input type="radio" name="radio" id="radio1" />
+                            <label for="radio1">Göra</label>
+                        </div>
+                        <div class="funkyradio-primary">
+                            <input type="radio" name="radio" id="radio2" checked />
+                            <label for="radio2">Höra</label>
+                        </div>
                     </div>
-                </form>
-                <br>
-                <small>Tryck på <span class="glyphicon glyphicon-plus gs"></span> för att lägga till fler alternativ.</small>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-<br />
-<button class="btn btn-block btn-primary btn-lg">Spara Uppgift</button>
+        <br />
 
-<script>
-    $(function () {
-        $(document).on('click', '.btn-add', function (e) {
-            e.preventDefault();
+            <div class="container">
+                <h2>Svaralternativ</h2>
+                <p>Fyll i svarsalternativen för uppgiften, och markera rätt svar för frågan</p>
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input type="checkbox">
+                    </span>
+                    <span class="input-group-addon">
+                        <label for="answer_one">Alternativ 1</label>
+                    </span>
+                    <input type="text" id="answer_one" class="form-control">
+                </div>
 
-            var controlForm = $('.controls form:first'),
-                currentEntry = $(this).parents('.entry:first'),
-                newEntry = $(currentEntry.clone()).appendTo(controlForm);
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input type="checkbox">
+                    </span>
+                    <span class="input-group-addon">
+                        <label for="answer_two">Alternativ 2</label>
+                    </span>
+                    <input type="text" id="answer_two" class="form-control">
+                </div>
 
-            newEntry.find('input').val('');
-            controlForm.find('.entry:not(:last) .btn-add')
-                .removeClass('btn-add').addClass('btn-remove')
-                .removeClass('btn-success').addClass('btn-danger')
-                .html('<span class="glyphicon glyphicon-minus"></span>');
-        }).on('click', '.btn-remove', function (e) {
-            $(this).parents('.entry:first').remove();
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input type="checkbox">
+                    </span>
+                    <span class="input-group-addon">
+                        <label for="answer_three">Alternativ 3</label>
+                    </span>
+                    <input type="text" id="answer_three" class="form-control">
+                </div>
 
-            e.preventDefault();
-            return false;
-        });
-    });
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input type="checkbox">
+                    </span>
+                    <span class="input-group-addon">
+                        <label for="answer_four">Alternativ 4</label>
+                    </span>
+                    <input type="text" id="answer_four" class="form-control">
+                </div>
 
-</script>
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input type="checkbox">
+                    </span>
+                    <span class="input-group-addon">
+                        <label for="answer_five">Alternativ 5</label>
+                    </span>
+                    <input type="text" id="answer_five" class="form-control">
+                </div>
 
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input type="checkbox">
+                    </span>
+                    <span class="input-group-addon">
+                        <label for="answer_six">Alternativ 6</label>
+                    </span>
+                    <input type="text" id="answer_six" class="form-control">
+                </div>
+            </div>
+        </div>
 
-
-
+    <br />
+    <button class="btn btn-block btn-primary btn-lg">Skapa Uppgift</button>
+</body>
