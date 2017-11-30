@@ -1,43 +1,78 @@
-﻿
+﻿@model Solution.Models.Category
+
 @{
-    ViewBag.Title = "newCategory";
+    ViewBag.Title = "Ny kategori";
 }
-<!DOCTYPE html>
-<html>
-<head>
-    <style>
-        hr.style1 {
-            border-top: 1px solid #8c8b8b;
-        }
-    </style>
 
-</head>
-<body>
-<h2>Create new Category</h2>
+@{
+    List<SelectListItem> listItems = new List<SelectListItem>();
+    foreach (var item in ViewBag.segmentName)
+    {
+        listItems.Add(new SelectListItem
+        {
+            Text = item.Name,
+            Value = item.ID.ToString()
+    });
+}
+
+}
+
+<h2>Lägg till ny kategori</h2>
 
 
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
 
-<form>
-    <div class="form-group">
-        <label for="categoryName">Namn på kategori:</label>
-        <input type="text" class="form-control" id="categoryName">
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Segment_ID, listItems, "Välj segment")
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-success" />
+            </div>
+        </div>
     </div>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Segment_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th></th>
+    </tr>
 
-</form>
+    @foreach (var item in ViewBag.join)
+    {
+        <tr>
+            <td>
+                @item.segmentName
+            </td>
+            <td>
+                @item.categoryName
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.categoryID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.categoryID })
+            </td>
+        </tr>
+    }
 
-<!--Todo: Lägg till en dropdown för att välja segment-->
-
-<h2>Kategorier som finns:</h2>
-<br>
-<hr class="style1">
-<br>
-
-<h4>Kategori 1</h4>
-<h4>Kategori 2</h4>
-<h4>Kategori 3</h4>
-<h4>Kategori 4</h4>
-<h4>Kategori 5</h4>
-</body>
-</html>
-
-
+</table>

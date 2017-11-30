@@ -51,6 +51,42 @@ namespace Solution.Controllers
         }
         public ActionResult newCategory()
         {
+            /*var categories = (from s in db.Categories
+                              orderby s.Name
+                              select s).ToList();
+            ViewBag.categories = categories;*/
+
+            //Hämta segmentnamn till dopdown i newCategories
+            var segmentName = (from s in db.Segments
+                              orderby s.Name
+                              select s).ToList();
+            ViewBag.segmentName = segmentName;
+
+            //Joina segmentnamn och motsvarande kategorier för lista i newCategories
+            var join = (from c in db.Categories
+                        join s in db.Segments
+                        on c.Segment_ID equals s.ID
+                        select new JoinModel { categoryName = c.Name, segmentName = s.Name, categoryID = c.ID, segmentID=s.ID}).ToList();
+            ViewBag.join = join;
+            return View();
+        }
+        [HttpPost]
+        public ActionResult newCategory(Category category)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    db.Categories.Add(category);
+                    db.SaveChanges();
+                    return RedirectToAction("newCategory", "Admin");
+                }
+                //TODO: Add exception, maybe custom error page? 
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
             return View();
         }
         [HttpGet]
