@@ -204,6 +204,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DbModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\JoinModel.cs" />
     <Compile Include="Models\Login.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>

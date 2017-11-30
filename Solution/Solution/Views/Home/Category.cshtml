@@ -1,24 +1,13 @@
-﻿
+﻿@model IEnumerable<Solution.Models.Category>
 @{
-    ViewBag.Title = "Category";
+    ViewBag.Title = "Index";
 }
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Category</title>
-    <link rel="stylesheet" href="css/main.css">
-    <link href="~/navbar.css" rel="stylesheet" />
-
-
-</head>
-<body>
-    <ul>
-        <li><a href="#home">@Html.ActionLink("Startsidan", "Index", "Home")</a></li>
-        <li><a class="active" href="#contact">@Html.ActionLink("Kategorier", "Category", "Home")</a></li>
-        <li><a href="#about">@Html.ActionLink("Uppgifter", "Assignment", "Home")</a></li>
-    </ul>
-<h1>Kategorisidan</h1>
-</body>
-</html>
-
+<div align="center" class="embed-responsive embed-responsive-16by9">
+    <video autoplay loop class="embed-responsive-item">
+        <source src="http://techslides.com/demos/sample-videos/small.mp4" type="video/mp4">
+    </video>
+</div>
+@foreach (var item in Model)
+{
+    <button class="btn btn-block btn-lg btn-primary" onclick="location.href='@Url.Action("Assignment", "Home")'" >@item.Name</button>
+}

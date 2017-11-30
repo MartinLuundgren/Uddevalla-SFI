@@ -21,9 +21,14 @@ namespace Solution.Controllers
             return View(getSegments);
         }
 
-        public ActionResult Category()
+        public ActionResult Category(string segment)
         {
-            return View();
+            int id = int.Parse(segment);
+            Segment temp = (Segment)TempData["segment"];
+            var category = (from c in db.Categories
+                            where c.Segment_ID == id
+                            select c).ToList();
+            return View(category);
         }
 
         public ActionResult Assignment()
