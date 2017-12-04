@@ -139,62 +139,12 @@
                     @Html.EditorFor(model => model.Answer_Six, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Answer_Six, "", new { @class = "text-danger" })
                 </div>
-                <!--
-                <div class="input-group">
-                    <span class="input-group-addon">
-                        <input type="checkbox" value="">
-                    </span>
-                    <span class="input-group-addon">
-                        <label for="answer_two">Alternativ 2</label>
-                    </span>
-                    <input type="text" id="answer_two" class="form-control">
-                </div>
-
-                <div class="input-group">
-                    <span class="input-group-addon">
-                        <input type="checkbox">
-                    </span>
-                    <span class="input-group-addon">
-                        <label for="answer_three">Alternativ 3</label>
-                    </span>
-                    <input type="text" id="answer_three" class="form-control">
-                </div>
-
-                <div class="input-group">
-                    <span class="input-group-addon">
-                        <input type="checkbox">
-                    </span>
-                    <span class="input-group-addon">
-                        <label for="answer_four">Alternativ 4</label>
-                    </span>
-                    <input type="text" id="answer_four" class="form-control">
-                </div>
-
-                <div class="input-group">
-                    <span class="input-group-addon">
-                        <input type="checkbox">
-                    </span>
-                    <span class="input-group-addon">
-                        <label for="answer_five">Alternativ 5</label>
-                    </span>
-                    <input type="text" id="answer_five" class="form-control">
-                </div>
-
-                <div class="input-group">
-                    <span class="input-group-addon">
-                        <input type="checkbox">
-                    </span>
-                    <span class="input-group-addon">
-                        <label for="answer_six">Alternativ 6</label>
-                    </span>
-                    <input type="text" id="answer_six" class="form-control">
-                </div>
-                    -->
             </div>
             <br />
             
             <button type="submit" class="btn btn-block btn-primary btn-lg">Skapa Uppgift</button>     
             }
+            <br />
         </div>
         </div>
 
@@ -232,42 +182,43 @@
             </th>
         </tr>
         <!---->
-        @foreach (var item in ViewBag.assignments)
+        @foreach (var item in ViewBag.joinAssignmentsOnCategories)
         {
             <tr>
                 <td>
-                    @item.Categories_ID
+                    @item.categoryName
                 </td>
                 <td>
-                    @item.Audio_File
+                    @item.assignmentAudio
                 </td>
                 <td>
-                    @item.Assignment_Type
+                    @item.assignmentType
                 </td>
                 <td>
-                    @item.Correct_Answer
+                    @item.assignmentCorrectAnswer
                 </td>
                 <td>
-                    @item.Answer_One
+                    @item.assignmentAnswerOne
                 </td>
                 <td>
-                    @item.Answer_Two
+                    @item.assignmentAnswerTwo
                 </td>
                 <td>
-                    @item.Answer_Three
+                    @item.assignmentAnswerThree
                 </td>
                 <td>
-                    @item.Answer_Four
+                    @item.assignmentAnswerFour
                 </td>
                 <td>
-                    @item.Answer_Five
+                    @item.assignmentAnswerFive
                 </td>
                 <td>
-                    @item.Answer_Six
+                    @item.assignmentAnswerSix
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                    <!---->
+                    @Html.ActionLink("Edit", "Edit", new { id = item.assignmentID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.assignmentID })
                 </td>
             </tr>
         }

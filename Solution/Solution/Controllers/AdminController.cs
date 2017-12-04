@@ -109,11 +109,11 @@ namespace Solution.Controllers
                                select s).ToList();
             ViewBag.categoryName = categoryName;
 
-            var join = (from a in db.Assignments
+            var joinAssignmentsOnCategories = (from a in db.Assignments
                         join c in db.Categories
                         on a.Categories_ID equals c.ID
-                        select new JoinModel { categoryName = c.Name, assignmentID = a.ID, categoryID = c.ID }).ToList();
-            ViewBag.join = join;
+                        select new JoinModelAssignments { categoryName = c.Name, categoryID = c.ID, assignmentID = a.ID, assignmentAudio = a.Audio_File, assignmentType = a.Assignment_Type, assignmentCorrectAnswer = a.Correct_Answer, assignmentAnswerOne = a.Answer_One, assignmentAnswerTwo = a.Answer_Two, assignmentAnswerThree = a.Answer_Three, assignmentAnswerFour = a.Answer_Four, assignmentAnswerFive = a.Answer_Five, assignmentAnswerSix = a.Answer_Six }).ToList();
+            ViewBag.joinAssignmentsOnCategories = joinAssignmentsOnCategories;
 
             return View();
         }
