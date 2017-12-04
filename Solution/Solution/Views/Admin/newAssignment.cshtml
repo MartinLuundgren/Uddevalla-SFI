@@ -1,4 +1,4 @@
-﻿
+﻿@model Solution.Models.Assignment
 @{
     ViewBag.Title = "newAssignment";
 }
@@ -27,24 +27,21 @@
     <div class="container">
 
 
-        <div class="form-group">
-            <label for="assignment">Namn på Uppgift:</label>
-            <input type="text" class="form-control" id="assignment">
-        </div>
+        
         <div>
             @using (Html.BeginForm("newAssignment", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
-                <span>Select File:</span>
+                <span>Välj ljudfil:</span>
                 <input type="file" name="postedFile" />
                 <hr />
-                <input type="submit" value="Upload" />
+                <!--<input type="submit" value="Upload" />-->
                 <br />
                 <span style="color:green">@ViewBag.Message</span>
-            }
+
 
             <!--https://www.aspsnippets.com/Articles/Simple-File-Upload-example-in-ASPNet-MVC-Razor.aspx-->
 
-        </div>
+        
         <br>
         <hr class="style1">
         <br>
@@ -54,11 +51,11 @@
                 <div class="col-md-6">
                     <div class="funkyradio">
                         <div class="funkyradio-default">
-                            <input type="radio" name="radio" id="radio1" />
+                            @Html.RadioButtonFor(model => model.Assignment_Type, new { htmlAttributes = new { @class = "form-control" } })
                             <label for="radio1">Göra</label>
                         </div>
                         <div class="funkyradio-primary">
-                            <input type="radio" name="radio" id="radio2" checked />
+                            @Html.RadioButtonFor(model => model.Assignment_Type, new { htmlAttributes = new { @class = "form-control" } })
                             <label for="radio2">Höra</label>
                         </div>
                     </div>
@@ -72,17 +69,18 @@
                 <p>Fyll i svarsalternativen för uppgiften, och markera rätt svar för frågan</p>
                 <div class="input-group">
                     <span class="input-group-addon">
-                        <input type="checkbox">
+                        @Html.CheckBoxFor(model => model.Correct_Answer, new { htmlAttributes = new { @class = "form-control" } })
                     </span>
                     <span class="input-group-addon">
                         <label for="answer_one">Alternativ 1</label>
                     </span>
-                    <input type="text" id="answer_one" class="form-control">
+                    @Html.EditorFor(model => model.Answer_One, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Answer_One, "", new { @class = "text-danger" })
                 </div>
 
                 <div class="input-group">
                     <span class="input-group-addon">
-                        <input type="checkbox">
+                        <input type="checkbox" value="">
                     </span>
                     <span class="input-group-addon">
                         <label for="answer_two">Alternativ 2</label>
@@ -130,8 +128,11 @@
                     <input type="text" id="answer_six" class="form-control">
                 </div>
             </div>
+            }
+        </div>
         </div>
 
     <br />
     <button class="btn btn-block btn-primary btn-lg">Skapa Uppgift</button>
+            
 </body>
