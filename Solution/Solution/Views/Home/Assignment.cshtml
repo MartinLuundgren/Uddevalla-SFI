@@ -25,11 +25,13 @@
 
 </head>
 <body>
+    
     <ul>
-        <li><a href="#home">@Html.ActionLink("Startsidan", "Index", "Home")</a></li>
-        <li><a href="#contact">@Html.ActionLink("Kategorier", "Category", "Home")</a></li>
-        <li><a class="active" href="#about">@Html.ActionLink("Uppgifter", "Assignment", "Home")</a></li>
+        <li>@Html.ActionLink("Startsidan", "Index", "Home")</li>
+        <li>@Html.ActionLink("Kategorier", "Category", "Home")</li>
+        <li>@Html.ActionLink("Uppgifter", "Assignment", "Home")</li>
     </ul>
+        
     <h1>Uppgiftssidan</h1>
 
     <div class="card text-center">
