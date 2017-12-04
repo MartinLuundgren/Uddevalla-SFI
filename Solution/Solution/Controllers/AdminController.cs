@@ -16,7 +16,15 @@ namespace Solution.Controllers
         // GET: Admin
         public ActionResult Index()
         {
-            return View();
+            if (Session["Name"] != null)
+            {
+                return View();
+            }
+            //Else redirect the user back to the login page
+            else
+            {
+                return RedirectToAction("/Index", "Admin", new { area = "" });
+            }
         }
 
 

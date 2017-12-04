@@ -12,6 +12,12 @@ namespace Solution.Controllers
     {
         private SFI_DBEntities db = new SFI_DBEntities();
         // GET: Login
+        public ActionResult Index()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Index(Login login)
         {
             if (ModelState.IsValid)
@@ -27,7 +33,7 @@ namespace Solution.Controllers
                 {
                     Session["ID"] = details.FirstOrDefault().ID;
                     Session["Name"] = details.FirstOrDefault().Name;
-                    return RedirectToAction("Index","Admin");
+                    return RedirectToAction("/Index", "Admin", new { area = "" });
                 }
             }
             else
