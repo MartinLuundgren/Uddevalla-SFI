@@ -16,7 +16,16 @@
 }
 
 }
-
+<head>
+    <link href="~/navbar.css" rel="stylesheet" />
+</head>
+<div class="navbar-static-top">
+    <ul>
+        <li>@Html.ActionLink("Segment", "newSegment", "Admin")</li>
+        <li>@Html.ActionLink("Kategorier", "newCategory", "Admin")</li>
+        <li>@Html.ActionLink("Uppgifter", "newAssignment", "Admin")</li>
+    </ul>
+</div>
 <h2>Lägg till ny kategori</h2>
 
 
