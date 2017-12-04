@@ -47,7 +47,7 @@
                     @Html.DropDownListFor(model => model.Categories_ID, listItems, "Välj uppgiftskategori")
                 </div>
                 <br/>
-                <span>Välj ljudfil:</span>
+                <p>Välj ljudfil:</p>
                 <input type="file" name="postedFile" />
                 <hr />
                 <!--<input type="submit" value="Upload" />-->
@@ -58,9 +58,6 @@
             <!--https://www.aspsnippets.com/Articles/Simple-File-Upload-example-in-ASPNet-MVC-Razor.aspx-->
 
         
-        <br>
-        <hr class="style1">
-        <br>
         <div class="container">
             <h2>Typ av Uppgift</h2>
             <div class="col-md-4">
@@ -82,12 +79,19 @@
 
             <div class="container">
                 <h2>Svaralternativ</h2>
-                <p>Fyll i svarsalternativen för uppgiften, och markera rätt svar för frågan</p>
+                <p>Fyll i rätt svar och svarsalternativen för uppgiften</p>
                 <div class="input-group">
+                    <!--<span class="input-group-addon">
+                        //@Html.RadioButtonFor(model => model.Correct_Answer, "Test")
+                    </span>-->
                     <span class="input-group-addon">
-                        <!--Komment som ska tas bort-->
-                        @Html.RadioButtonFor(model => model.Correct_Answer, "Byt till editor-värdet")
+                        <label for="answer_one">Rätt svar</label>
                     </span>
+                    @Html.EditorFor(model => model.Correct_Answer, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Correct_Answer, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="input-group">
                     <span class="input-group-addon">
                         <label for="answer_one">Alternativ 1</label>
                     </span>
@@ -95,6 +99,46 @@
                     @Html.ValidationMessageFor(model => model.Answer_One, "", new { @class = "text-danger" })
                 </div>
 
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <label for="answer_one">Alternativ 2</label>
+                    </span>
+                    @Html.EditorFor(model => model.Answer_Two, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Answer_Two, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <label for="answer_one">Alternativ 3</label>
+                    </span>
+                    @Html.EditorFor(model => model.Answer_Three, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Answer_Three, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <label for="answer_one">Alternativ 4</label>
+                    </span>
+                    @Html.EditorFor(model => model.Answer_Four, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Answer_Four, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <label for="answer_one">Alternativ 5</label>
+                    </span>
+                    @Html.EditorFor(model => model.Answer_Five, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Answer_Five, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <label for="answer_one">Alternativ 6</label>
+                    </span>
+                    @Html.EditorFor(model => model.Answer_Six, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Answer_Six, "", new { @class = "text-danger" })
+                </div>
+                <!--
                 <div class="input-group">
                     <span class="input-group-addon">
                         <input type="checkbox" value="">
@@ -144,12 +188,89 @@
                     </span>
                     <input type="text" id="answer_six" class="form-control">
                 </div>
+                    -->
             </div>
+            <br />
             
-    <button type="submit" class="btn btn-block btn-primary btn-lg">Skapa Uppgift</button>     
+            <button type="submit" class="btn btn-block btn-primary btn-lg">Skapa Uppgift</button>     
             }
         </div>
         </div>
 
+    <table class="table">
+        <tr>
+            <th>
+                Kategori
+            </th>
+            <th>
+                Ljudfil
+            </th>
+            <th>
+                Uppgiftstyp
+            </th>
+            <th>
+                Rätt svar
+            </th>
+            <th>
+                Alternativ 1
+            </th>
+            <th>
+                Alternativ 2
+            </th>
+            <th>
+                Alternativ 3
+            </th>
+            <th>
+                Alternativ 4
+            </th>
+            <th>
+                Alternativ 5
+            </th>
+            <th>
+                Alternativ 6
+            </th>
+        </tr>
+
+        @foreach (var item in ViewBag.assignments)
+        {
+            <tr>
+                <td>
+                    @item.Categories_ID
+                </td>
+                <td>
+                    @item.Audio_File
+                </td>
+                <td>
+                    @item.Assignment_Type
+                </td>
+                <td>
+                    @item.Correct_Answer
+                </td>
+                <td>
+                    @item.Answer_One
+                </td>
+                <td>
+                    @item.Answer_Two
+                </td>
+                <td>
+                    @item.Answer_Three
+                </td>
+                <td>
+                    @item.Answer_Four
+                </td>
+                <td>
+                    @item.Answer_Five
+                </td>
+                <td>
+                    @item.Answer_Six
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                </td>
+            </tr>
+        }
+
+    </table>
     <br />       
 </body>

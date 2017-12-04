@@ -11,5 +11,7 @@ namespace Solution.Models
         public string segmentName { get; set; }
         public int categoryID { get; set; }
         public int segmentID { get; set; }
+        public string assignmentName { get; set; }
+        public int assignmentID { get; set; }
     }
 }

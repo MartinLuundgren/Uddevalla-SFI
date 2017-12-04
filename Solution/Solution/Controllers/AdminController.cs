@@ -92,14 +92,25 @@ namespace Solution.Controllers
         [HttpGet]
         public ActionResult newAssignment()
         {
+            var assignments = (from s in db.Assignments
+                                select s).ToList();
+            ViewBag.assignments = assignments;
+
             var categoryName = (from s in db.Categories
                                orderby s.Name
                                select s).ToList();
             ViewBag.categoryName = categoryName;
+
+            var join = (from a in db.Assignments
+                        join c in db.Categories
+                        on a.Categories_ID equals c.ID
+                        select new JoinModel { categoryName = c.Name, assignmentID = a.ID, categoryID = c.ID }).ToList();
+            ViewBag.join = join;
+
             return View();
         }
         [HttpPost]
-        public ActionResult newAssignment(HttpPostedFileBase postedFile, Assignment ass)
+        public ActionResult newAssignment(HttpPostedFileBase postedFile, Assignment assignment)
         {
             if (postedFile != null)
             {
@@ -111,6 +122,21 @@ namespace Solution.Controllers
 
                 postedFile.SaveAs(path + Path.GetFileName(postedFile.FileName));
                 ViewBag.Message = "File uploaded successfully.";
+            }
+            assignment.Audio_File = postedFile.FileName;
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    db.Assignments.Add(assignment);
+                    db.SaveChanges();
+                    return RedirectToAction("newAssignment", "Admin");
+                }
+                //TODO: Add exception, maybe custom error page? 
+                catch (Exception)
+                {
+                    throw;
+                }
             }
             return View();
         }
