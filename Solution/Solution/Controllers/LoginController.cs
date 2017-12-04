@@ -12,6 +12,7 @@ namespace Solution.Controllers
     {
         private SFI_DBEntities db = new SFI_DBEntities();
         // GET: Login
+        //test
         public ActionResult Index(Login login)
         {
             if (ModelState.IsValid)
