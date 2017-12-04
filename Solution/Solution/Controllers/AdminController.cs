@@ -23,7 +23,7 @@ namespace Solution.Controllers
             //Else redirect the user back to the login page
             else
             {
-                return RedirectToAction("/Index", "Admin", new { area = "" });
+                return RedirectToAction("/Index", "Login", new { area = "" });
             }
         }
 
