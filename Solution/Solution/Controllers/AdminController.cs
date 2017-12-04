@@ -15,10 +15,10 @@ namespace Solution.Controllers
         
         // GET: Admin
         public ActionResult Index()
-        {    
-            //test12
+        {
             return View();
         }
+
 
         public ActionResult newSegment()
         {
