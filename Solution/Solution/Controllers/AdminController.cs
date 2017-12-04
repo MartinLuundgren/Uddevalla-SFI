@@ -92,10 +92,14 @@ namespace Solution.Controllers
         [HttpGet]
         public ActionResult newAssignment()
         {
+            var categoryName = (from s in db.Categories
+                               orderby s.Name
+                               select s).ToList();
+            ViewBag.categoryName = categoryName;
             return View();
         }
         [HttpPost]
-        public ActionResult newAssignment(HttpPostedFileBase postedFile)
+        public ActionResult newAssignment(HttpPostedFileBase postedFile, Assignment ass)
         {
             if (postedFile != null)
             {
