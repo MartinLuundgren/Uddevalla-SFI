@@ -23,6 +23,7 @@ namespace Solution.Models
     
         public int ID { get; set; }
         [Required(ErrorMessage = "Länk kan inte vara tom")]
+        [RegularExpression("^https://www.youtube.com/.*", ErrorMessage = "Måste vara en länk hämtad från youtube ex www.youtube.com")]
         public string URL { get; set; }
         [Required(ErrorMessage = "Namn kan inte vara tom")]
         public string Name { get; set; }

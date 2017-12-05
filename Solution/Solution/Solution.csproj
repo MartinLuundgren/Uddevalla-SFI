@@ -207,6 +207,7 @@
     </Compile>
     <Compile Include="Models\JoinModel.cs" />
     <Compile Include="Models\JoinModelAssignments.cs" />
+    <Compile Include="Models\JoinModelCategory.cs" />
     <Compile Include="Models\Login.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
