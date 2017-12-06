@@ -327,6 +327,7 @@ namespace Solution.Controllers
             return RedirectToAction("newAssignment", "Admin");
         }
 
+        //Dispose db 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
