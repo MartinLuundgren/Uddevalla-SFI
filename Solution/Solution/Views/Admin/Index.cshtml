@@ -3,18 +3,15 @@
  
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Index"; 
 }
 
+Welcome @Session["Name"].ToString()
+<br />
 @Html.ActionLink("Add new Segment", "newSegment", "Admin", null, new { @class = "btn btn-primary btn-large btn-lg btn-block" })
 @Html.ActionLink("Add new Category", "newCategory", "Admin", null, new { @class = "btn btn-primary btn-large btn-lg btn-block" })
 @Html.ActionLink("Add new Assignment", "newAssignment", "Admin", null, new { @class = "btn btn-primary btn-large btn-lg btn-block" })
 
-
-
-
-
-
-
+<!---->
 
 

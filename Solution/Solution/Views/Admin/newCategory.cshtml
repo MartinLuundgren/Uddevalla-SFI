@@ -25,6 +25,11 @@
         <li>@Html.ActionLink("Kategorier", "newCategory", "Admin")</li>
         <li>@Html.ActionLink("Uppgifter", "newAssignment", "Admin")</li>
     </ul>
+
+    <!--HATAR NAVBAREN-->
+    <ul class="nav navbar-nav navbar-right">
+        <li>>@Html.ActionLink("Logga ut", "Index", "Login")</li>
+    </ul>
 </div>
 <h2>Lägg till ny kategori</h2>
 
@@ -78,8 +83,8 @@
                 @item.categoryName
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.categoryID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.categoryID })
+                @Html.ActionLink("Edit", "EditCategory", new { id = item.categoryID }) |
+                @Html.ActionLink("Delete", "DeleteCategory", new { id = item.categoryID })
             </td>
         </tr>
     }
