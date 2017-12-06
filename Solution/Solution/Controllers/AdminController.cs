@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Solution.Models;
 using System.IO;
-
+using System.Text.RegularExpressions;
 namespace Solution.Controllers
 {
     //[Authorize]
@@ -45,6 +45,7 @@ namespace Solution.Controllers
             {
                 try
                 {
+                    segment.URL= Regex.Replace(segment.URL, @"watch\W\w\W", "embed/");
                     db.Segments.Add(segment);
                     db.SaveChanges();
                     return RedirectToAction("newSegment", "Admin");
