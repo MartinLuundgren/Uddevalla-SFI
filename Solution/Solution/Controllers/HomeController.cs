@@ -25,11 +25,17 @@ namespace Solution.Controllers
         public ActionResult Category(string segment)
         {
             int id = int.Parse(segment);
-            Segment temp = (Segment)TempData["segment"];
-            var category = (from c in db.Categories
-                            where c.Segment_ID == id
-                            select c).ToList();
-            return View(category);
+            //Segment temp = (Segment)TempData["segment"];
+            //var category = (from c in db.Categories
+            //                where c.Segment_ID == id
+            //                select c).ToList();
+            var viewCategory = (from c in db.Categories
+                                join s in db.Segments
+                                on c.Segment_ID equals s.ID
+                                where c.Segment_ID == id
+                                select new JoinModelCategory {categories = c, segment = s }
+                ).ToList();
+            return View(viewCategory);
         }
 
         public ActionResult Assignment()
