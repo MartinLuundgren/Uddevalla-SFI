@@ -1,6 +1,6 @@
 ﻿@model Solution.Models.Assignment
 @{
-    ViewBag.Title = "newAssignment";
+    ViewBag.Title = "Nya uppgifter";
 }
 @{
     List<SelectListItem> listItems = new List<SelectListItem>();
@@ -45,11 +45,12 @@
 
 
     <!--HATAR NAVBAREN-->
+    <!-- Jag också -->
         <ul class="nav navbar-nav navbar-right">
             <li>>@Html.ActionLink("Logga ut", "LogOut", "Login")</li>
         </ul>
     </div>
-<h2>Create new Assignment</h2>
+<h2>Lägg till nya uppgifter</h2>
 
     <!--test-->
     <div class="container">
@@ -63,8 +64,10 @@
                     @Html.DropDownListFor(model => model.Categories_ID, listItems, "Välj uppgiftskategori")
                 </div>
                 <br/>
-                <p>Välj ljudfil:</p>
-                <input type="file" name="postedFile" />
+                <div>
+                    <p>Välj ljudfil:</p>
+                    <input type="file" name="postedFile" />
+                </div>
                 <hr />
                 <!--<input type="submit" value="Upload" />-->
                 <br />
@@ -75,7 +78,7 @@
 
         
         <div class="container">
-            <h2>Typ av Uppgift</h2>
+            <h2>Typ av uppgift</h2>
             <div class="col-md-4">
                 <div class="col-md-6">
                     <div class="funkyradio">
@@ -94,8 +97,8 @@
         <br />
 
             <div class="container">
-                <h2>Svaralternativ</h2>
-                <p>Fyll i rätt svar och svarsalternativen för uppgiften</p>
+                <h2>Svarsalternativ</h2>
+                <p>Fyll i rätt svar och svarsalternativ för uppgiften</p>
                 <div class="input-group">
                     <!--<span class="input-group-addon">
                         //@Html.RadioButtonFor(model => model.Correct_Answer, "Test")
@@ -232,8 +235,8 @@
                 </td>
                 <td>
                     <!---->
-                    @Html.ActionLink("Edit", "EditAssignments", new { id = item.assignmentID }) |
-                    @Html.ActionLink("Delete", "DeleteAssignments", new { id = item.assignmentID })
+                    @Html.ActionLink("Ändra", "EditAssignments", new { id = item.assignmentID }) |
+                    @Html.ActionLink("Radera", "DeleteAssignments", new { id = item.assignmentID })
                 </td>
             </tr>
         }
