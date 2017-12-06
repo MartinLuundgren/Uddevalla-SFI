@@ -109,6 +109,14 @@ namespace Solution.Controllers
         public ActionResult DeleteSegment(int id)
         {
             Segment segment = db.Segments.Find(id);
+            var categories = db.Categories.Where(x => x.Segment_ID == segment.ID);
+            List<Assignment> assigment = new List<Assignment>();
+            foreach (var item in categories)
+            {
+                assigment.AddRange(db.Assignments.Where(x => x.Categories_ID == item.ID));
+            }
+            db.Assignments.RemoveRange(assigment);
+            db.Categories.RemoveRange(categories);
             db.Segments.Remove(segment);
             db.SaveChanges();
             return RedirectToAction("newSegment","Admin");
