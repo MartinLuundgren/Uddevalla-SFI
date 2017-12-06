@@ -52,35 +52,35 @@
 
                 <div class="scp-quizzes-main">
                     <div class="scp-quizzes-data">
-                        <p hidden value="@item.Correct_Answer" name="correctAnswer"></p>
+                        <p hidden value="@item.Correct_Answer" id="correctAnswer"></p>
                         @if (item.Answer_One != null)
                         {
-                            <input type="radio" value="@item.Answer_One" name="answer">
+                            <input type="radio" value="@item.Answer_One" id="answer">
                             <label for="@item.Answer_One">@item.Answer_One</label><br />
                         }
                         @if (item.Answer_Two != null)
                         {
-                            <input type="radio" value="@item.Answer_Two" name="answer">
+                            <input type="radio" value="@item.Answer_Two" id="answer">
                             <label for="@item.Answer_Two">@item.Answer_Two</label><br />
                         }
                         @if (item.Answer_Three != null)
                         {
-                            <input type="radio" value="@item.Answer_Three" name="answer">
+                            <input type="radio" value="@item.Answer_Three" id="answer">
                             <label for="@item.Answer_Three">@item.Answer_Three</label><br />
                         }
                         @if (item.Answer_Four != null)
                         {
-                            <input type="radio" value="@item.Answer_Four" name="answer">
+                            <input type="radio" value="@item.Answer_Four" id="answer">
                             <label for="@item.Answer_Four">@item.Answer_Four</label><br />
                         }
                         @if (item.Answer_Five != null)
                         {
-                            <input type="radio" value="@item.Answer_Five" name="answer">
+                            <input type="radio" value="@item.Answer_Five" id="answer">
                             <label for="@item.Answer_Five">@item.Answer_Five</label><br />
                         }
                         @if (item.Answer_Six != null)
                         {
-                            <input type="radio" value="@item.Answer_Six" name="answer">
+                            <input type="radio" value="@item.Answer_Six" id="answer">
                             <label for="@item.Answer_Six">@item.Answer_Six</label><br />
                         }
                     </div>
@@ -284,11 +284,15 @@ rec.stop();
 <script type="text/javascript">
     $(document).ready(function () {
         $('label').click(function () {
-            var clickedAnswer = document.getElementByName('answer')
-            var rightAnswer = document.getElementsByName('correctAnswer')
+            var clickedAnswer = document.getElementById('answer').value;
+            var rightAnswer = document.getElementById('correctAnswer').value;
+            confirm(clickedAnswer);
             if (clickedAnswer == rightAnswer)
-                 $('label').removeClass('worngans');
-                 $(this).addClass('worngans');
+            {
+                document.getElementById('answer').innerHTML = "Test";
+            }
+            /*$('label').removeClass('worngans');
+            $(this).addClass('worngans');*/
              });
          });
 </script>
