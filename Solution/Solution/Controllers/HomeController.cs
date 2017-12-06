@@ -35,12 +35,34 @@ namespace Solution.Controllers
                                 where c.Segment_ID == id
                                 select new JoinModelCategory {categories = c, segment = s }
                 ).ToList();
-            return View(viewCategory);
+            if (viewCategory.Count > 0)
+            {
+                return View(viewCategory);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
-        public ActionResult Assignment()
+        public ActionResult Assignment(string category)
         {
-            return View();
+            int id = int.Parse(category);
+            //Segment temp = (Segment)TempData["segment"];
+            //var category = (from c in db.Categories
+            //                where c.Segment_ID == id
+            //                select c).ToList();
+            var getAssignments = (from a in db.Assignments
+                                where a.Categories_ID == id
+                                select a).ToList();
+            if (getAssignments.Count > 0)
+            {
+                return View(getAssignments);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         //Fixa loginsida för admin

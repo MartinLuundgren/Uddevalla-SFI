@@ -1,6 +1,8 @@
-﻿
+﻿@model IEnumerable<Solution.Models.Assignment>
+
 @{
     ViewBag.Title = "Assignment";
+
 }
 <!DOCTYPE html>
 <html>
@@ -33,7 +35,62 @@
     </ul>
         
     <h1>Uppgiftssidan</h1>
+    @foreach (var item in Model.Where(i => i.Assignment_Type == "Göra"))
+    {
+        <div class="card text-center border: 25px">
+            <div class="card-block">
+                <h1>Klicka på rätt ord</h1>
+                <!--<img src="~/Content/img/train.jpg" width="400" height="277" />-->
+                <div>
+                    <p>
+                        <audio controls="controls">
+                            <source src="~/Uploads/@item.Audio_File" />
+                        </audio>
+                    </p>
+                </div>
 
+
+                <div class="scp-quizzes-main">
+                    <div class="scp-quizzes-data">
+                        <p hidden value="@item.Correct_Answer" name="correctAnswer"></p>
+                        @if (item.Answer_One != null)
+                        {
+                            <input type="radio" value="@item.Answer_One" name="answer">
+                            <label for="@item.Answer_One">@item.Answer_One</label><br />
+                        }
+                        @if (item.Answer_Two != null)
+                        {
+                            <input type="radio" value="@item.Answer_Two" name="answer">
+                            <label for="@item.Answer_Two">@item.Answer_Two</label><br />
+                        }
+                        @if (item.Answer_Three != null)
+                        {
+                            <input type="radio" value="@item.Answer_Three" name="answer">
+                            <label for="@item.Answer_Three">@item.Answer_Three</label><br />
+                        }
+                        @if (item.Answer_Four != null)
+                        {
+                            <input type="radio" value="@item.Answer_Four" name="answer">
+                            <label for="@item.Answer_Four">@item.Answer_Four</label><br />
+                        }
+                        @if (item.Answer_Five != null)
+                        {
+                            <input type="radio" value="@item.Answer_Five" name="answer">
+                            <label for="@item.Answer_Five">@item.Answer_Five</label><br />
+                        }
+                        @if (item.Answer_Six != null)
+                        {
+                            <input type="radio" value="@item.Answer_Six" name="answer">
+                            <label for="@item.Answer_Six">@item.Answer_Six</label><br />
+                        }
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+    }
 
 
     <div class="card text-center">
@@ -222,8 +279,11 @@ rec.stop();
 <!-- ######## SPELA IN LJUD  #######-->
 <!-- ######## QUIZ CHANGE COLOR  #######-->
 <script type="text/javascript">
-         $(document).ready(function () {
-             $('label').click(function () {
+    $(document).ready(function () {
+        $('label').click(function () {
+            var clickedAnswer = document.getElementByName('answer')
+            var rightAnswer = document.getElementsByName('correctAnswer')
+            if (clickedAnswer == rightAnswer)
                  $('label').removeClass('worngans');
                  $(this).addClass('worngans');
              });
