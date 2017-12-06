@@ -6,6 +6,9 @@ using System.Web.Mvc;
 using Solution.Models;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Net;
+using System.Data.Entity;
+
 namespace Solution.Controllers
 {
     //[Authorize]
@@ -58,6 +61,59 @@ namespace Solution.Controllers
             }
             return View();
         }
+
+        public ActionResult EditSegment(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Segment segment = db.Segments.Find(id);
+            if (segment == null)
+            {
+                return HttpNotFound();
+            }
+            return View(segment);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditSegment([Bind(Include = "ID,URL,Name")] Segment segment)
+        {
+            if (ModelState.IsValid)
+            {
+                segment.URL = Regex.Replace(segment.URL, @"watch\W\w\W", "embed/");
+                db.Entry(segment).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("newSegment", "Admin");
+            }
+            return View(segment);
+        }
+
+        public ActionResult DeleteSegment(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Segment segment = db.Segments.Find(id);
+            if (segment == null)
+            {
+                return HttpNotFound();
+            }
+            return View(segment);
+        }
+
+        [HttpPost, ActionName("DeleteSegment")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteSegment(int id)
+        {
+            Segment segment = db.Segments.Find(id);
+            db.Segments.Remove(segment);
+            db.SaveChanges();
+            return RedirectToAction("newSegment","Admin");
+        }
+
         public ActionResult newCategory()
         {
             /*var categories = (from s in db.Categories
@@ -79,6 +135,7 @@ namespace Solution.Controllers
             ViewBag.join = join;
             return View();
         }
+
         [HttpPost]
         public ActionResult newCategory(Category category)
         {
@@ -98,6 +155,61 @@ namespace Solution.Controllers
             }
             return View();
         }
+
+        public ActionResult EditCategory(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Category category = db.Categories.Find(id);
+            if (category == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.Segment_ID = new SelectList(db.Segments, "ID", "Name", category.Segment_ID);
+            return View(category);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditCategory([Bind(Include = "ID,Segment_ID,Name")] Category category)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(category).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("newCategory", "Admin");
+            }
+            ViewBag.Segment_ID = new SelectList(db.Segments, "ID", "Name", category.Segment_ID);
+            return View(category);
+        }
+
+        public ActionResult DeleteCategory(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Category category = db.Categories.Find(id);
+            if (category == null)
+            {
+                return HttpNotFound();
+            }
+            return View(category);
+        }
+
+        [HttpPost, ActionName("DeleteCategory")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteCategory(int id)
+        {
+            Category category = db.Categories.Find(id);
+            db.Categories.Remove(category);
+            db.SaveChanges();
+            return RedirectToAction("newCategory","Admin");
+        }
+
+
         [HttpGet]
         public ActionResult newAssignment()
         {
@@ -118,6 +230,7 @@ namespace Solution.Controllers
 
             return View();
         }
+
         [HttpPost]
         public ActionResult newAssignment(HttpPostedFileBase postedFile, Assignment assignment)
         {
@@ -148,6 +261,69 @@ namespace Solution.Controllers
                 }
             }
             return View();
+        }
+
+        public ActionResult EditAssignments(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Assignment assignment = db.Assignments.Find(id);
+            if (assignment == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.Categories_ID = new SelectList(db.Categories, "ID", "Name", assignment.Categories_ID);
+            return View(assignment);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditAssignments([Bind(Include = "ID,Categories_ID,Assignment_Type,Audio_File,Answer_One,Answer_Two,Answer_Three,Answer_Four,Answer_Five,Answer_Six,Correct_Answer")] Assignment assignment)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(assignment).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("newAssignment", "Admin");
+            }
+            ViewBag.Categories_ID = new SelectList(db.Categories, "ID", "Name", assignment.Categories_ID);
+            return View(assignment);
+        }
+        
+        public ActionResult DeleteAssignments(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Assignment assignment = db.Assignments.Find(id);
+            if (assignment == null)
+            {
+                return HttpNotFound();
+            }
+            return View(assignment);
+        }
+
+
+        [HttpPost, ActionName("DeleteAssignments")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteAssignments(int id)
+        {
+            Assignment assignment = db.Assignments.Find(id);
+            db.Assignments.Remove(assignment);
+            db.SaveChanges();
+            return RedirectToAction("newAssignment", "Admin");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

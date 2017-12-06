@@ -78,8 +78,8 @@
                 @item.categoryName
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.categoryID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.categoryID })
+                @Html.ActionLink("Edit", "EditCategory", new { id = item.categoryID }) |
+                @Html.ActionLink("Delete", "DeleteCategory", new { id = item.categoryID })
             </td>
         </tr>
     }
