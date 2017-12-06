@@ -212,6 +212,8 @@ namespace Solution.Controllers
         public ActionResult DeleteCategory(int id)
         {
             Category category = db.Categories.Find(id);
+            var assignments = db.Assignments.Where(x => x.Categories_ID == category.ID);
+            db.Assignments.RemoveRange(assignments);
             db.Categories.Remove(category);
             db.SaveChanges();
             return RedirectToAction("newCategory","Admin");
