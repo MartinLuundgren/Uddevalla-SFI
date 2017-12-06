@@ -12,6 +12,7 @@ namespace Solution.Controllers
         private SFI_DBEntities db = new SFI_DBEntities();
         // GET: Home
         //Pull fail comment
+        //Pull fail comment 2
         public ActionResult Index()
         {
             var getSegments = (from s in db.Segments
