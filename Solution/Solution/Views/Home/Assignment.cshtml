@@ -52,35 +52,35 @@
 
                 <div class="scp-quizzes-main">
                     <div class="scp-quizzes-data">
-                        <p hidden value="@item.Correct_Answer" id="correctAnswer"></p>
+                        <!--<p hidden value="@item.Correct_Answer" id="correctAnswer">@item.Correct_Answer</p>-->
                         @if (item.Answer_One != null)
                         {
-                            <input type="radio" value="@item.Answer_One" id="answer">
-                            <label for="@item.Answer_One">@item.Answer_One</label><br />
+                                <input type="radio" class="answer">
+                                <label for="@item.Answer_One" class="answer" value="@item.Correct_Answer">@item.Answer_One</label><br />
                         }
                         @if (item.Answer_Two != null)
                         {
-                            <input type="radio" value="@item.Answer_Two" id="answer">
-                            <label for="@item.Answer_Two">@item.Answer_Two</label><br />
+                            <input type="radio" class="answer">
+                            <label for="@item.Answer_Two" class="answer" value="@item.Correct_Answer">@item.Answer_Two</label><br />
                         }
                         @if (item.Answer_Three != null)
                         {
-                            <input type="radio" value="@item.Answer_Three" id="answer">
-                            <label for="@item.Answer_Three">@item.Answer_Three</label><br />
+                            <input type="radio" value="@item.Answer_Three" class="answer">
+                            <label for="@item.Answer_Three" class="answer">@item.Answer_Three</label><br />
                         }
                         @if (item.Answer_Four != null)
                         {
-                            <input type="radio" value="@item.Answer_Four" id="answer">
+                            <input type="radio" value="@item.Answer_Four" class="answer">
                             <label for="@item.Answer_Four">@item.Answer_Four</label><br />
                         }
                         @if (item.Answer_Five != null)
                         {
-                            <input type="radio" value="@item.Answer_Five" id="answer">
+                            <input type="radio" value="@item.Answer_Five" class="answer">
                             <label for="@item.Answer_Five">@item.Answer_Five</label><br />
                         }
                         @if (item.Answer_Six != null)
                         {
-                            <input type="radio" value="@item.Answer_Six" id="answer">
+                            <input type="radio" value="@item.Answer_Six" class="answer">
                             <label for="@item.Answer_Six">@item.Answer_Six</label><br />
                         }
                     </div>
@@ -283,17 +283,22 @@ rec.stop();
 <!-- ######## QUIZ CHANGE COLOR  #######-->
 <script type="text/javascript">
     $(document).ready(function () {
-        $('label').click(function () {
-            var clickedAnswer = document.getElementById('answer').value;
-            var rightAnswer = document.getElementById('correctAnswer').value;
-            confirm(clickedAnswer);
+        $('label.answer').click(function () {
+            var clickedAnswer = $(this).text();
+            var rightAnswer = $(this).attr('value');
             if (clickedAnswer == rightAnswer)
             {
-                document.getElementById('answer').innerHTML = "Test";
+                $('label').removeClass('worngans')
+                $('label').removeClass('worngans2')
+                $(this).addClass('worngans2');
             }
-            //Hehjhjejeh
-            /*$('label').removeClass('worngans');
-            $(this).addClass('worngans');*/
+            else
+            {
+                $('label').removeClass('worngans')
+                $('label').removeClass('worngans2')
+                $(this).addClass('worngans');
+            }
+            //Obligatorisk commit comment
              });
          });
 </script>

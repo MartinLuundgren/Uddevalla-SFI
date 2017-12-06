@@ -32,7 +32,7 @@ input[type=radio] {
             border: 1px solid #000000;
         }
 
-    input[type=radio]:checked + label {
+    /*input[type=radio]:checked + label {
         background-image: none;
         background-color: #0C0;
         color: #fff;
@@ -42,10 +42,20 @@ input[type=radio] {
         -o-transition: all 0.2s ease-in-out;
         -ms-transition: all 0.2s ease-in-out;
         transition: all 0.2s ease-in-out;
-    }
+    }*/
 
 .worngans {
     background-color: #F36;
+    color: #fff;
+    border: 1px solid #F36 !important;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+.worngans2 {
+    background-color: #0C0;
     color: #fff;
     border: 1px solid #F36 !important;
     -webkit-transition: all 0.2s ease-in-out;
