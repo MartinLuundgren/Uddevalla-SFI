@@ -64,20 +64,17 @@
 <body>
     <!-- Kommentera tillbaka divarna så hamnar knapparna i toppmenyn, dock i mitten och i fel färg -->
     <!--<div class="navbar navbar-inverse navbar-fixed-top">-->
-        <ul>
+        <ul style="width:100%">
             <li>@Html.ActionLink("Startsidan", "Index", "Home")</li>
             <li>@Html.ActionLink("Kategorier", "Category", "Home")</li>
             <li>@Html.ActionLink("Uppgifter", "Assignment", "Home")</li>
         </ul>
     <!--</div>-->
-
-
-    <h1>Uppgiftssidan</h1>
     @foreach (var item in Model.Where(i => i.Assignment_Type == "Göra"))
     {
         <div class="card text-center border: 25px">
             <div class="card-block">
-                <h1>Klicka på rätt ord</h1>
+                <h3>Klicka på rätt ord</h3>
                 <div>
                     <p>
                         <audio controls="controls">
@@ -161,8 +158,18 @@
                                 <audio controls="controls">
                                     <source src="~/Uploads/@item.Audio_File" />
                                 </audio>
+                                <br />
+                                <button class="showHelpText">Visa hjälptext</button>
+
+                                <!-- Innehåller span-taggar för röd understryking -->
+                                <!--<p class="helpText" style="display:none">This <span style="text-decoration: underline; text-decoration-color: red;">i</span>s a paragraph.</p>-->
+
+                                <p class="helpText" style="display:none">@item.Correct_Answer</p>
+                                
                             </div>
+
                         }
+                        <br />
                     </div>
                 </div>
                 <br>
@@ -175,6 +182,7 @@
                     <span class="dot" onclick="currentSlide(2)"></span>
                     <span class="dot" onclick="currentSlide(3)"></span>
                 </div>
+                <br />
             </div>
             
 
@@ -289,9 +297,23 @@ rec.stop();
              });
          });
 </script>
-
 <!-- ######## QUIZ CHANGE COLOR  #######-->
 
+<!--##########  Visa/dölj hjälptext ###### -->
+<script>
+    $(document).ready(function () {
+        $(".showHelpText").click(function () {
+            $(".helpText").toggle();
+            if ($('.helpText').css('display') == 'block'){
+                $(".showHelpText").text('Dölj hjälptext');
+            }
+            else {
+                $(".showHelpText").text('Visa hjälptext');
+            }
+        });
+    });
+</script>
+<!--##########  Visa/dölj hjälptext ###### -->
 
 
 

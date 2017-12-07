@@ -31,226 +31,221 @@
             
     </style>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">-->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>-->
+
+
+<!--  ###############    Behövs för navbar, men pajar all annan styling    ###################-->
+<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">-->
+
 <head>
     <link href="~/navbar.css" rel="stylesheet" />
 </head>
-<body>
-    <div class="navbar-static-top"><!---->
-        <ul>
-            <li>@Html.ActionLink("Segment", "newSegment", "Admin")</li>
-            <li>@Html.ActionLink("Kategorier", "newCategory", "Admin")</li>
-            <li>@Html.ActionLink("Uppgifter", "newAssignment", "Admin")</li>
-        </ul>
+<div class="navbar-static-top">
+    <!--<div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav" style="display:inline">-->
+                    <ul>
+                        <li>@Html.ActionLink("Segment", "newSegment", "Admin")</li>
+                        <li>@Html.ActionLink("Kategorier", "newCategory", "Admin")</li>
+                        <li>@Html.ActionLink("Uppgifter", "newAssignment", "Admin")</li>
+                        </ul>
+    <ul class="nav navbar-nav navbar-right">
+        <li>>@Html.ActionLink("Logga ut", "Index", "Login")</li>
+    </ul>
+                    <!--</ul>-->
 
-
-
-    <!--HATAR NAVBAREN-->
-    <!-- Jag också -->
-        <ul class="nav navbar-nav navbar-right">
-            <li>>@Html.ActionLink("Logga ut", "LogOut", "Login")</li>
-        </ul>
+                    <!--HATAR NAVBAREN-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
     </div>
-<h2>Lägg till nya uppgifter</h2>
+        <h2>Lägg till nya uppgifter</h2>
 
-    <!--test
-    <div class="container">
+        <!--test
+        <div class="container">
 
 
-        
-        <div>-->
-            @using (Html.BeginForm("newAssignment", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+            <div>-->
+        @using (Html.BeginForm("newAssignment", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
-                @Html.AntiForgeryToken()
+            @Html.AntiForgeryToken()
 
-                <div class="form-horizontal">
-                    <hr />
-                    <!--<div class="col-md-1">-->
-                    @Html.DropDownListFor(model => model.Categories_ID, listItems, "Välj uppgiftskategori")
-                    <!--</div>-->
-                    <br />
-                    <div>
+            <div class="form-horizontal">
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.Categories_ID, listItems, "Välj uppgiftskategori")
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
                         <p>Välj ljudfil:</p>
                         <input type="file" name="postedFile" />
                     </div>
-                    <hr />
-                    <!--<input type="submit" value="Upload" />-->
-                    <br />
-                    <span style="color:green">@ViewBag.Message</span>
+                </div>
+                <hr />
+                <span style="color:green">@ViewBag.Message</span>
+                <!--https://www.aspsnippets.com/Articles/Simple-File-Upload-example-in-ASPNet-MVC-Razor.aspx-->
 
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <p>Välj typ av uppgift</p>
+                        @Html.RadioButtonFor(model => model.Assignment_Type, "Göra")
+                        <label for="radio1">Göra</label>
+                        <br />
+                        @Html.RadioButtonFor(model => model.Assignment_Type, "Höra")
+                        <label for="radio2">Höra</label>
 
-                    <!--https://www.aspsnippets.com/Articles/Simple-File-Upload-example-in-ASPNet-MVC-Razor.aspx-->
-
-
-                    <div class="container">
-                        <h2>Typ av uppgift</h2>
-                        <div class="col-md-4">
-                            <div class="col-md-6">
-                                <div class="funkyradio">
-                                    <div class="funkyradio-default">
-                                        @Html.RadioButtonFor(model => model.Assignment_Type, "Göra")
-                                        <label for="radio1">Göra</label>
-                                    </div>
-                                    <div class="funkyradio-primary">
-                                        @Html.RadioButtonFor(model => model.Assignment_Type, "Höra")
-                                        <label for="radio2">Höra</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <br />
-
-                    <div class="container">
-                        <h2>Svarsalternativ</h2>
-                        <p>Fyll i rätt svar och svarsalternativ för uppgiften</p>
-                        <div class="input-group">
-                            <!--<span class="input-group-addon">
-                                //@Html.RadioButtonFor(model => model.Correct_Answer, "Test")
-                            </span>-->
-                            <span class="input-group-addon">
-                                <label for="answer_one">Rätt svar</label>
-                            </span>
-                            @Html.EditorFor(model => model.Correct_Answer, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Correct_Answer, "", new { @class = "text-danger" })
-                        </div>
-
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                                <label for="answer_one">Alternativ 1</label>
-                            </span>
-                            @Html.EditorFor(model => model.Answer_One, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Answer_One, "", new { @class = "text-danger" })
-                        </div>
-
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                                <label for="answer_one">Alternativ 2</label>
-                            </span>
-                            @Html.EditorFor(model => model.Answer_Two, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Answer_Two, "", new { @class = "text-danger" })
-                        </div>
-
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                                <label for="answer_one">Alternativ 3</label>
-                            </span>
-                            @Html.EditorFor(model => model.Answer_Three, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Answer_Three, "", new { @class = "text-danger" })
-                        </div>
-
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                                <label for="answer_one">Alternativ 4</label>
-                            </span>
-                            @Html.EditorFor(model => model.Answer_Four, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Answer_Four, "", new { @class = "text-danger" })
-                        </div>
-
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                                <label for="answer_one">Alternativ 5</label>
-                            </span>
-                            @Html.EditorFor(model => model.Answer_Five, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Answer_Five, "", new { @class = "text-danger" })
-                        </div>
-
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                                <label for="answer_one">Alternativ 6</label>
-                            </span>
-                            @Html.EditorFor(model => model.Answer_Six, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Answer_Six, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <br />
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Spara" class="btn btn-success" />
-                        </div>
                     </div>
                 </div>
+                <hr />
+
+                <div class="container">
+                    <p>Fyll i rätt svar och svarsalternativ för uppgiften (endast svar för "Höra")</p>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <label for="answer_one">Rätt svar</label>
+                        </span>
+                        @Html.EditorFor(model => model.Correct_Answer, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Correct_Answer, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <label for="answer_one">Alternativ 1</label>
+                        </span>
+                        @Html.EditorFor(model => model.Answer_One, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Answer_One, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <label for="answer_one">Alternativ 2</label>
+                        </span>
+                        @Html.EditorFor(model => model.Answer_Two, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Answer_Two, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <label for="answer_one">Alternativ 3</label>
+                        </span>
+                        @Html.EditorFor(model => model.Answer_Three, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Answer_Three, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <label for="answer_one">Alternativ 4</label>
+                        </span>
+                        @Html.EditorFor(model => model.Answer_Four, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Answer_Four, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <label for="answer_one">Alternativ 5</label>
+                        </span>
+                        @Html.EditorFor(model => model.Answer_Five, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Answer_Five, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <label for="answer_one">Alternativ 6</label>
+                        </span>
+                        @Html.EditorFor(model => model.Answer_Six, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Answer_Six, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <br />
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Spara" class="btn btn-success" />
+                    </div>
+                </div>
+            </div>
+        }
+        <br />
+
+
+        <table class="table">
+            <tr>
+                <th>
+                    Kategori
+                </th>
+                <th>
+                    Ljudfil
+                </th>
+                <th>
+                    Uppgiftstyp
+                </th>
+                <th>
+                    Rätt svar
+                </th>
+                <th>
+                    Alternativ 1
+                </th>
+                <th>
+                    Alternativ 2
+                </th>
+                <th>
+                    Alternativ 3
+                </th>
+                <th>
+                    Alternativ 4
+                </th>
+                <th>
+                    Alternativ 5
+                </th>
+                <th>
+                    Alternativ 6
+                </th>
+                <th></th>
+            </tr>
+            <!---->
+            @foreach (var item in ViewBag.joinAssignmentsOnCategories)
+            {
+                <tr>
+                    <td>
+                        @item.categoryName
+                    </td>
+                    <td>
+                        @item.assignmentAudio
+                    </td>
+                    <td>
+                        @item.assignmentType
+                    </td>
+                    <td>
+                        @item.assignmentCorrectAnswer
+                    </td>
+                    <td>
+                        @item.assignmentAnswerOne
+                    </td>
+                    <td>
+                        @item.assignmentAnswerTwo
+                    </td>
+                    <td>
+                        @item.assignmentAnswerThree
+                    </td>
+                    <td>
+                        @item.assignmentAnswerFour
+                    </td>
+                    <td>
+                        @item.assignmentAnswerFive
+                    </td>
+                    <td>
+                        @item.assignmentAnswerSix
+                    </td>
+                    <td>
+                        <!-- Hamnar vertikalt och inte horisontellt-->
+                        @Html.ActionLink("Ändra", "EditAssignments", new { id = item.assignmentID }) |
+                        @Html.ActionLink("Radera", "DeleteAssignments", new { id = item.assignmentID })
+                    </td>
+                </tr>
             }
-                    <br />
-                    
-                    <!--</div>-->
 
-                    <table class="table">
-                        <tr>
-                            <th>
-                                Kategori
-                            </th>
-                            <th>
-                                Ljudfil
-                            </th>
-                            <th>
-                                Uppgiftstyp
-                            </th>
-                            <th>
-                                Rätt svar
-                            </th>
-                            <th>
-                                Alternativ 1
-                            </th>
-                            <th>
-                                Alternativ 2
-                            </th>
-                            <th>
-                                Alternativ 3
-                            </th>
-                            <th>
-                                Alternativ 4
-                            </th>
-                            <th>
-                                Alternativ 5
-                            </th>
-                            <th>
-                                Alternativ 6
-                            </th>
-                        </tr>
-                        <!---->
-                        @foreach (var item in ViewBag.joinAssignmentsOnCategories)
-                        {
-                            <tr>
-                                <td>
-                                    @item.categoryName
-                                </td>
-                                <td>
-                                    @item.assignmentAudio
-                                </td>
-                                <td>
-                                    @item.assignmentType
-                                </td>
-                                <td>
-                                    @item.assignmentCorrectAnswer
-                                </td>
-                                <td>
-                                    @item.assignmentAnswerOne
-                                </td>
-                                <td>
-                                    @item.assignmentAnswerTwo
-                                </td>
-                                <td>
-                                    @item.assignmentAnswerThree
-                                </td>
-                                <td>
-                                    @item.assignmentAnswerFour
-                                </td>
-                                <td>
-                                    @item.assignmentAnswerFive
-                                </td>
-                                <td>
-                                    @item.assignmentAnswerSix
-                                </td>
-                                <td>
-                                    <!-- Hamnar vertikalt och inte horisontellt-->
-                                    @Html.ActionLink("Ändra", "EditAssignments", new { id = item.assignmentID }) |
-                                    @Html.ActionLink("Radera", "DeleteAssignments", new { id = item.assignmentID })
-                                </td>
-                            </tr>
-                        }
-
-                    </table>
-                    <br />
-</body>
+        </table>
