@@ -162,7 +162,7 @@
                                 <button class="showHelpText">Visa hjälptext</button>
 
                                 <!-- Innehåller span-taggar för röd understryking -->
-                                <!--<p class="helpText" style="display:none">This <span style="text-decoration: underline; text-decoration-color: red;">i</span>s a paragraph.</p>-->
+                                <p class="helpText" style="display:none">This <span style="text-decoration: underline; text-decoration-color: red;">i</span>s a paragraph.</p>
 
                                 <p class="helpText" style="display:none">@item.Correct_Answer</p>
                                 
@@ -178,9 +178,14 @@
                 <a class="next" onclick="plusSlides(1)">&#10095;</a>
 
                 <div style="text-align:center">
-                    <span class="dot" onclick="currentSlide(1)"></span>
+                    @for (int i = 0; i < Model.Where(m=>m.Assignment_Type == "Höra").Count(); i++)
+                    {
+                        <span class="dot" onclick="currentSlide(i)"></span>
+                    }
+             
+                    <!--<span class="dot" onclick="currentSlide(1)"></span>
                     <span class="dot" onclick="currentSlide(2)"></span>
-                    <span class="dot" onclick="currentSlide(3)"></span>
+                    <span class="dot" onclick="currentSlide(3)"></span>-->
                 </div>
                 <br />
             </div>

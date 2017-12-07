@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Text.RegularExpressions;
 
 namespace Solution.Controllers
 {
@@ -53,6 +54,12 @@ namespace Solution.Controllers
                                 select a).ToList();
             if (getAssignments.Count > 0)
             {
+                foreach (var item in getAssignments)
+                {
+                    //Funkar här, men inte i vyn, ger taggarna i klartext
+                    item.Correct_Answer = Regex.Replace(item.Correct_Answer, @"\(", "<span style=\"text-decoration: underline; text-decoration-color: red;\">");
+                    item.Correct_Answer = Regex.Replace(item.Correct_Answer, @"\)", "</span>");
+                }
                 return View(getAssignments);
             }
             else
