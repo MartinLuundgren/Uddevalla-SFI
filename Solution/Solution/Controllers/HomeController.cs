@@ -56,9 +56,41 @@ namespace Solution.Controllers
             {
                 foreach (var item in getAssignments)
                 {
-                    //Funkar här, men inte i vyn, ger taggarna i klartext
-                    item.Correct_Answer = Regex.Replace(item.Correct_Answer, @"\(", "<span style=\"text-decoration: underline; text-decoration-color: red;\">");
-                    item.Correct_Answer = Regex.Replace(item.Correct_Answer, @"\)", "</span>");
+                    if (item.Answer_One != null)
+                    {
+                        item.Answer_One = Regex.Replace(item.Answer_One, @"\(", "<span style=\"text-decoration: underline; text-decoration-color: red;\">");
+                        item.Answer_One = Regex.Replace(item.Answer_One, @"\)", "</span>");
+                    }
+                    if (item.Answer_Two != null)
+                    {
+                        item.Answer_Two = Regex.Replace(item.Answer_Two, @"\(", "<span style=\"text-decoration: underline; text-decoration-color: red;\">");
+                        item.Answer_Two = Regex.Replace(item.Answer_Two, @"\)", "</span>");
+                    }
+                    if (item.Answer_Three != null)
+                    {
+                        item.Answer_Three = Regex.Replace(item.Answer_Three, @"\(", "<span style=\"text-decoration: underline; text-decoration-color: red;\">");
+                        item.Answer_Three = Regex.Replace(item.Answer_Three, @"\)", "</span>");
+                    }
+                    if (item.Answer_Four != null)
+                    {
+                        item.Answer_Four = Regex.Replace(item.Answer_Four, @"\(", "<span style=\"text-decoration: underline; text-decoration-color: red;\">");
+                        item.Answer_Four = Regex.Replace(item.Answer_Four, @"\)", "</span>");
+                    }
+                    if (item.Answer_Five != null)
+                    {
+                        item.Answer_Five = Regex.Replace(item.Answer_Five, @"\(", "<span style=\"text-decoration: underline; text-decoration-color: red;\">");
+                        item.Answer_Five = Regex.Replace(item.Answer_Five, @"\)", "</span>");
+                    }
+                    if (item.Answer_Six != null)
+                    {
+                        item.Answer_Six = Regex.Replace(item.Answer_Six, @"\(", "<span style=\"text-decoration: underline; text-decoration-color: red;\">");
+                        item.Answer_Six = Regex.Replace(item.Answer_Six, @"\)", "</span>");
+                    }
+                    if (item.Correct_Answer != null)
+                    {
+                        item.Correct_Answer = Regex.Replace(item.Correct_Answer, @"\(", "<span style=\"text-decoration: underline; text-decoration-color: red;\">");
+                        item.Correct_Answer = Regex.Replace(item.Correct_Answer, @"\)", "</span>");
+                    }
                 }
                 return View(getAssignments);
             }

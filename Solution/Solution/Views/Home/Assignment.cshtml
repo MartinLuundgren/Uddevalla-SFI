@@ -89,32 +89,32 @@
                         @if (item.Answer_One != null)
                         {
                             <input type="radio" class="answer">
-                            <label for="@item.Answer_One" class="answer" value="@item.Correct_Answer">@item.Answer_One</label><br />
+                            <label for="@item.Answer_One" class="answer" value="@item.Correct_Answer">@Html.Raw(@item.Answer_One)</label><br />
                         }
                         @if (item.Answer_Two != null)
                         {
                             <input type="radio" class="answer">
-                            <label for="@item.Answer_Two" class="answer" value="@item.Correct_Answer">@item.Answer_Two</label><br />
+                            <label for="@item.Answer_Two" class="answer" value="@item.Correct_Answer">@Html.Raw(@item.Answer_Two)</label><br />
                         }
                         @if (item.Answer_Three != null)
                         {
                             <input type="radio" value="@item.Answer_Three" class="answer">
-                            <label for="@item.Answer_Three" class="answer">@item.Answer_Three</label><br />
+                            <label for="@item.Answer_Three" class="answer" value="@item.Correct_Answer">@item.Answer_Three</label><br />
                         }
                         @if (item.Answer_Four != null)
                         {
                             <input type="radio" value="@item.Answer_Four" class="answer">
-                            <label for="@item.Answer_Four">@item.Answer_Four</label><br />
+                            <label for="@item.Answer_Four" class="answer" value="@item.Correct_Answer">@Html.Raw(@item.Answer_Four)</label><br />
                         }
                         @if (item.Answer_Five != null)
                         {
                             <input type="radio" value="@item.Answer_Five" class="answer">
-                            <label for="@item.Answer_Five">@item.Answer_Five</label><br />
+                            <label for="@item.Answer_Five" class="answer" value="@item.Correct_Answer">@Html.Raw(@item.Answer_Five)</label><br />
                         }
                         @if (item.Answer_Six != null)
                         {
                             <input type="radio" value="@item.Answer_Six" class="answer">
-                            <label for="@item.Answer_Six">@item.Answer_Six</label><br />
+                            <label for="@item.Answer_Six" class="answer" value="@item.Correct_Answer">@Html.Raw(@item.Answer_Six)</label><br />
                         }
                     </div>
                 </div>
@@ -282,7 +282,7 @@ rec.stop();
 <script type="text/javascript">
     $(document).ready(function () {
         $('label.answer').click(function () {
-            var clickedAnswer = $(this).text();
+            var clickedAnswer = $(this).attr('for');
             var rightAnswer = $(this).attr('value');
             if (clickedAnswer == rightAnswer)
             {
