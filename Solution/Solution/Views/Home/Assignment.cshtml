@@ -128,9 +128,9 @@
         <div class="card-block">
             <div>
                 <h3>Spela in dig själv och jämför</h3>
-                <p>
-                    <input type="image" src="~/Content/img/record.jpg" alt="Submit" id="startRecord" width="48" height="48">
-                    <input type="image" src="~/Content/img/stoprecord.jpg" alt="Submit" id="stopRecord" width="48" height="48">
+                <p style="text-align:center">
+                    <input type="image" src="~/Content/img/record.jpg" alt="Submit" id="startRecord" width="48" height="48" style="display:block; margin:auto">
+                    <input type="image" src="~/Content/img/stoprecord.jpg" alt="Submit" id="stopRecord" width="48" height="48" style="display:none; margin:auto">
 
                     <!--Martin Lundgrens knappar-->
                     <!--Nackdelen med bildknapparna är att det inte syns vilken knapp som har tryckts på-->
@@ -312,6 +312,24 @@ rec.stop();
             }
             else {
                 $(".showHelpText").text('Visa hjälptext');
+            }
+        });
+    });
+</script>
+<!--##########  Visa/dölj hjälptext ###### -->
+
+<!--##########  Toggla inspelning-/stopp-knapp ###### -->
+<script>
+    $(document).ready(function () {
+        $("#startRecord, #stopRecord").click(function () {
+            $("#startRecord, #stopRecord").toggle();
+            if ($('#startRecord').css('display') == 'block') {
+                $('#startRecord').css('display') == 'none';
+                $('#stopRecord').css('display') == 'block';
+            }
+            else if ($('#stopRecord').css('display') == 'block') {
+                $('#stopRecord').css('display') == 'none';
+                $('#startRecord').css('display') == 'block';
             }
         });
     });
