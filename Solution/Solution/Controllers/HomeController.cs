@@ -50,8 +50,6 @@ namespace Solution.Controllers
                 var getAssignments = (from a in db.Assignments
                                     where a.Categories_ID == id
                                     select a).ToList();
-                if (getAssignments.Count > 0)
-                {
                     foreach (var item in getAssignments)
                     {
                         if (item.Answer_One != null)
@@ -91,7 +89,6 @@ namespace Solution.Controllers
                         }
                     }
                     return View(getAssignments);
-                }
             }
             catch
             {
