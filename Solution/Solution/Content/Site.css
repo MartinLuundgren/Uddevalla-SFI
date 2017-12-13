@@ -16,3 +16,9 @@ textarea {
     max-width: 280px;
 }
 
+@media screen and (min-width:400px){
+    .scp-quizzes-main{
+        background-color: lightgreen;
+    }
+}
+

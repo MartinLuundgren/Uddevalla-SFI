@@ -50,6 +50,7 @@ namespace Solution.Controllers
             //var category = (from c in db.Categories
             //                where c.Segment_ID == id
             //                select c).ToList();
+            //
             var getAssignments = (from a in db.Assignments
                                 where a.Categories_ID == id
                                 select a).ToList();
