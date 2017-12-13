@@ -100,13 +100,16 @@
 </head>
 <body>
     <!-- Kommentera tillbaka divarna så hamnar knapparna i toppmenyn, dock i mitten och i fel färg -->
-    <!--<div class="navbar navbar-inverse navbar-fixed-top">-->
-        <ul style="width:100%">
-            <li>@Html.ActionLink("Startsidan", "Index", "Home")</li>
-            <li>@Html.ActionLink("Kategorier", "Category", "Home")</li>
-            <li>@Html.ActionLink("Uppgifter", "Assignment", "Home")</li>
-        </ul>
-    <!--</div>-->
+     <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <div style="text-align:left">
+                    @Html.ActionLink("Startsida", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
     
         <div class="card text-center border: 25px">
             <div class="card-block">

@@ -98,6 +98,7 @@ namespace Solution.Controllers
                 return RedirectToAction("Error", "Home");
                     
             }
+            //Return error
             catch
             {
                 return RedirectToAction("Error", "Home");
