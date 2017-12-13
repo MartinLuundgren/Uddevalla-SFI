@@ -131,4 +131,23 @@ input[type=radio] {
         background-color: #717171;
     }
 
+/* ######### FRÅGEKARUSELLEN #########*/
 
+.myQuestions {
+    display: none;
+}
+
+.dotQuestion {
+    cursor: pointer;
+    height: 25px;
+    width: 25px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+    .activeQuestion, .dotQuestion:hover {
+        background-color: #717171;
+    }

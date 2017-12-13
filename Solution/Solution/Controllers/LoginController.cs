@@ -46,7 +46,6 @@ namespace Solution.Controllers
         {
             Session["ID"] = null;
             Session["Name"] = null;
-            //Session.Clear();
             Session.Abandon();
             return RedirectToAction("Index", "Login");
         }
