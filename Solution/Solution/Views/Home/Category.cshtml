@@ -2,14 +2,14 @@
 @{
     ViewBag.Title = "Category";
 }
-<!--<div class="embed-responsive embed-responsive-16by9">
+<div class="embed-responsive embed-responsive-16by9">
     <iframe class="embed-responsive-item" src="@Model.First().segment.URL"></iframe>
-</div>-->
+</div>
 <br />
-<!--@foreach (var item in Model)
+@*@foreach (var item in Model)
 {
     <button class="btn btn-block btn-lg btn-primary" onclick="location.href='@Url.Action("Assignment", "Home")'" >@item.categories.Name</button>
-}-->
+}*@
 @using (Html.BeginForm("Assignment", "Home", FormMethod.Post))
 {
     foreach (var item in Model)

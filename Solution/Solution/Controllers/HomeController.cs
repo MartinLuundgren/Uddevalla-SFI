@@ -10,11 +10,9 @@ namespace Solution.Controllers
 {
     public class HomeController : Controller
     {
+        //Db connection
         private SFI_DBEntities db = new SFI_DBEntities();
-        // GET: Home
-        //Pull fail comment
-        //Pull fail comment 2
-        //Pull fail comment 3
+
         public ActionResult Index()
         {
             var getSegments = (from s in db.Segments
@@ -42,14 +40,11 @@ namespace Solution.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
-
+        //View all assignments
         public ActionResult Assignment(string category)
         {
             int id = int.Parse(category);
-            //Segment temp = (Segment)TempData["segment"];
-            //var category = (from c in db.Categories
-            //                where c.Segment_ID == id
-            //                select c).ToList();
+            //Gets all assignmets
             var getAssignments = (from a in db.Assignments
                                 where a.Categories_ID == id
                                 select a).ToList();
@@ -100,6 +95,7 @@ namespace Solution.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
+        //Just return view of error 
         public ActionResult Error()
         {
             return View();
