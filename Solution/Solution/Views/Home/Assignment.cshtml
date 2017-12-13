@@ -77,7 +77,7 @@
                 <h3>Klicka på rätt ord</h3>
                 <div>
                     <p>
-                        <audio controls="controls">
+                        <audio controls="controls" style="max-width:250px">
                             <source src="~/Uploads/@item.Audio_File" />
                         </audio>
                     </p>
@@ -86,6 +86,7 @@
 
                 <div class="scp-quizzes-main">
                     <div class="scp-quizzes-data">
+
                         @if (item.Answer_One != null)
                         {
                             <input type="radio" class="answer">
@@ -138,7 +139,7 @@
                     <!--<button type="button" class="btn btn-danger" id=stopRecord disabled>stop</button>-->
                 </p>
                 <p>Din inspelning:</p>
-                <audio id=recordedAudio></audio>
+                <audio id=recordedAudio style="max-width:250px"></audio>
             </div>
             <br />
             </div>
@@ -155,7 +156,7 @@
                     <!-- Full-width images with number and caption text -->
                             <div class="mySlides">
                                 <p>Jämför:</p>
-                                <audio controls="controls">
+                                <audio controls="controls" style="max-width:250px">
                                     <source src="~/Uploads/@item.Audio_File" />
                                 </audio>
                                 <br />
@@ -169,15 +170,16 @@
                         }
                         <br />
                     </div>
+                    
                 </div>
-                    <!-- Next and previous buttons -->
+                    <!-- Next and previous buttons
                     <a class="prev" onclick="plusSlides(-1)" style="margin-top:22px">&#10094;</a>
-                    <a class="next" onclick="plusSlides(1)" style="margin-top:22px">&#10095;</a>
+                    <a class="next" onclick="plusSlides(1)" style="margin-top:22px">&#10095;</a> -->
 
                     <div style="text-align:center">
-                        @for (int i = 0; i < Model.Where(m => m.Assignment_Type == "Höra").Count(); i++)
+                        @for (var i = 1; i < Model.Where(m => m.Assignment_Type == "Höra").Count()+1; i++)
                         {
-                            <span class="dot" onclick="currentSlide(i)"></span>
+                            <span class="dot" style="height:25px; width:25px;" onclick="currentSlide(@i)"></span>
                         }
 
                         <!--<span class="dot" onclick="currentSlide(1)"></span>

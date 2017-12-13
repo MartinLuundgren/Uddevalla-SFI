@@ -15,4 +15,15 @@ select,
 textarea {
     max-width: 280px;
 }
+@media screen and (min-width: 480px) {
+    .audio {
+        width:90%;
+    }
+}
+
+@media screen and (min-width:400px){
+    .scp-quizzes-main{
+        background-color: lightgreen;
+    }
+}
 
