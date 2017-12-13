@@ -16,10 +16,46 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+    <!--##########  SCRIPT FÖR FRÅGEKARUSELL  ##########-->
+    <script>
+        /*window.onload = function () {
+            showQuestions(1);
+        };*/
+        var questionIndex = 1;
+        showQuestions(questionIndex);
+        plusQuestions(questionIndex);
+
+        function plusQuestions(n) {
+            showQuestions(questionIndex += n);
+        }
+
+        function currentQuestion(n) {
+            showQuestions(questionIndex = n);
+        }
+
+        function showQuestions(n) {
+            var i;
+            var questions = document.getElementsByClassName("myQuestions");
+            var dotsQuestion = document.getElementsByClassName("dotQuestion");
+            if (n > questions.length) { questionIndex = 1 }
+            if (n < 1) { questionIndex = question.length }
+            for (i = 0; i < questions.length; i++) {
+                questions[i].style.display = "none";
+            }
+            for (i = 0; i < dotsQuestion.length; i++) {
+                dotsQuestion[i].className = dotsQuestion[i].className.replace(" activeQuestion", "");
+            }
+            questions[questionIndex - 1].style.display = "block";
+            dotsQuestion[questionIndex - 1].className += " activeQuestion";
+        }
+    </script>
+    <!--##########  SCRIPT FÖR FRÅGEKARUSELL  ##########-->
+
     <!--##########  SCRIPT FÖR LJUDKARUSELL  ##########-->
     <script>
         window.onload = function () {
             showSlides(1);
+            showQuestions(1);
         };
         var slideIndex = 1;
         showSlides(slideIndex);
@@ -70,175 +106,190 @@
             <li>@Html.ActionLink("Uppgifter", "Assignment", "Home")</li>
         </ul>
     <!--</div>-->
-    @foreach (var item in Model.Where(i => i.Assignment_Type == "Göra"))
-    {
+    
         <div class="card text-center border: 25px">
             <div class="card-block">
-                <h3>Klicka på rätt ord</h3>
-                <div>
-                    <p>
-                        <audio controls="controls" style="max-width:250px">
-                            <source src="~/Uploads/@item.Audio_File" />
-                        </audio>
-                    </p>
-                </div>
+                <div class="slideshow-container">
+                    <br />
+                    <div style="text-align:center">
+                        @for (var i = 1; i < Model.Where(m => m.Assignment_Type == "Göra").Count() + 1; i++)
+                        {
+                            <span class="dotQuestion" style="height:25px; width:25px;" onclick="currentQuestion(@i)"></span>
+                        }
 
-
-                <div class="scp-quizzes-main">
-                    <div class="scp-quizzes-data">
-                        @if (item.Answer_One != null)
-                        {
-                            <input type="radio" class="answer">
-                            <label for="@item.Answer_One" class="answer" value="@item.Correct_Answer">@Html.Raw(@item.Answer_One)</label><br />
-                        }
-                        @if (item.Answer_Two != null)
-                        {
-                            <input type="radio" class="answer">
-                            <label for="@item.Answer_Two" class="answer" value="@item.Correct_Answer">@Html.Raw(@item.Answer_Two)</label><br />
-                        }
-                        @if (item.Answer_Three != null)
-                        {
-                            <input type="radio" value="@item.Answer_Three" class="answer">
-                            <label for="@item.Answer_Three" class="answer" value="@item.Correct_Answer">@item.Answer_Three</label><br />
-                        }
-                        @if (item.Answer_Four != null)
-                        {
-                            <input type="radio" value="@item.Answer_Four" class="answer">
-                            <label for="@item.Answer_Four" class="answer" value="@item.Correct_Answer">@Html.Raw(@item.Answer_Four)</label><br />
-                        }
-                        @if (item.Answer_Five != null)
-                        {
-                            <input type="radio" value="@item.Answer_Five" class="answer">
-                            <label for="@item.Answer_Five" class="answer" value="@item.Correct_Answer">@Html.Raw(@item.Answer_Five)</label><br />
-                        }
-                        @if (item.Answer_Six != null)
-                        {
-                            <input type="radio" value="@item.Answer_Six" class="answer">
-                            <label for="@item.Answer_Six" class="answer" value="@item.Correct_Answer">@Html.Raw(@item.Answer_Six)</label><br />
-                        }
+                        <!--<span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>-->
                     </div>
+                    <h3>Klicka på rätt ord</h3>
+                    @foreach (var item in Model.Where(i => i.Assignment_Type == "Göra"))
+                    {
+                        <div class="myQuestions">
+                            <div>
+                                <p>
+                                    <audio controls="controls" style="max-width:250px">
+                                        <source src="~/Uploads/@item.Audio_File" />
+                                    </audio>
+                                </p>
+                            </div>
+
+
+                            <div class="scp-quizzes-main">
+                                <div class="scp-quizzes-data">
+                                    @if (item.Answer_One != null)
+                {
+                                        <input type="radio" class="answer">
+                                        <label for="@item.Answer_One" class="answer" value="@item.Correct_Answer">@Html.Raw(@item.Answer_One)</label><br />
+                                    }
+                                    @if (item.Answer_Two != null)
+                {
+                                        <input type="radio" class="answer">
+                                        <label for="@item.Answer_Two" class="answer" value="@item.Correct_Answer">@Html.Raw(@item.Answer_Two)</label><br />
+                                    }
+                                    @if (item.Answer_Three != null)
+                {
+                                        <input type="radio" value="@item.Answer_Three" class="answer">
+                                        <label for="@item.Answer_Three" class="answer" value="@item.Correct_Answer">@item.Answer_Three</label><br />
+                                    }
+                                    @if (item.Answer_Four != null)
+                {
+                                        <input type="radio" value="@item.Answer_Four" class="answer">
+                                        <label for="@item.Answer_Four" class="answer" value="@item.Correct_Answer">@Html.Raw(@item.Answer_Four)</label><br />
+                                    }
+                                    @if (item.Answer_Five != null)
+                {
+                                        <input type="radio" value="@item.Answer_Five" class="answer">
+                                        <label for="@item.Answer_Five" class="answer" value="@item.Correct_Answer">@Html.Raw(@item.Answer_Five)</label><br />
+                                    }
+                                    @if (item.Answer_Six != null)
+                {
+                                        <input type="radio" value="@item.Answer_Six" class="answer">
+                                        <label for="@item.Answer_Six" class="answer" value="@item.Correct_Answer">@Html.Raw(@item.Answer_Six)</label><br />
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                    }
                 </div>
-
-
             </div>
         </div>
 
-    }
-    <div class="card text-center">
-        <div class="card-block">
-            <div>
-                <h3>Spela in dig själv och jämför</h3>
-                <p style="text-align:center">
-                    <input type="image" src="~/Content/img/record.jpg" alt="Submit" id="startRecord" width="48" height="48" style="display:block; margin:auto">
-                    <input type="image" src="~/Content/img/stoprecord.jpg" alt="Submit" id="stopRecord" width="48" height="48" style="display:none; margin:auto">
+        <div class="card text-center">
+            <div class="card-block">
+                <div>
+                    <h3>Spela in dig själv och jämför</h3>
+                    <p style="text-align:center">
+                        <input type="image" src="~/Content/img/record.jpg" alt="Submit" id="startRecord" width="48" height="48" style="display:block; margin:auto">
+                        <input type="image" src="~/Content/img/stoprecord.jpg" alt="Submit" id="stopRecord" width="48" height="48" style="display:none; margin:auto">
 
-                    <!--Martin Lundgrens knappar-->
-                    <!--Nackdelen med bildknapparna är att det inte syns vilken knapp som har tryckts på-->
-                    <!--<button type="button" class="btn btn-success" id=startRecord>start</button>-->
-                    <!--<button type="button" class="btn btn-danger" id=stopRecord disabled>stop</button>-->
-                </p>
-                <p>Din inspelning:</p>
-                <audio id=recordedAudio style="max-width:250px"></audio>
-            </div>
-            <br />
+                        <!--Martin Lundgrens knappar-->
+                        <!--Nackdelen med bildknapparna är att det inte syns vilken knapp som har tryckts på-->
+                        <!--<button type="button" class="btn btn-success" id=startRecord>start</button>-->
+                        <!--<button type="button" class="btn btn-danger" id=stopRecord disabled>stop</button>-->
+                    </p>
+                    <p>Din inspelning:</p>
+                    <audio id=recordedAudio style="max-width:250px"></audio>
+                </div>
+                <br />
             </div>
         </div>
-            <div class="card text-center">
-                <div class="card-block">
-                    <div class="slideshow-container">
-                        <br />
-                        @foreach (var item in Model.Where(i => i.Assignment_Type == "Höra"))
+        <div class="card text-center">
+            <div class="card-block">
+                <div class="slideshow-container">
+                    <br />
+                    @foreach (var item in Model.Where(i => i.Assignment_Type == "Höra"))
             {
                 <!-- Slideshow container -->
 
 
                     <!-- Full-width images with number and caption text -->
-                            <div class="mySlides">
-                                <p>Jämför:</p>
-                                <audio controls="controls" style="max-width:250px">
-                                    <source src="~/Uploads/@item.Audio_File" />
-                                </audio>
-                                <br />
-                                <button class="showHelpText">Visa hjälptext</button>
-                                <p class="helpText" style="display:none">
-                                    @Html.Raw(@item.Correct_Answer)
-                                </p>
-                                
-                            </div>
+                        <div class="mySlides">
+                            <p>Jämför:</p>
+                            <audio controls="controls" style="max-width:250px">
+                                <source src="~/Uploads/@item.Audio_File" />
+                            </audio>
+                            <br />
+                            <button class="showHelpText">Visa hjälptext</button>
+                            <p class="helpText" style="display:none">
+                                @Html.Raw(@item.Correct_Answer)
+                            </p>
 
-                        }
-                        <br />
-                    </div>
-                    
-                </div>
-                    <!-- Next and previous buttons
-                    <a class="prev" onclick="plusSlides(-1)" style="margin-top:22px">&#10094;</a>
-                    <a class="next" onclick="plusSlides(1)" style="margin-top:22px">&#10095;</a> -->
+                        </div>
 
-                    <div style="text-align:center">
-                        @for (var i = 1; i < Model.Where(m => m.Assignment_Type == "Höra").Count()+1; i++)
-                        {
-                            <span class="dot" style="height:25px; width:25px;" onclick="currentSlide(@i)"></span>
-                        }
-
-                        <!--<span class="dot" onclick="currentSlide(1)"></span>
-            <span class="dot" onclick="currentSlide(2)"></span>
-            <span class="dot" onclick="currentSlide(3)"></span>-->
-                    </div>
-
+                    }
                     <br />
                 </div>
-            
 
+            </div>
+            <!-- Next and previous buttons
+            <a class="prev" onclick="plusSlides(-1)" style="margin-top:22px">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)" style="margin-top:22px">&#10095;</a> -->
 
+            <div style="text-align:center">
+                @for (var i = 1; i < Model.Where(m => m.Assignment_Type == "Höra").Count() + 1; i++)
+                {
+                    <span class="dot" style="height:25px; width:25px;" onclick="currentSlide(@i)"></span>
+                }
 
-
-            <!--<br />
-
-
-            <br />
-            <br />
-
-            <div class="card text-center">
-                <div class="card-block">
-                    <div>
-                        <h3>Spela in dig själv och jämför</h3>
-                        <p>
-                            <input type="image" src="~/Content/img/record.jpg" alt="Submit" id="startRecord" width="48" height="48">
-                            <input type="image" src="~/Content/img/stoprecord.jpg" alt="Submit" id="stopRecord" width="48" height="48">
-
-                            <!--Martin Lundgrens knappar-->
-                            <!--Nackdelen med bildknapparna är att det inte syns vilken knapp som har tryckts på
-                            <!--<button type="button" class="btn btn-success" id=startRecord>start</button>
-                            <!--<button type="button" class="btn btn-danger" id=stopRecord disabled>stop</button>
-                        </p>
-                        <p>Din inspelning:</p>
-                        <audio id=recordedAudio></audio>
-                    </div>
-
-                    <hr class="style1">
-
-                    <div>
-
-                        <p>Jämför:</p>
-                        <audio controls="controls">
-                            <source src="~/syr.wav" />
-                        </audio>
-
-                    </div>
-                    <div class="container">
-                        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#syr">Visa ord</button>
-                        <div id="syr" class="collapse">
-                            <br />
-                            <p>"Syr"</p>
-                        </div>
-                        <br />
-                    </div>
-                </div>
+                <!--<span class="dot" onclick="currentSlide(1)"></span>
+                <span class="dot" onclick="currentSlide(2)"></span>
+                <span class="dot" onclick="currentSlide(3)"></span>-->
             </div>
 
             <br />
-            <br />-->
+        </div>
+
+
+
+
+
+        <!--<br />
+
+
+        <br />
+        <br />
+
+        <div class="card text-center">
+            <div class="card-block">
+                <div>
+                    <h3>Spela in dig själv och jämför</h3>
+                    <p>
+                        <input type="image" src="~/Content/img/record.jpg" alt="Submit" id="startRecord" width="48" height="48">
+                        <input type="image" src="~/Content/img/stoprecord.jpg" alt="Submit" id="stopRecord" width="48" height="48">
+
+                        <!--Martin Lundgrens knappar-->
+        <!--Nackdelen med bildknapparna är att det inte syns vilken knapp som har tryckts på
+                        <!--<button type="button" class="btn btn-success" id=startRecord>start</button>
+                        <!--<button type="button" class="btn btn-danger" id=stopRecord disabled>stop</button>
+                    </p>
+                    <p>Din inspelning:</p>
+                    <audio id=recordedAudio></audio>
+                </div>
+
+                <hr class="style1">
+
+                <div>
+
+                    <p>Jämför:</p>
+                    <audio controls="controls">
+                        <source src="~/syr.wav" />
+                    </audio>
+
+                </div>
+                <div class="container">
+                    <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#syr">Visa ord</button>
+                    <div id="syr" class="collapse">
+                        <br />
+                        <p>"Syr"</p>
+                    </div>
+                    <br />
+                </div>
+            </div>
+        </div>
+
+        <br />
+        <br />-->
 </body>
 </html>
 
