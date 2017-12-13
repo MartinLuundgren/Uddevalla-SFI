@@ -32,8 +32,11 @@ namespace Solution.Controllers
                                     on c.Segment_ID equals s.ID
                                     where c.Segment_ID == id
                                     select new JoinModelCategory { categories = c, segment = s }).ToList();
-
-                return View(viewCategory);
+                if (viewCategory.Count() > 0)
+                {
+                    return View(viewCategory);
+                }
+               return RedirectToAction("Error","Home");
             }
             catch (Exception)
             {
@@ -41,7 +44,7 @@ namespace Solution.Controllers
                 return RedirectToAction("Error", "Home");
             }
         }
-        //View all assignments
+        //View all assignmentss
         public ActionResult Assignment(string category)
         {
             try { 
@@ -50,6 +53,8 @@ namespace Solution.Controllers
                 var getAssignments = (from a in db.Assignments
                                     where a.Categories_ID == id
                                     select a).ToList();
+                if (getAssignments.Count() > 0)
+                {
                     foreach (var item in getAssignments)
                     {
                         if (item.Answer_One != null)
@@ -89,6 +94,9 @@ namespace Solution.Controllers
                         }
                     }
                     return View(getAssignments);
+                }
+                return RedirectToAction("Error", "Home");
+                    
             }
             catch
             {
