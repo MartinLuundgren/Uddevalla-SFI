@@ -14,11 +14,13 @@ namespace Solution.Controllers
     //[Authorize]
     public class AdminController : Controller
     {
+        //DB connection
         private SFI_DBEntities db = new SFI_DBEntities();
         
         // GET: Admin
         public ActionResult Index()
         {
+            //Check to see if the user is logged in
             if (Session["Name"] != null)
             {
                 return View();
@@ -31,7 +33,7 @@ namespace Solution.Controllers
             }
         }
 
-        
+        //New segment
         public ActionResult newSegment()
         {
             //TODO: Maybe use a View model? But this works 
@@ -58,7 +60,7 @@ namespace Solution.Controllers
                 //TODO: Add exception, maybe custom error page? 
                 catch (Exception)
                 {
-                    throw;
+                    return RedirectToAction("Error", "Home");
                 }
             }
             return View();
@@ -126,10 +128,6 @@ namespace Solution.Controllers
 
         public ActionResult newCategory()
         {
-            /*var categories = (from s in db.Categories
-                              orderby s.Name
-                              select s).ToList();
-            ViewBag.categories = categories;*/
 
             //Hämta segmentnamn till dopdown i newCategories
             var segmentName = (from s in db.Segments
@@ -160,7 +158,7 @@ namespace Solution.Controllers
                 //TODO: Add exception, maybe custom error page? 
                 catch (Exception)
                 {
-                    throw;
+                    return RedirectToAction("Error", "Home");
                 }
             }
             return View();
@@ -269,7 +267,7 @@ namespace Solution.Controllers
                 //TODO: Add exception, maybe custom error page? 
                 catch (Exception)
                 {
-                    throw;
+                    return RedirectToAction("Error","Home");
                 }
             }
             return View();
