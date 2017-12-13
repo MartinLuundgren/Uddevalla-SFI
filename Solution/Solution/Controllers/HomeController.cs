@@ -99,5 +99,9 @@ namespace Solution.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
+        public ActionResult Error()
+        {
+            return View();
+        }
     }
 }
