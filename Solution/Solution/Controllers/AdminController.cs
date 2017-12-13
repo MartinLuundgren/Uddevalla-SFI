@@ -135,7 +135,7 @@ namespace Solution.Controllers
                               select s).ToList();
             ViewBag.segmentName = segmentName;
 
-            //Joina segmentnamn och motsvarande kategorier för lista i newCategories
+            //Join segmentnamn och motsvarande kategorier för lista i newCategories
             var join = (from c in db.Categories
                         join s in db.Segments
                         on c.Segment_ID equals s.ID
