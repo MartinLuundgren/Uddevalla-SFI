@@ -42,5 +42,13 @@ namespace Solution.Controllers
             }
             return View(login);
         }
+        public ActionResult LogOut()
+        {
+            Session["ID"] = null;
+            Session["Name"] = null;
+            //Session.Clear();
+            Session.Abandon();
+            return RedirectToAction("Index", "Login");
+        }
     }
 }

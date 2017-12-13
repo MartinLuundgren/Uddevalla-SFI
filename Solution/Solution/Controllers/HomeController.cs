@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Text.RegularExpressions;
 
 namespace Solution.Controllers
 {
@@ -31,12 +32,72 @@ namespace Solution.Controllers
                                 where c.Segment_ID == id
                                 select new JoinModelCategory {categories = c, segment = s }
                 ).ToList();
-            return View(viewCategory);
+            if (viewCategory.Count > 0)
+            {
+                return View(viewCategory);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
-        public ActionResult Assignment()
+        public ActionResult Assignment(string category)
         {
-            return View();
+            int id = int.Parse(category);
+            //Segment temp = (Segment)TempData["segment"];
+            //var category = (from c in db.Categories
+            //                where c.Segment_ID == id
+            //                select c).ToList();
+            var getAssignments = (from a in db.Assignments
+                                where a.Categories_ID == id
+                                select a).ToList();
+            if (getAssignments.Count > 0)
+            {
+                foreach (var item in getAssignments)
+                {
+                    if (item.Answer_One != null)
+                    {
+                        item.Answer_One = Regex.Replace(item.Answer_One, @"\(", "<span style=\"text-decoration: underline; text-decoration-color: red;\">");
+                        item.Answer_One = Regex.Replace(item.Answer_One, @"\)", "</span>");
+                    }
+                    if (item.Answer_Two != null)
+                    {
+                        item.Answer_Two = Regex.Replace(item.Answer_Two, @"\(", "<span style=\"text-decoration: underline; text-decoration-color: red;\">");
+                        item.Answer_Two = Regex.Replace(item.Answer_Two, @"\)", "</span>");
+                    }
+                    if (item.Answer_Three != null)
+                    {
+                        item.Answer_Three = Regex.Replace(item.Answer_Three, @"\(", "<span style=\"text-decoration: underline; text-decoration-color: red;\">");
+                        item.Answer_Three = Regex.Replace(item.Answer_Three, @"\)", "</span>");
+                    }
+                    if (item.Answer_Four != null)
+                    {
+                        item.Answer_Four = Regex.Replace(item.Answer_Four, @"\(", "<span style=\"text-decoration: underline; text-decoration-color: red;\">");
+                        item.Answer_Four = Regex.Replace(item.Answer_Four, @"\)", "</span>");
+                    }
+                    if (item.Answer_Five != null)
+                    {
+                        item.Answer_Five = Regex.Replace(item.Answer_Five, @"\(", "<span style=\"text-decoration: underline; text-decoration-color: red;\">");
+                        item.Answer_Five = Regex.Replace(item.Answer_Five, @"\)", "</span>");
+                    }
+                    if (item.Answer_Six != null)
+                    {
+                        item.Answer_Six = Regex.Replace(item.Answer_Six, @"\(", "<span style=\"text-decoration: underline; text-decoration-color: red;\">");
+                        item.Answer_Six = Regex.Replace(item.Answer_Six, @"\)", "</span>");
+                    }
+                    if (item.Correct_Answer != null)
+                    {
+                        item.Correct_Answer = Regex.Replace(item.Correct_Answer, @"\(", "<span style=\"text-decoration: underline; text-decoration-color: red;\">");
+                        item.Correct_Answer = Regex.Replace(item.Correct_Answer, @"\)", "</span>");
+                    }
+                }
+                return View(getAssignments);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
     }
 }

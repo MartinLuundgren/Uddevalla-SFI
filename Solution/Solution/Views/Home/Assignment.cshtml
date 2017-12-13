@@ -1,6 +1,8 @@
-﻿
+﻿@model IEnumerable<Solution.Models.Assignment>
+
 @{
     ViewBag.Title = "Assignment";
+
 }
 <!DOCTYPE html>
 <html>
@@ -14,6 +16,41 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+    <!--##########  SCRIPT FÖR LJUDKARUSELL  ##########-->
+    <script>
+        window.onload = function () {
+            showSlides(1);
+        };
+        var slideIndex = 1;
+        showSlides(slideIndex);
+        plusSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+            var dots = document.getElementsByClassName("dot");
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+        }
+    </script>
+    <!--##########  SCRIPT FÖR LJUDKARUSELL  ##########-->
+
     <style>
         hr.style1 {
             border-top: 1px solid #8c8b8b;
@@ -25,24 +62,75 @@
 
 </head>
 <body>
-    
-    <ul>
-        <li>@Html.ActionLink("Startsidan", "Index", "Home")</li>
-        <li>@Html.ActionLink("Kategorier", "Category", "Home")</li>
-        <li>@Html.ActionLink("Uppgifter", "Assignment", "Home")</li>
-    </ul>
-        
-    <h1>Uppgiftssidan</h1>
+    <!-- Kommentera tillbaka divarna så hamnar knapparna i toppmenyn, dock i mitten och i fel färg -->
+    <!--<div class="navbar navbar-inverse navbar-fixed-top">-->
+        <ul style="width:100%">
+            <li>@Html.ActionLink("Startsidan", "Index", "Home")</li>
+            <li>@Html.ActionLink("Kategorier", "Category", "Home")</li>
+            <li>@Html.ActionLink("Uppgifter", "Assignment", "Home")</li>
+        </ul>
+    <!--</div>-->
+    @foreach (var item in Model.Where(i => i.Assignment_Type == "Göra"))
+    {
+        <div class="card text-center border: 25px">
+            <div class="card-block">
+                <h3>Klicka på rätt ord</h3>
+                <div>
+                    <p>
+                        <audio controls="controls">
+                            <source src="~/Uploads/@item.Audio_File" />
+                        </audio>
+                    </p>
+                </div>
 
 
+                <div class="scp-quizzes-main">
+                    <div class="scp-quizzes-data">
+                        @if (item.Answer_One != null)
+                        {
+                            <input type="radio" class="answer">
+                            <label for="@item.Answer_One" class="answer" value="@item.Correct_Answer">@Html.Raw(@item.Answer_One)</label><br />
+                        }
+                        @if (item.Answer_Two != null)
+                        {
+                            <input type="radio" class="answer">
+                            <label for="@item.Answer_Two" class="answer" value="@item.Correct_Answer">@Html.Raw(@item.Answer_Two)</label><br />
+                        }
+                        @if (item.Answer_Three != null)
+                        {
+                            <input type="radio" value="@item.Answer_Three" class="answer">
+                            <label for="@item.Answer_Three" class="answer" value="@item.Correct_Answer">@item.Answer_Three</label><br />
+                        }
+                        @if (item.Answer_Four != null)
+                        {
+                            <input type="radio" value="@item.Answer_Four" class="answer">
+                            <label for="@item.Answer_Four" class="answer" value="@item.Correct_Answer">@Html.Raw(@item.Answer_Four)</label><br />
+                        }
+                        @if (item.Answer_Five != null)
+                        {
+                            <input type="radio" value="@item.Answer_Five" class="answer">
+                            <label for="@item.Answer_Five" class="answer" value="@item.Correct_Answer">@Html.Raw(@item.Answer_Five)</label><br />
+                        }
+                        @if (item.Answer_Six != null)
+                        {
+                            <input type="radio" value="@item.Answer_Six" class="answer">
+                            <label for="@item.Answer_Six" class="answer" value="@item.Correct_Answer">@Html.Raw(@item.Answer_Six)</label><br />
+                        }
+                    </div>
+                </div>
 
+
+            </div>
+        </div>
+
+    }
     <div class="card text-center">
         <div class="card-block">
             <div>
                 <h3>Spela in dig själv och jämför</h3>
-                <p>
-                    <input type="image" src="~/Content/img/record.jpg" alt="Submit" id="startRecord" width="48" height="48">
-                    <input type="image" src="~/Content/img/stoprecord.jpg" alt="Submit" id="stopRecord" width="48" height="48">
+                <p style="text-align:center">
+                    <input type="image" src="~/Content/img/record.jpg" alt="Submit" id="startRecord" width="48" height="48" style="display:block; margin:auto">
+                    <input type="image" src="~/Content/img/stoprecord.jpg" alt="Submit" id="stopRecord" width="48" height="48" style="display:none; margin:auto">
 
                     <!--Martin Lundgrens knappar-->
                     <!--Nackdelen med bildknapparna är att det inte syns vilken knapp som har tryckts på-->
@@ -52,137 +140,104 @@
                 <p>Din inspelning:</p>
                 <audio id=recordedAudio></audio>
             </div>
-            
-            <hr class="style1">
-            
-            <div>
-                
-                    <p>Jämför:</p>
-                    <audio controls="controls">
-                        <source src="~/Boll.wav" />
-                    </audio>
-                
-
+            <br />
             </div>
-            <div class="container">
-                <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">Visa ord</button>
-                <div id="demo" class="collapse">
+        </div>
+            <div class="card text-center">
+                <div class="card-block">
+                    <div class="slideshow-container">
+                        <br />
+                        @foreach (var item in Model.Where(i => i.Assignment_Type == "Höra"))
+            {
+                <!-- Slideshow container -->
+
+
+                    <!-- Full-width images with number and caption text -->
+                            <div class="mySlides">
+                                <p>Jämför:</p>
+                                <audio controls="controls">
+                                    <source src="~/Uploads/@item.Audio_File" />
+                                </audio>
+                                <br />
+                                <button class="showHelpText">Visa hjälptext</button>
+                                <p class="helpText" style="display:none">
+                                    @Html.Raw(@item.Correct_Answer)
+                                </p>
+                                
+                            </div>
+
+                        }
+                        <br />
+                    </div>
+                </div>
+                    <!-- Next and previous buttons -->
+                    <a class="prev" onclick="plusSlides(-1)" style="margin-top:22px">&#10094;</a>
+                    <a class="next" onclick="plusSlides(1)" style="margin-top:22px">&#10095;</a>
+
+                    <div style="text-align:center">
+                        @for (int i = 0; i < Model.Where(m => m.Assignment_Type == "Höra").Count(); i++)
+                        {
+                            <span class="dot" onclick="currentSlide(i)"></span>
+                        }
+
+                        <!--<span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>-->
+                    </div>
+
                     <br />
-                    <p>"Boll"</p>
                 </div>
-                <br />
-            </div>
-        </div>
-    </div>
-    <br />
-    <br />
-    
-    <div class="card text-center border: 25px">
-        <div class="card-block">
-            <h1>Klicka på rätt ord</h1>
-            <!--<img src="~/Content/img/train.jpg" width="400" height="277" />-->
-            <div>
-                <p>
-                    <audio controls="controls">
-                        <source src="~/T_g.wav" />
-                    </audio>
-                </p>
-            </div>
+            
 
 
-            <div class="scp-quizzes-main">
-                <div class="scp-quizzes-data">
-                    <input type="radio" id="Tåg" name="question1">
-                    <label for="Tåg">Tåg</label><br />
-                    <input type="radio" name="question1">
-                    <label>Tog</label><br />
-                </div>
-            </div>
 
 
-        </div>
-    </div>
-
-    <br />
-    <br />
-
-    <div class="card text-center">
-        <div class="card-block">
-            <div>
-                <h3>Spela in dig själv och jämför</h3>
-                <p>
-                    <input type="image" src="~/Content/img/record.jpg" alt="Submit" id="startRecord" width="48" height="48">
-                    <input type="image" src="~/Content/img/stoprecord.jpg" alt="Submit" id="stopRecord" width="48" height="48">
-
-                    <!--Martin Lundgrens knappar-->
-                    <!--Nackdelen med bildknapparna är att det inte syns vilken knapp som har tryckts på-->
-                    <!--<button type="button" class="btn btn-success" id=startRecord>start</button>-->
-                    <!--<button type="button" class="btn btn-danger" id=stopRecord disabled>stop</button>-->
-                </p>
-                <p>Din inspelning:</p>
-                <audio id=recordedAudio></audio>
-            </div>
-
-            <hr class="style1">
-
-            <div>
-                
-                <p>Jämför:</p>
-                <audio controls="controls">
-                    <source src="~/syr.wav" />
-                </audio>
-               
-            </div>
-            <div class="container">
-                <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#syr">Visa ord</button>
-                <div id="syr" class="collapse">
-                    <br />
-                    <p>"Syr"</p>
-                </div>
-                <br />
-            </div>
-        </div>
-    </div>
-
-    <br />
-    <br />
-
-    <div class="card text-center border: 25px">
-        <div class="card-block">
-            <h1>Klicka på rätt ord</h1>
+            <!--<br />
 
 
-            <div class="container">
-                <!--<img src="~/Content/img/Sol.jpg" class="img-rounded" alt="Sol" width="304" height="236">-->
-            </div>
+            <br />
+            <br />
 
-            <div>
-                <p>
-                    <audio controls="controls">
-                        <source src="~/Sol.wav" />
-                    </audio>
-                </p>
-            </div>
+            <div class="card text-center">
+                <div class="card-block">
+                    <div>
+                        <h3>Spela in dig själv och jämför</h3>
+                        <p>
+                            <input type="image" src="~/Content/img/record.jpg" alt="Submit" id="startRecord" width="48" height="48">
+                            <input type="image" src="~/Content/img/stoprecord.jpg" alt="Submit" id="stopRecord" width="48" height="48">
 
+                            <!--Martin Lundgrens knappar-->
+                            <!--Nackdelen med bildknapparna är att det inte syns vilken knapp som har tryckts på
+                            <!--<button type="button" class="btn btn-success" id=startRecord>start</button>
+                            <!--<button type="button" class="btn btn-danger" id=stopRecord disabled>stop</button>
+                        </p>
+                        <p>Din inspelning:</p>
+                        <audio id=recordedAudio></audio>
+                    </div>
 
-            <div class="scp-quizzes-main">
-                <div class="scp-quizzes-data">
-                    <input type="radio" name="question2">
-                    <label>Sul</label><br />
-                    
-                    <input type="radio" id="Sol" name="question2">
-                    <label for="Sol">Sol</label>
-                    
+                    <hr class="style1">
+
+                    <div>
+
+                        <p>Jämför:</p>
+                        <audio controls="controls">
+                            <source src="~/syr.wav" />
+                        </audio>
+
+                    </div>
+                    <div class="container">
+                        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#syr">Visa ord</button>
+                        <div id="syr" class="collapse">
+                            <br />
+                            <p>"Syr"</p>
+                        </div>
+                        <br />
+                    </div>
                 </div>
             </div>
 
-
-        </div>
-    </div>
-    
-
-    
-
+            <br />
+            <br />-->
 </body>
 </html>
 
@@ -222,18 +277,64 @@ rec.stop();
 
 
 <!-- ######## SPELA IN LJUD  #######-->
+<!---->
 <!-- ######## QUIZ CHANGE COLOR  #######-->
 <script type="text/javascript">
-         $(document).ready(function () {
-             $('label').click(function () {
-                 $('label').removeClass('worngans');
-                 $(this).addClass('worngans');
+    $(document).ready(function () {
+        $('label.answer').click(function () {
+            var clickedAnswer = $(this).attr('for');
+            var rightAnswer = $(this).attr('value');
+            if (clickedAnswer == rightAnswer)
+            {
+                $('label').removeClass('worngans')
+                $('label').removeClass('worngans2')
+                $(this).addClass('worngans2');
+            }
+            else
+            {
+                $('label').removeClass('worngans')
+                $('label').removeClass('worngans2')
+                $(this).addClass('worngans');
+            }
+            //Obligatorisk commit comment
              });
          });
 </script>
-
 <!-- ######## QUIZ CHANGE COLOR  #######-->
 
+<!--##########  Visa/dölj hjälptext ###### -->
+<script>
+    $(document).ready(function () {
+        $(".showHelpText").click(function () {
+            $(".helpText").toggle();
+            if ($('.helpText').css('display') == 'block'){
+                $(".showHelpText").text('Dölj hjälptext');
+            }
+            else {
+                $(".showHelpText").text('Visa hjälptext');
+            }
+        });
+    });
+</script>
+<!--##########  Visa/dölj hjälptext ###### -->
+
+<!--##########  Toggla inspelning-/stopp-knapp ###### -->
+<script>
+    $(document).ready(function () {
+        $("#startRecord, #stopRecord").click(function () {
+            $("#startRecord, #stopRecord").toggle();
+            if ($('#startRecord').css('display') == 'block') {
+                $('#startRecord').css('display') == 'none';
+                $('#stopRecord').css('display') == 'block';
+            }
+            else if ($('#stopRecord').css('display') == 'block') {
+                $('#stopRecord').css('display') == 'none';
+                $('#startRecord').css('display') == 'block';
+            }
+        });
+    });
+</script>
+<!--##########  Visa/dölj hjälptext ###### -->
 
 
 
