@@ -24,13 +24,14 @@ namespace Solution.Controllers
                 return View();
             }
             //Else redirect the user back to the login page
+            //test
             else
             {
                 return RedirectToAction("/Index", "Login", new { area = "" });
             }
         }
 
-
+        
         public ActionResult newSegment()
         {
             //TODO: Maybe use a View model? But this works 
@@ -40,6 +41,7 @@ namespace Solution.Controllers
             ViewBag.segments = segments;
             return View();
         }
+        
 
         [HttpPost]
         public ActionResult newSegment(Segment segment)
