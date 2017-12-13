@@ -26,7 +26,7 @@ namespace Solution.Controllers
                 return View();
             }
             //Else redirect the user back to the login page
-            //test
+            //testt
             else
             {
                 return RedirectToAction("/Index", "Login", new { area = "" });

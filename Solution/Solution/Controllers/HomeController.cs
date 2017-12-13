@@ -44,7 +44,7 @@ namespace Solution.Controllers
                 return RedirectToAction("Error", "Home");
             }
         }
-        //View all assignments
+        //View all assignmentss
         public ActionResult Assignment(string category)
         {
             try { 
