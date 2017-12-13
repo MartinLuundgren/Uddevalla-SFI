@@ -10,7 +10,7 @@ namespace Solution.Controllers
 {
     public class HomeController : Controller
     {
-        //Db connection
+        //Db connection 
         private SFI_DBEntities db = new SFI_DBEntities();
 
         public ActionResult Index()
@@ -24,78 +24,81 @@ namespace Solution.Controllers
 
         public ActionResult Category(string segment)
         {
-            int id = int.Parse(segment);
-            var viewCategory = (from c in db.Categories
-                                join s in db.Segments
-                                on c.Segment_ID equals s.ID
-                                where c.Segment_ID == id
-                                select new JoinModelCategory {categories = c, segment = s }
-                ).ToList();
-            if (viewCategory.Count > 0)
+            try
             {
+                int id = int.Parse(segment);
+                var viewCategory = (from c in db.Categories
+                                    join s in db.Segments
+                                    on c.Segment_ID equals s.ID
+                                    where c.Segment_ID == id
+                                    select new JoinModelCategory { categories = c, segment = s }).ToList();
+
                 return View(viewCategory);
             }
-            else
+            catch (Exception)
             {
-                return RedirectToAction("Index", "Home");
+
+                return RedirectToAction("Error", "Home");
             }
         }
         //View all assignments
         public ActionResult Assignment(string category)
         {
-            int id = int.Parse(category);
-            //Gets all assignmets
-            var getAssignments = (from a in db.Assignments
-                                where a.Categories_ID == id
-                                select a).ToList();
-            if (getAssignments.Count > 0)
-            {
-                foreach (var item in getAssignments)
+            try { 
+                int id = int.Parse(category);
+                //Gets all assignmets
+                var getAssignments = (from a in db.Assignments
+                                    where a.Categories_ID == id
+                                    select a).ToList();
+                if (getAssignments.Count > 0)
                 {
-                    if (item.Answer_One != null)
+                    foreach (var item in getAssignments)
                     {
-                        item.Answer_One = Regex.Replace(item.Answer_One, @"\(", "<span style=\"text-decoration: underline; text-decoration-color: red;\">");
-                        item.Answer_One = Regex.Replace(item.Answer_One, @"\)", "</span>");
+                        if (item.Answer_One != null)
+                        {
+                            item.Answer_One = Regex.Replace(item.Answer_One, @"\(", "<span style=\"text-decoration: underline; text-decoration-color: red;\">");
+                            item.Answer_One = Regex.Replace(item.Answer_One, @"\)", "</span>");
+                        }
+                        if (item.Answer_Two != null)
+                        {
+                            item.Answer_Two = Regex.Replace(item.Answer_Two, @"\(", "<span style=\"text-decoration: underline; text-decoration-color: red;\">");
+                            item.Answer_Two = Regex.Replace(item.Answer_Two, @"\)", "</span>");
+                        }
+                        if (item.Answer_Three != null)
+                        {
+                            item.Answer_Three = Regex.Replace(item.Answer_Three, @"\(", "<span style=\"text-decoration: underline; text-decoration-color: red;\">");
+                            item.Answer_Three = Regex.Replace(item.Answer_Three, @"\)", "</span>");
+                        }
+                        if (item.Answer_Four != null)
+                        {
+                            item.Answer_Four = Regex.Replace(item.Answer_Four, @"\(", "<span style=\"text-decoration: underline; text-decoration-color: red;\">");
+                            item.Answer_Four = Regex.Replace(item.Answer_Four, @"\)", "</span>");
+                        }
+                        if (item.Answer_Five != null)
+                        {
+                            item.Answer_Five = Regex.Replace(item.Answer_Five, @"\(", "<span style=\"text-decoration: underline; text-decoration-color: red;\">");
+                            item.Answer_Five = Regex.Replace(item.Answer_Five, @"\)", "</span>");
+                        }
+                        if (item.Answer_Six != null)
+                        {
+                            item.Answer_Six = Regex.Replace(item.Answer_Six, @"\(", "<span style=\"text-decoration: underline; text-decoration-color: red;\">");
+                            item.Answer_Six = Regex.Replace(item.Answer_Six, @"\)", "</span>");
+                        }
+                        if (item.Correct_Answer != null)
+                        {
+                            item.Correct_Answer = Regex.Replace(item.Correct_Answer, @"\(", "<span style=\"text-decoration: underline; text-decoration-color: red;\">");
+                            item.Correct_Answer = Regex.Replace(item.Correct_Answer, @"\)", "</span>");
+                        }
                     }
-                    if (item.Answer_Two != null)
-                    {
-                        item.Answer_Two = Regex.Replace(item.Answer_Two, @"\(", "<span style=\"text-decoration: underline; text-decoration-color: red;\">");
-                        item.Answer_Two = Regex.Replace(item.Answer_Two, @"\)", "</span>");
-                    }
-                    if (item.Answer_Three != null)
-                    {
-                        item.Answer_Three = Regex.Replace(item.Answer_Three, @"\(", "<span style=\"text-decoration: underline; text-decoration-color: red;\">");
-                        item.Answer_Three = Regex.Replace(item.Answer_Three, @"\)", "</span>");
-                    }
-                    if (item.Answer_Four != null)
-                    {
-                        item.Answer_Four = Regex.Replace(item.Answer_Four, @"\(", "<span style=\"text-decoration: underline; text-decoration-color: red;\">");
-                        item.Answer_Four = Regex.Replace(item.Answer_Four, @"\)", "</span>");
-                    }
-                    if (item.Answer_Five != null)
-                    {
-                        item.Answer_Five = Regex.Replace(item.Answer_Five, @"\(", "<span style=\"text-decoration: underline; text-decoration-color: red;\">");
-                        item.Answer_Five = Regex.Replace(item.Answer_Five, @"\)", "</span>");
-                    }
-                    if (item.Answer_Six != null)
-                    {
-                        item.Answer_Six = Regex.Replace(item.Answer_Six, @"\(", "<span style=\"text-decoration: underline; text-decoration-color: red;\">");
-                        item.Answer_Six = Regex.Replace(item.Answer_Six, @"\)", "</span>");
-                    }
-                    if (item.Correct_Answer != null)
-                    {
-                        item.Correct_Answer = Regex.Replace(item.Correct_Answer, @"\(", "<span style=\"text-decoration: underline; text-decoration-color: red;\">");
-                        item.Correct_Answer = Regex.Replace(item.Correct_Answer, @"\)", "</span>");
-                    }
+                    return View(getAssignments);
                 }
-                return View(getAssignments);
             }
-            else
+            catch
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Error", "Home");
             }
         }
-        //Just return view of error 
+        //Just return view of error for global
         public ActionResult Error()
         {
             return View();
