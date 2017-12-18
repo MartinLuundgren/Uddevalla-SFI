@@ -5,20 +5,16 @@
 <head>
     <link href="~/navbar.css" rel="stylesheet" />
 </head>
-<div class="navbar-fixed-top" style="position:fixed; top: 0; left: 0; right: 0; z-index:4">
-    <ul>
-        <li style="font-size:17px">@Html.ActionLink("Tillbaka till start", "Index", "Home")</li>
-    </ul>
-</div>
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="@Url.Action("Index", "Home")">Startsida</a>
+</nav>
+<br />
 <br />
 <div class="embed-responsive embed-responsive-16by9">
     <iframe class="embed-responsive-item" src="@Model.First().segment.URL"></iframe>
 </div>
 <br />
-@*@foreach (var item in Model)
-{
-    <button class="btn btn-block btn-lg btn-primary" onclick="location.href='@Url.Action("Assignment", "Home")'" >@item.categories.Name</button>
-}*@
+
 @using (Html.BeginForm("Assignment", "Home", FormMethod.Post))
 {
     foreach (var item in Model)

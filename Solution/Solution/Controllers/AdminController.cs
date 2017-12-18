@@ -46,6 +46,7 @@ namespace Solution.Controllers
         
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult newSegment(Segment segment)
         {
             if (ModelState.IsValid)
