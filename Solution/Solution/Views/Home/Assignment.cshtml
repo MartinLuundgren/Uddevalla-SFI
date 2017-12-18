@@ -9,12 +9,8 @@
 <head>
     <title>Assignment</title>
     <link rel="stylesheet" href="css/main.css">
-    <link href="~/navbar.css" rel="stylesheet" />
     <link href="~/Quiz.css" rel="stylesheet" />
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <!--##########  SCRIPT FÖR FRÅGEKARUSELL  ###########-->
     <script>
@@ -86,105 +82,35 @@
             dots[slideIndex - 1].className += " active";
         }
     </script>
-    <!--##########  SCRIPT FÖR LJUDKARUSELL  ##########-->
-
-
-
-    <!-- #########   SCRIPT FÖR SCROLLEN     ########## -->
-
+    <!--##########  SCRIPT FÖR SCROLLEN  ##########-->
     <script>
-        $(document).ready(function () {
-
+        $(document).ready(function (){
             $('a[href^="#"]').on('click', function (e) {
                 e.preventDefault();
-
                 var target = this.hash;
                 var $target = $(target);
-
-                //Scroll and show hash
-                //$('html, body').animate({
-                //'scrollTop': $target.offset().top
-                //}, 1000, 'swing', function () {
-                //	window.location.hash = target;
-
-                //Scroll and don't show hash
                 $('html, body').animate({
                     'scrollTop': $target.offset().top
-                }, 1000, 'swing');
-
-                //});
-            });
-        });
-
+                }, 1000, 'sving');
+            })  
+        })
     </script>
-    <!-- ########### SCRIPT FÖR SCROLL ###############-->
-
-    <script>
-          $(document).ready(function () {
-
-              $('a[href^="#"]').on('click', function (e) {
-                  e.preventDefault();
-
-                  var target = this.hash;
-                  var $target = $(target);
-
-                  //Scroll and show hash
-                  //$('html, body').animate({
-                  //'scrollTop': $target.offset().top
-                  //}, 1000, 'swing', function () {
-                  //	window.location.hash = target;
-
-                  //Scroll and don't show hash
-                  $('html, body').animate({
-                      'scrollTop': $target.offset().top
-                  }, 1000, 'swing');
-
-                  //});
-              });
-          });
-
-    </script>
-
-    <!-- ########### SCRIPT FÖR SCROLL ###############-->
-
-
     <style>
         hr.style1 {
             border-top: 1px solid #8c8b8b;
         }
-
-
     </style>
-
-    <link href="~/navbar.css" rel="stylesheet" />
 </head>
 <body style="text-align:center">
-    <div class="navbar-fixed-top" style="position:fixed; top: 0; left: 0; right: 0; z-index:4">
-        <ul>
-            <li style="font-size:17px">@Html.ActionLink("Tillbaka till start", "Index", "Home")</li>
-            <li style="font-size:17px"><a href="javascript:void(0);" onclick="history.go(-1);">Fler kategorier</a></li>
-            <li><a href="#First">Göra</a></li>
-            <li><a href="#Second">Höra</a></li>
-        </ul>
-    </div>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="@Url.Action("Index", "Home")">Startsida</a>
+        <a class="navbar-brand" href="javascript:void(0);" onclick="history.go(-1);">Fler kategorier</a>
+        <a class="navbar-brand" href="#first">Göra</a>
+        <a class="navbar-brand" href="#second">Höra</a>
+    </nav>
     <br />
-    <!-- Kommentera tillbaka divarna så hamnar knapparna i toppmenyn, dock i mitten och i fel färg -->
-     <!--<div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <div style="float:left">
-                    @Html.ActionLink("Startsida", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                </div>
-            </div>
-        </div>
-    </div>
-    <br />-->
-   
-        
-    <div class="container-fluid bg-1 text-center animated fadeInUp" id="First">
-
-        <br />
-        <br />
+    <br />
+    <div class="container-fluid bg-1 text-center animated fadeInUp" id="first">
         <div class="card text-center border: 25px">
             <div class="card-block">
                 <div class="slideshow-container">
@@ -254,16 +180,8 @@
                 </div>
             </div>
         </div>
-        </div>
-    <div id="Second"></div>
+    </div>
     <br />
-    <br />
-    <br />
-    <br />
-        <br />
-
-    
-    <div class="container-fluid bg-1 text-center animated fadeInUp"></div>
         <div class="card text-center">
             <br />
             <div style="text-align:center">
@@ -274,8 +192,8 @@
                 }
                 <a style="cursor:pointer" onclick="plusSlides(1)">&#10095;</a>
                 <!--<span class="dot" onclick="currentSlide(1)"></span>
-                <span class="dot" onclick="currentSlide(2)"></span>
-                <span class="dot" onclick="currentSlide(3)"></span>-->
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>-->
             </div>
 
             <div class="card-block">
@@ -284,8 +202,6 @@
                     @foreach (var item in Model.Where(i => i.Assignment_Type == "Höra"))
             {
                 <!-- Slideshow container -->
-
-
                     <!-- Full-width images with number and caption text -->
                         <div class="mySlides">
                             <p>Jämför:</p>
@@ -293,18 +209,16 @@
                                 <source src="~/Uploads/@item.Audio_File" />
                             </audio>
                             <br />
-                            <button class="showHelpText">Visa hjälptext</button>
+                            <button class="showHelpText">Visa</button>
                             <p class="helpText" style="display:none">
                                 @Html.Raw(@item.Correct_Answer)
                             </p>
-
                         </div>
-
                     }
                     <br />
                 </div>
 
-           
+            </div>
 
 
             <!-- Nya start -->
@@ -315,11 +229,6 @@
                         <p style="text-align:center">
                             <input type="image" src="~/Content/img/record.jpg" alt="Submit" id="startRecord" width="48" height="48" style="display:block; margin:auto">
                             <input type="image" src="~/Content/img/stoprecord.jpg" alt="Submit" id="stopRecord" width="48" height="48" style="display:none; margin:auto">
-
-                            <!--Martin Lundgrens knappar-->
-                            <!--Nackdelen med bildknapparna är att det inte syns vilken knapp som har tryckts på-->
-                            <!--<button type="button" class="btn btn-success" id=startRecord>start</button>-->
-                            <!--<button type="button" class="btn btn-danger" id=stopRecord disabled>stop</button>-->
                         </p>
                         <p>Din inspelning:</p>
                         <audio id=recordedAudio style="max-width:250px"></audio>
@@ -329,83 +238,6 @@
             </div>
             <!-- Nya slut-->
         </div>
-    </div>
-
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-
-
-
-        <!--<br />
-
-
-        <br />
-        <br />
-
-        <div class="card text-center">
-            <div class="card-block">
-                <div>
-                    <h3>Spela in dig själv och jämför</h3>
-                    <p>
-                        <input type="image" src="~/Content/img/record.jpg" alt="Submit" id="startRecord" width="48" height="48">
-                        <input type="image" src="~/Content/img/stoprecord.jpg" alt="Submit" id="stopRecord" width="48" height="48">
-
-                        <!--Martin Lundgrens knappar-->
-        <!--Nackdelen med bildknapparna är att det inte syns vilken knapp som har tryckts på
-                        <!--<button type="button" class="btn btn-success" id=startRecord>start</button>
-                        <!--<button type="button" class="btn btn-danger" id=stopRecord disabled>stop</button>
-                    </p>
-                    <p>Din inspelning:</p>
-                    <audio id=recordedAudio></audio>
-                </div>
-
-                <hr class="style1">
-
-                <div>
-
-                    <p>Jämför:</p>
-                    <audio controls="controls">
-                        <source src="~/syr.wav" />
-                    </audio>
-
-                </div>
-                <div class="container">
-                    <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#syr">Visa ord</button>
-                    <div id="syr" class="collapse">
-                        <br />
-                        <p>"Syr"</p>
-                    </div>
-                    <br />
-                </div>
-            </div>
-        </div>
-
-        <br />
-        <br />-->
 </body>
 </html>
 
@@ -442,8 +274,6 @@ rec.stop();
 }
 </script>
 
-
-
 <!-- ######## SPELA IN LJUD  #######-->
 <!---->
 <!-- ######## QUIZ CHANGE COLOR  #######-->
@@ -476,10 +306,10 @@ rec.stop();
         $(".showHelpText").click(function () {
             $(".helpText").toggle();
             if ($('.helpText').css('display') == 'block'){
-                $(".showHelpText").text('Dölj hjälptext');
+                $(".showHelpText").text('Dölj');
             }
             else {
-                $(".showHelpText").text('Visa hjälptext');
+                $(".showHelpText").text('Visa');
             }
         });
     });
@@ -503,6 +333,3 @@ rec.stop();
     });
 </script>
 <!--##########  Visa/dölj hjälptext ###### -->
-
-
-
