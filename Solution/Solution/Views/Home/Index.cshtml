@@ -2,14 +2,9 @@
 @{
     ViewBag.Title = "Index";
 }
-<head>
-    <link href="~/navbar.css" rel="stylesheet" />
-</head>
-    <div class="navbar bg-primary" style="position:fixed; top: 0; left: 0; right: 0; z-index:4;">
-            <ul>
-                <li style="font-size:20px">@Html.ActionLink("Uttal för alla", "Index", "Home")</li>
-            </ul>
-    </div>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">Uttal för alla</a>
+    </nav>
     <br />
     @using (Html.BeginForm("Category", "Home", FormMethod.Post))
     {
