@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="css/main.css">
     <link href="~/Quiz.css" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
 
     <!--##########  SCRIPT FÖR FRÅGEKARUSELL  ###########-->
     <script>
@@ -91,7 +94,7 @@
                 var $target = $(target);
                 $('html, body').animate({
                     'scrollTop': $target.offset().top
-                }, 1000, 'sving');
+                }, 1000, 'swing');
             })  
         })
     </script>
@@ -110,7 +113,14 @@
     </nav>
     <br />
     <br />
-    <div class="container-fluid bg-1 text-center animated fadeInUp" id="first">
+
+    <div class="container-fluid" id="first">
+        <br />
+        <br />
+        <br />
+        <br />
+    <h1 class="revealOnScroll" data-animation="fadeInUp"></h1>
+        <h3>Klicka på rätt ord</h3>
         <div class="card text-center border: 25px">
             <div class="card-block">
                 <div class="slideshow-container">
@@ -127,7 +137,7 @@
                         <span class="dot" onclick="currentSlide(2)"></span>
                         <span class="dot" onclick="currentSlide(3)"></span>-->
                     </div>
-                    <h3>Klicka på rätt ord</h3>
+                    
                     @foreach (var item in Model.Where(i => i.Assignment_Type == "Göra"))
                     {
                         <div class="myQuestions">
@@ -182,6 +192,11 @@
         </div>
     </div>
     <br />
+    <br />
+    <br />
+    <br />
+    <div class="container-fluid" id="second"></div>
+    <h3>Spela in dig själv och jämför</h3>
         <div class="card text-center">
             <br />
             <div style="text-align:center">
@@ -198,7 +213,7 @@
 
             <div class="card-block">
                 <div class="slideshow-container">
-                    <h3>Spela in dig själv och jämför</h3>
+                    
                     @foreach (var item in Model.Where(i => i.Assignment_Type == "Höra"))
             {
                 <!-- Slideshow container -->
@@ -287,6 +302,7 @@ rec.stop();
                 $('label').removeClass('worngans')
                 $('label').removeClass('worngans2')
                 $(this).addClass('worngans2');
+                plusQuestions(1);
             }
             else
             {
