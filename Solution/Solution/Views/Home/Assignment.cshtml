@@ -88,6 +88,66 @@
     </script>
     <!--##########  SCRIPT FÖR LJUDKARUSELL  ##########-->
 
+
+
+    <!-- #########   SCRIPT FÖR SCROLLEN     ########## -->
+
+    <script>
+        $(document).ready(function () {
+
+            $('a[href^="#"]').on('click', function (e) {
+                e.preventDefault();
+
+                var target = this.hash;
+                var $target = $(target);
+
+                //Scroll and show hash
+                //$('html, body').animate({
+                //'scrollTop': $target.offset().top
+                //}, 1000, 'swing', function () {
+                //	window.location.hash = target;
+
+                //Scroll and don't show hash
+                $('html, body').animate({
+                    'scrollTop': $target.offset().top
+                }, 1000, 'swing');
+
+                //});
+            });
+        });
+
+    </script>
+    <!-- ########### SCRIPT FÖR SCROLL ###############-->
+
+    <script>
+          $(document).ready(function () {
+
+              $('a[href^="#"]').on('click', function (e) {
+                  e.preventDefault();
+
+                  var target = this.hash;
+                  var $target = $(target);
+
+                  //Scroll and show hash
+                  //$('html, body').animate({
+                  //'scrollTop': $target.offset().top
+                  //}, 1000, 'swing', function () {
+                  //	window.location.hash = target;
+
+                  //Scroll and don't show hash
+                  $('html, body').animate({
+                      'scrollTop': $target.offset().top
+                  }, 1000, 'swing');
+
+                  //});
+              });
+          });
+
+    </script>
+
+    <!-- ########### SCRIPT FÖR SCROLL ###############-->
+
+
     <style>
         hr.style1 {
             border-top: 1px solid #8c8b8b;
@@ -103,6 +163,8 @@
         <ul>
             <li style="font-size:17px">@Html.ActionLink("Tillbaka till start", "Index", "Home")</li>
             <li style="font-size:17px"><a href="javascript:void(0);" onclick="history.go(-1);">Fler kategorier</a></li>
+            <li><a href="#First">Göra</a></li>
+            <li><a href="#Second">Höra</a></li>
         </ul>
     </div>
     <br />
@@ -117,7 +179,12 @@
         </div>
     </div>
     <br />-->
-    
+   
+        
+    <div class="container-fluid bg-1 text-center animated fadeInUp" id="First">
+
+        <br />
+        <br />
         <div class="card text-center border: 25px">
             <div class="card-block">
                 <div class="slideshow-container">
@@ -131,8 +198,8 @@
                         <a style="cursor:pointer" onclick="plusQuestions(1)">&#10095;</a>
                         <!-- Operation failed -->
                         <!--<span class="dot" onclick="currentSlide(1)"></span>
-        <span class="dot" onclick="currentSlide(2)"></span>
-        <span class="dot" onclick="currentSlide(3)"></span>-->
+                        <span class="dot" onclick="currentSlide(2)"></span>
+                        <span class="dot" onclick="currentSlide(3)"></span>-->
                     </div>
                     <h3>Klicka på rätt ord</h3>
                     @foreach (var item in Model.Where(i => i.Assignment_Type == "Göra"))
@@ -187,7 +254,16 @@
                 </div>
             </div>
         </div>
+        </div>
+    <div id="Second"></div>
     <br />
+    <br />
+    <br />
+    <br />
+        <br />
+
+    
+    <div class="container-fluid bg-1 text-center animated fadeInUp"></div>
         <div class="card text-center">
             <br />
             <div style="text-align:center">
@@ -198,8 +274,8 @@
                 }
                 <a style="cursor:pointer" onclick="plusSlides(1)">&#10095;</a>
                 <!--<span class="dot" onclick="currentSlide(1)"></span>
-        <span class="dot" onclick="currentSlide(2)"></span>
-        <span class="dot" onclick="currentSlide(3)"></span>-->
+                <span class="dot" onclick="currentSlide(2)"></span>
+                <span class="dot" onclick="currentSlide(3)"></span>-->
             </div>
 
             <div class="card-block">
@@ -228,7 +304,7 @@
                     <br />
                 </div>
 
-            </div>
+           
 
 
             <!-- Nya start -->
@@ -253,8 +329,34 @@
             </div>
             <!-- Nya slut-->
         </div>
+    </div>
 
-
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
 
 
 

@@ -49,7 +49,9 @@ namespace Solution.Controllers
         {
             try { 
                 int id = int.Parse(category);
-                //Gets all assignmets
+                //Gets all assignmets 
+                //
+                //
                 var getAssignments = (from a in db.Assignments
                                     where a.Categories_ID == id
                                     select a).ToList();
