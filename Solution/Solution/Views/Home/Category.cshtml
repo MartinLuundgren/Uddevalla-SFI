@@ -2,6 +2,15 @@
 @{
     ViewBag.Title = "Category";
 }
+<head>
+    <link href="~/navbar.css" rel="stylesheet" />
+</head>
+<div class="navbar-fixed-top" style="position:fixed; top: 0; left: 0; right: 0; z-index:4">
+    <ul>
+        <li style="font-size:17px">@Html.ActionLink("Tillbaka till start", "Index", "Home")</li>
+    </ul>
+</div>
+<br />
 <div class="embed-responsive embed-responsive-16by9">
     <iframe class="embed-responsive-item" src="@Model.First().segment.URL"></iframe>
 </div>

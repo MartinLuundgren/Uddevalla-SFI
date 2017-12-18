@@ -19,18 +19,15 @@
 <head>
     <link href="~/navbar.css" rel="stylesheet" />
 </head>
-<div class="navbar-static-top">
+<div class="navbar-fixed-top" style="position:fixed; top: 0; left: 0; right: 0; z-index:2">
     <ul>
         <li>@Html.ActionLink("Segment", "newSegment", "Admin")</li>
-        <li>@Html.ActionLink("Kategorier", "newCategory", "Admin")</li>
+        <li style="background-color: #111">@Html.ActionLink("Kategorier", "newCategory", "Admin")</li>
         <li>@Html.ActionLink("Uppgifter", "newAssignment", "Admin")</li>
-    </ul>
-
-    <!--HATAR NAVBAREN-->
-    <ul class="nav navbar-nav navbar-right">
-        <li>>@Html.ActionLink("Logga ut", "Index", "Login")</li>
+        <li style="float:right">@Html.ActionLink("Logga ut", "Index", "Login")</li>
     </ul>
 </div>
+<br />
 <h2>Lägg till ny kategori</h2>
 
 

@@ -2,11 +2,19 @@
 @{
     ViewBag.Title = "Index";
 }
-
-@using (Html.BeginForm("Category", "Home", FormMethod.Post))
-{
-    foreach (var item in Model)
+<head>
+    <link href="~/navbar.css" rel="stylesheet" />
+</head>
+    <div class="topmenu" style="position:fixed; top: 0; left: 0; right: 0; z-index:4;">
+            <ul>
+                <li style="font-size:20px">@Html.ActionLink("Uttal för alla", "Index", "Home")</li>
+            </ul>
+    </div>
+    <br />
+    @using (Html.BeginForm("Category", "Home", FormMethod.Post))
     {
-        <button class="btn btn-block btn-lg btn-primary" name="segment" value="@item.ID">@item.Name</button>
+        foreach (var item in Model)
+        {
+            <button class="btn btn-block btn-lg btn-primary" name="segment" value="@item.ID">@item.Name</button>
+        }
     }
-}

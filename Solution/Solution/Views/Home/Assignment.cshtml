@@ -55,8 +55,8 @@
     <!--##########  SCRIPT FÖR LJUDKARUSELL  ##########-->
     <script>
         window.onload = function () {
-            showSlides(1);
             showQuestions(1);
+            showSlides(1);
         };
         var slideIndex = 1;
         showSlides(slideIndex);
@@ -96,30 +96,39 @@
 
     </style>
 
-
+    <link href="~/navbar.css" rel="stylesheet" />
 </head>
-<body>
+<body style="text-align:center">
+    <div class="navbar-fixed-top" style="position:fixed; top: 0; left: 0; right: 0; z-index:4">
+        <ul>
+            <li style="font-size:17px">@Html.ActionLink("Tillbaka till start", "Index", "Home")</li>
+            <li style="font-size:17px"><a href="javascript:void(0);" onclick="history.go(-1);">Fler kategorier</a></li>
+        </ul>
+    </div>
+    <br />
     <!-- Kommentera tillbaka divarna så hamnar knapparna i toppmenyn, dock i mitten och i fel färg -->
-     <div class="navbar navbar-inverse navbar-fixed-top">
+     <!--<div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <div style="text-align:left">
+                <div style="float:left">
                     @Html.ActionLink("Startsida", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 </div>
             </div>
         </div>
     </div>
-    <br />
+    <br />-->
     
         <div class="card text-center border: 25px">
             <div class="card-block">
                 <div class="slideshow-container">
                     <br />
-                    <div style="text-align:center">
+                    <div>
+                        <a style="cursor:pointer; margin-right:8px" onclick="plusQuestions(-1)">&#10094;</a>
                         @for (var i = 1; i < Model.Where(m => m.Assignment_Type == "Göra").Count() + 1; i++)
                         {
-                            <span class="dotQuestion" style="height:25px; width:25px;" onclick="currentQuestion(@i)"></span>
+                            <span class="dotQuestion" style="height:25px; width:25px; border-radius:0; margin-left:-7px;" onclick="currentQuestion(@i)"><span style="color:white; font-size:18px">@i</span></span>
                         }
+                        <a style="cursor:pointer" onclick="plusQuestions(1)">&#10095;</a>
                         <!-- Operation failed -->
                         <!--<span class="dot" onclick="currentSlide(1)"></span>
         <span class="dot" onclick="currentSlide(2)"></span>
@@ -153,7 +162,7 @@
                                     @if (item.Answer_Three != null)
                 {
                                         <input type="radio" value="@item.Answer_Three" class="answer">
-                                        <label for="@item.Answer_Three" class="answer" value="@item.Correct_Answer">@item.Answer_Three</label><br />
+                                        <label for="@item.Answer_Three" class="answer" value="@item.Correct_Answer">@Html.Raw(@item.Answer_Three)</label><br />
                                     }
                                     @if (item.Answer_Four != null)
                 {
@@ -178,30 +187,24 @@
                 </div>
             </div>
         </div>
-
+    <br />
         <div class="card text-center">
-            <div class="card-block">
-                <div>
-                    <h3>Spela in dig själv och jämför</h3>
-                    <p style="text-align:center">
-                        <input type="image" src="~/Content/img/record.jpg" alt="Submit" id="startRecord" width="48" height="48" style="display:block; margin:auto">
-                        <input type="image" src="~/Content/img/stoprecord.jpg" alt="Submit" id="stopRecord" width="48" height="48" style="display:none; margin:auto">
-
-                        <!--Martin Lundgrens knappar-->
-                        <!--Nackdelen med bildknapparna är att det inte syns vilken knapp som har tryckts på-->
-                        <!--<button type="button" class="btn btn-success" id=startRecord>start</button>-->
-                        <!--<button type="button" class="btn btn-danger" id=stopRecord disabled>stop</button>-->
-                    </p>
-                    <p>Din inspelning:</p>
-                    <audio id=recordedAudio style="max-width:250px"></audio>
-                </div>
-                <br />
+            <br />
+            <div style="text-align:center">
+                <a style="cursor:pointer; margin-right:8px" onclick="plusSlides(-1)">&#10094;</a>
+                @for (var i = 1; i < Model.Where(m => m.Assignment_Type == "Höra").Count() + 1; i++)
+                {
+                    <span class="dot" style="height:25px; width:25px; border-radius:0; margin-left:-7px;" onclick="currentSlide(@i)"><span style="color:white; font-size:18px">@i</span></span>
+                }
+                <a style="cursor:pointer" onclick="plusSlides(1)">&#10095;</a>
+                <!--<span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>-->
             </div>
-        </div>
-        <div class="card text-center">
+
             <div class="card-block">
                 <div class="slideshow-container">
-                    <br />
+                    <h3>Spela in dig själv och jämför</h3>
                     @foreach (var item in Model.Where(i => i.Assignment_Type == "Höra"))
             {
                 <!-- Slideshow container -->
@@ -226,22 +229,29 @@
                 </div>
 
             </div>
-            <!-- Next and previous buttons
-            <a class="prev" onclick="plusSlides(-1)" style="margin-top:22px">&#10094;</a>
-            <a class="next" onclick="plusSlides(1)" style="margin-top:22px">&#10095;</a> -->
 
-            <div style="text-align:center">
-                @for (var i = 1; i < Model.Where(m => m.Assignment_Type == "Höra").Count() + 1; i++)
-                {
-                    <span class="dot" style="height:25px; width:25px;" onclick="currentSlide(@i)"></span>
-                }
 
-                <!--<span class="dot" onclick="currentSlide(1)"></span>
-                <span class="dot" onclick="currentSlide(2)"></span>
-                <span class="dot" onclick="currentSlide(3)"></span>-->
+            <!-- Nya start -->
+            <div class="card text-center">
+                <div class="card-block">
+                    <div>
+                        <br />
+                        <p style="text-align:center">
+                            <input type="image" src="~/Content/img/record.jpg" alt="Submit" id="startRecord" width="48" height="48" style="display:block; margin:auto">
+                            <input type="image" src="~/Content/img/stoprecord.jpg" alt="Submit" id="stopRecord" width="48" height="48" style="display:none; margin:auto">
+
+                            <!--Martin Lundgrens knappar-->
+                            <!--Nackdelen med bildknapparna är att det inte syns vilken knapp som har tryckts på-->
+                            <!--<button type="button" class="btn btn-success" id=startRecord>start</button>-->
+                            <!--<button type="button" class="btn btn-danger" id=stopRecord disabled>stop</button>-->
+                        </p>
+                        <p>Din inspelning:</p>
+                        <audio id=recordedAudio style="max-width:250px"></audio>
+                    </div>
+                    <br />
+                </div>
             </div>
-
-            <br />
+            <!-- Nya slut-->
         </div>
 
 
