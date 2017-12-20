@@ -18,6 +18,7 @@ namespace Solution.Controllers
         private SFI_DBEntities db = new SFI_DBEntities();
         
         // GET: Admin
+        // test
         public ActionResult Index()
         {
             //Check to see if the user is logged in
