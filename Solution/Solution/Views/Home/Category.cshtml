@@ -2,14 +2,20 @@
 @{
     ViewBag.Title = "Category";
 }
-<div class="embed-responsive embed-responsive-16by9">
-    <iframe class="embed-responsive-item" src="@Model.First().segment.URL"></iframe>
-</div>
+<!-- Kommetnar -->
+<head>
+    <link href="~/navbar.css" rel="stylesheet" />
+</head>
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="@Url.Action("Index", "Home")">Startsida</a>
+</nav>
 <br />
-@*@foreach (var item in Model)
-{
-    <button class="btn btn-block btn-lg btn-primary" onclick="location.href='@Url.Action("Assignment", "Home")'" >@item.categories.Name</button>
-}*@
+<br />
+    <div class="embed-responsive embed-responsive-16by9" style="max-width:700px; margin:0 auto">
+        <iframe class="embed-responsive-item" src="@Model.First().segment.URL"></iframe>
+    </div>
+<br />
+
 @using (Html.BeginForm("Assignment", "Home", FormMethod.Post))
 {
     foreach (var item in Model)

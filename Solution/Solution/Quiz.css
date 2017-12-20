@@ -86,11 +86,11 @@ input[type=radio] {
 /* Next & previous buttons */
 .prev, .next {
     cursor: pointer;
-    position: absolute;
+    /*position: absolute;*/
     top: 100%;
     width: 100%;
-    margin-top: -22px;
-    padding: 16px;
+    /*margin-top: -22px;
+    padding: 16px;*/
     color: white;
     font-weight: bold;
     font-size: 18px;
@@ -100,7 +100,7 @@ input[type=radio] {
 
 /* Position the "prev button" to the left */
 .prev {
-    left: -200px;
+    left: 0;
     border-radius: 3px 0 0 3px;
 }
 
