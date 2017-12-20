@@ -11,6 +11,8 @@ namespace Solution.Controllers
     public class HomeController : Controller
     {
         //Db connection 
+        //
+        //
         private SFI_DBEntities db = new SFI_DBEntities();
 
         public ActionResult Index()
