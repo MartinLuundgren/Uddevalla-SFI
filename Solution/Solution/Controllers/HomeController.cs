@@ -12,6 +12,7 @@ namespace Solution.Controllers
     {
         //Db connection 
         //
+        //
         private SFI_DBEntities db = new SFI_DBEntities();
 
         public ActionResult Index()
