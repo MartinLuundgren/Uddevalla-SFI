@@ -16,10 +16,10 @@
     </div>
 <br />
 
-@using (Html.BeginForm("Assignment", "Home", FormMethod.Post))
+@using (Html.BeginForm("SubCategory", "Home", FormMethod.Post))
 {
     foreach (var item in Model)
     {
-        <button class="btn btn-block btn-lg btn-primary" name="category" value="@item.categories.ID">@item.categories.Name</button>
+        <button class="btn btn-block btn-lg btn-primary" name="category" value="@item.categories.Id">@item.categories.Name</button>
     }
 }

@@ -9,6 +9,8 @@ namespace Solution.Models
     {
         public string categoryName { get; set; }
         public string segmentName { get; set; }
+        public string subCategoryName { get; set; }
+        public int subCategoryId { get; set; }
         public int categoryID { get; set; }
         public int segmentID { get; set; }
         public string assignmentName { get; set; }

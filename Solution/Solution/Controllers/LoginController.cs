@@ -10,7 +10,7 @@ namespace Solution.Controllers
 {
     public class LoginController : Controller
     {
-        private SFI_DBEntities db = new SFI_DBEntities();
+        private SfiDbEntities db = new SfiDbEntities();
         // GET: Login
         public ActionResult Index()
         {
@@ -26,12 +26,12 @@ namespace Solution.Controllers
                                where userList.Name == login.Name && userList.Password == login.Password
                                select new
                                {
-                                   userList.ID,
+                                   userList.Id,
                                    userList.Name
                                }).ToList();
                 if (details.FirstOrDefault() != null)
                 {
-                    Session["ID"] = details.FirstOrDefault().ID;
+                    Session["ID"] = details.FirstOrDefault().Id;
                     Session["Name"] = details.FirstOrDefault().Name;
                     return RedirectToAction("/Index", "Admin", new { area = "" });
                 }

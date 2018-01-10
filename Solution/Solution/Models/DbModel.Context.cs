@@ -13,10 +13,10 @@ namespace Solution.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class SFI_DBEntities : DbContext
+    public partial class SfiDbEntities : DbContext
     {
-        public SFI_DBEntities()
-            : base("name=SFI_DBEntities")
+        public SfiDbEntities()
+            : base("name=SfiDbEntities")
         {
         }
     
@@ -29,5 +29,7 @@ namespace Solution.Models
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Login> Logins { get; set; }
         public virtual DbSet<Segment> Segments { get; set; }
+        public virtual DbSet<StartPageMovie> StartPageMovies { get; set; }
+        public virtual DbSet<SubCategory> SubCategories { get; set; }
     }
 }

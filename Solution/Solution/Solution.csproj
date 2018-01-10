@@ -128,10 +128,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\SFI_DB.mdf" />
-    <Content Include="App_Data\SFI_DB_log.ldf">
-      <DependentUpon>SFI_DB.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\img\record.jpg" />
@@ -162,6 +158,7 @@
     <Content Include="Models\DbModel.edmx.diagram">
       <DependentUpon>DbModel.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\Ftp.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -174,13 +171,16 @@
     <Content Include="Sol.wav" />
     <Content Include="syr.wav" />
     <Content Include="T_g.wav" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\StartPageMoviesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -208,10 +208,18 @@
     <Compile Include="Models\JoinModel.cs" />
     <Compile Include="Models\JoinModelAssignments.cs" />
     <Compile Include="Models\JoinModelCategory.cs" />
+    <Compile Include="Models\JoinModelIndex.cs" />
+    <Compile Include="Models\JoinModelSubCategory.cs" />
     <Compile Include="Models\Login.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Segment.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StartPageMovie.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SubCategory.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -235,7 +243,6 @@
     <Content Include="Views\Admin\newSegment.cshtml" />
     <Content Include="Views\Admin\newCategory.cshtml" />
     <Content Include="Views\Admin\newAssignment.cshtml" />
-    <Content Include="Views\Admin\LoggedIn.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Admin\EditSegment.cshtml" />
     <Content Include="Views\Admin\DeleteSegment.cshtml" />
@@ -244,6 +251,15 @@
     <Content Include="Views\Admin\EditAssignments.cshtml" />
     <Content Include="Views\Admin\DeleteAssignments.cshtml" />
     <Content Include="Views\Home\Error.cshtml" />
+    <Content Include="Views\Admin\newSubCategory.cshtml" />
+    <Content Include="Views\Admin\EditSubCategory.cshtml" />
+    <Content Include="Views\Admin\DeleteSubCategory.cshtml" />
+    <Content Include="Views\Home\SubCategory.cshtml" />
+    <Content Include="Views\StartPageMovies\Create.cshtml" />
+    <Content Include="Views\StartPageMovies\Delete.cshtml" />
+    <Content Include="Views\StartPageMovies\Details.cshtml" />
+    <Content Include="Views\StartPageMovies\Edit.cshtml" />
+    <Content Include="Views\StartPageMovies\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -251,9 +267,14 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

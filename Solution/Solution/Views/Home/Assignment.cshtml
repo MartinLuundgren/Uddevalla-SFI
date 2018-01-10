@@ -122,17 +122,17 @@
                     <a class="nav-link" href="javascript:void(0);" onclick="history.go(-1);">Fler kategorier <span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#first">Göra</a>
+                    <a class="nav-link" href="#first">Svara rätt</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#second">Höra</a>
+                    <a class="nav-link" href="#second">Spela in</a>
                 </li>
             </ul>
         </div>
     </nav>
     <br />
     <br />
-@if (Model.Where(m => m.Assignment_Type == "Göra").Count() > 1)
+@if (Model.Where(m => m.Assignment_Type == "Svara rätt").Count() > 1)
 {
     <div class="container-fluid" id="first">
         <br />
@@ -140,14 +140,13 @@
         <br />
         <br />
     <h1 class="revealOnScroll" data-animation="fadeInUp"></h1>
-        <h3>Klicka på rätt ord</h3>
         <div class="card text-center border: 25px">
             <div class="card-block">
                 <div class="slideshow-container">
                     <br />
                     <div>
                         <a style="cursor:pointer; margin-right:8px" onclick="plusQuestions(-1)">&#10094;</a>
-                        @for (var i = 1; i < Model.Where(m => m.Assignment_Type == "Göra").Count() + 1; i++)
+                        @for (var i = 1; i < Model.Where(m => m.Assignment_Type == "Svara rätt").Count() + 1; i++)
                         {
                             <span class="dotQuestion" style="height:25px; width:25px; border-radius:0; margin-left:-7px;" onclick="currentQuestion(@i)"><span style="color:white; font-size:18px">@i</span></span>
                         }
@@ -158,7 +157,7 @@
                         <span class="dot" onclick="currentSlide(3)"></span>-->
                     </div>
                     
-                    @foreach (var item in Model.Where(i => i.Assignment_Type == "Göra"))
+                    @foreach (var item in Model.Where(i => i.Assignment_Type == "Svara rätt"))
                     {
                         <div class="myQuestions">
                             <div>
@@ -167,6 +166,7 @@
                                         <source src="~/Uploads/@item.Audio_File" />
                                     </audio>
                                 </p>
+                                <p>@item.Assignment_Title</p>
                             </div>
 
 
@@ -218,32 +218,30 @@
     <br />
     <br />
     <br />
-    @if (Model.Where(m => m.Assignment_Type == "Höra").Count() > 1)
+    @if (Model.Where(m => m.Assignment_Type == "Spela in").Count() > 1)
     {
         <div class="container-fluid" id="second">
-            <h3>Spela in dig själv och jämför</h3>
             <div class="card text-center">
                 <br />
                 <div style="text-align:center">
                     <a style="cursor:pointer; margin-right:8px" onclick="plusSlides(-1)">&#10094;</a>
-                    @for (var i = 1; i < Model.Where(m => m.Assignment_Type == "Höra").Count() + 1; i++)
+                    @for (var i = 1; i < Model.Where(m => m.Assignment_Type == "Spela in").Count() + 1; i++)
                 {
                         <span class="dot" style="height:25px; width:25px; border-radius:0; margin-left:-7px;" onclick="currentSlide(@i)"><span style="color:white; font-size:18px">@i</span></span>
                     }
                     <a style="cursor:pointer" onclick="plusSlides(1)">&#10095;</a>
-                    <!--<span class="dot" onclick="currentSlide(1)"></span>
-                    <span class="dot" onclick="currentSlide(2)"></span>
-                    <span class="dot" onclick="currentSlide(3)"></span>-->
+
                 </div>
 
                 <div class="card-block">
                     <div class="slideshow-container">
 
-                        @foreach (var item in Model.Where(i => i.Assignment_Type == "Höra"))
+                        @foreach (var item in Model.Where(i => i.Assignment_Type == "Spela in"))
                         {
                 <!-- Slideshow container -->
                     <!-- Full-width images with number and caption text -->
                             <div class="mySlides">
+                                <p>@item.Assignment_Title</p>
                                 <p>Jämför:</p>
                                 <audio controls="controls" style="max-width:250px">
                                     <source src="~/Uploads/@item.Audio_File" />

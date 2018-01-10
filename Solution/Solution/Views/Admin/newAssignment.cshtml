@@ -9,7 +9,19 @@
         listItems.Add(new SelectListItem
         {
             Text = item.Name,
-            Value = item.ID.ToString()
+            Value = item.Id.ToString()
+        });
+    }
+
+}
+@{
+    List<SelectListItem> subItems = new List<SelectListItem>();
+    foreach (var item in ViewBag.subCategoryName)
+    {
+        subItems.Add(new SelectListItem
+        {
+            Text = item.Name,
+            Value = item.Id.ToString()
         });
     }
 
@@ -44,6 +56,7 @@
     <ul>
         <li>@Html.ActionLink("Segment", "newSegment", "Admin")</li>
         <li>@Html.ActionLink("Kategorier", "newCategory", "Admin")</li>
+        <li>@Html.ActionLink("Underkategori", "newSubCategory", "Admin")</li>
         <li style="background-color: #111">@Html.ActionLink("Uppgifter", "newAssignment", "Admin")</li>
         <li style="float:right">@Html.ActionLink("Logga ut", "Index", "Login")</li>
     </ul>
@@ -71,6 +84,11 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.SubCategories_ID, subItems, "Välj underkategori")
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
                         <p>Välj ljudfil:</p>
                         <input type="file" name="postedFile" />
                     </div>
@@ -82,18 +100,26 @@
                 <div class="form-group">
                     <div class="col-md-10">
                         <p>Välj typ av uppgift</p>
-                        @Html.RadioButtonFor(model => model.Assignment_Type, "Göra")
-                        <label for="radio1">Göra</label>
+                        @Html.RadioButtonFor(model => model.Assignment_Type, "Svara rätt")
+                        <label for="radio1">Svara rätt</label>
                         <br />
-                        @Html.RadioButtonFor(model => model.Assignment_Type, "Höra")
-                        <label for="radio2">Höra</label>
+                        @Html.RadioButtonFor(model => model.Assignment_Type, "Spela in")
+                        <label for="radio2">Spela in</label>
 
                     </div>
                 </div>
                 <hr />
 
                 <div class="container">
-                    <p>Fyll i rätt svar och svarsalternativ för uppgiften (endast svar för "Höra")</p>
+                    <p>Rubrik för uppgift</p>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <label for="answer_one">Rubrik</label>
+                        </span>
+                        @Html.EditorFor(model => model.Assignment_Title, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Assignment_Title, "", new { @class = "text-danger" })
+                    </div>
+                    <p>Fyll i rätt svar och svarsalternativ för uppgiften (endast svar för "Spela in")</p>
                     <div class="input-group">
                         <span class="input-group-addon">
                             <label for="answer_one">Rätt svar</label>
@@ -161,7 +187,7 @@
         <br />
 
 
-        <table class="table">
+        <table id="myTable" class="table table-striped">
             <tr>
                 <th>
                     Kategori
@@ -171,6 +197,9 @@
                 </th>
                 <th>
                     Uppgiftstyp
+                </th>
+                <th>
+                    Rubrik
                 </th>
                 <th>
                     Rätt svar
@@ -207,6 +236,9 @@
                     </td>
                     <td>
                         @item.assignmentType
+                    </td>
+                    <td>
+                        @item.assignmentTitle
                     </td>
                     <td>
                         @item.assignmentCorrectAnswer

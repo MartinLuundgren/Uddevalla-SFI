@@ -11,7 +11,7 @@
         listItems.Add(new SelectListItem
         {
             Text = item.Name,
-            Value = item.ID.ToString()
+            Value = item.Id.ToString()
     });
 }
 
@@ -23,6 +23,7 @@
     <ul>
         <li>@Html.ActionLink("Segment", "newSegment", "Admin")</li>
         <li style="background-color: #111">@Html.ActionLink("Kategorier", "newCategory", "Admin")</li>
+        <li>@Html.ActionLink("Underkategori", "newSubCategory", "Admin")</li>
         <li>@Html.ActionLink("Uppgifter", "newAssignment", "Admin")</li>
         <li style="float:right">@Html.ActionLink("Logga ut", "Index", "Login")</li>
     </ul>
@@ -59,7 +60,7 @@
         </div>
     </div>
 }
-<table class="table">
+<table class="table table-striped">
     <tr>
         <th>
             Segment <!--@Html.DisplayNameFor(model => model.Segment_ID)-->

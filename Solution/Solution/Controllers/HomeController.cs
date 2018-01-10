@@ -13,10 +13,12 @@ namespace Solution.Controllers
         //Db connection 
         //
         //
-        private SFI_DBEntities db = new SFI_DBEntities();
+        private SfiDbEntities db = new SfiDbEntities();
 
         public ActionResult Index()
         {
+            ViewBag.Url = (from m in db.StartPageMovies
+                            select m.URL).FirstOrDefault();
             var getSegments = (from s in db.Segments
                                orderby s.Name
                                select s).ToList();
@@ -31,7 +33,7 @@ namespace Solution.Controllers
                 int id = int.Parse(segment);
                 var viewCategory = (from c in db.Categories
                                     join s in db.Segments
-                                    on c.Segment_ID equals s.ID
+                                    on c.Segment_ID equals s.Id
                                     where c.Segment_ID == id
                                     select new JoinModelCategory { categories = c, segment = s }).ToList();
                 if (viewCategory.Count() > 0)
@@ -46,17 +48,41 @@ namespace Solution.Controllers
                 return RedirectToAction("Error", "Home");
             }
         }
+
+        //Gå till subkategori-sida
+        public ActionResult SubCategory(string category)
+        {
+            try
+            {
+                int id = int.Parse(category);
+                var viewSubCategory = (from s in db.SubCategories
+                                       where s.Category_ID == id
+                                       select s).ToList();
+                if (viewSubCategory.Count() > 0)
+                {
+                    return View(viewSubCategory);
+                }
+                else if (viewSubCategory.Count() <= 0)
+                {
+                    return RedirectToAction("Assignment", "Home", new { SubCategory = id });
+                }
+
+                return RedirectToAction("Error", "Home");
+            }
+            catch (Exception)
+            {
+
+                return RedirectToAction("Error", "Home");
+            }
+        }
         //View all assignmentss
-        public ActionResult Assignment(string category)
+        public ActionResult Assignment(string SubCategory)
         {
             try { 
-                int id = int.Parse(category);
-                //Gets all assignmets 
-                //
-                //
-                var getAssignments = (from a in db.Assignments
-                                    where a.Categories_ID == id
-                                    select a).ToList();
+                int id = int.Parse(SubCategory);
+                var getAssignments = GetAssignments(id);
+           
+                //var getAssignments = RadomAssignment(id);
                 if (getAssignments.Count() > 0)
                 {
                     foreach (var item in getAssignments)
@@ -112,6 +138,44 @@ namespace Solution.Controllers
         public ActionResult Error()
         {
             return View();
+        }
+        public List<Assignment> GetAssignments(int id)
+        {
+            List<Assignment> getAssignments = new List<Models.Assignment>();
+            var check = (from s in db.Assignments
+                         where s.SubCategories_ID == id
+                         select s.SubCategories_ID).ToList();
+            if (check.Count() == 0)
+            {
+                var getDoing = (from a in db.Assignments
+                                where a.Assignment_Type == "Svara rätt"
+                                && a.Categories_ID == id
+                                orderby Guid.NewGuid()
+                                select a).Take(6).ToList();
+                var getHearing = (from a in db.Assignments
+                                  where a.Assignment_Type == "Spela in"
+                                  && a.Categories_ID == id
+                                  orderby Guid.NewGuid()
+                                  select a).Take(6).ToList();
+                getAssignments.AddRange(getDoing);
+                getAssignments.AddRange(getHearing);
+            }
+            else
+            {
+                var getDoing = (from a in db.Assignments
+                                   where a.Assignment_Type == "Svara rätt"
+                                   && a.SubCategories_ID == id
+                                   orderby Guid.NewGuid()
+                                   select a).Take(6).ToList();
+                var getHearing = (from a in db.Assignments
+                                where a.Assignment_Type == "Spela in"
+                                && a.SubCategories_ID == id
+                                orderby Guid.NewGuid()
+                                select a).Take(6).ToList();
+                getAssignments.AddRange(getDoing);
+                getAssignments.AddRange(getHearing);
+            }
+            return getAssignments;
         }
     }
 }

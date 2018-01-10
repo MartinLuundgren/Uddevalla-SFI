@@ -11,8 +11,7 @@ namespace Solution.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Segment
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,11 +20,8 @@ namespace Solution.Models
             this.Categories = new HashSet<Category>();
         }
     
-        public int ID { get; set; }
-        [Required(ErrorMessage = "Länk kan inte vara tom")]
-        [RegularExpression("^https://www.youtube.com/.*", ErrorMessage = "Måste vara en länk hämtad från youtube ex www.youtube.com")]
+        public int Id { get; set; }
         public string URL { get; set; }
-        [Required(ErrorMessage = "Namn kan inte vara tom")]
         public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

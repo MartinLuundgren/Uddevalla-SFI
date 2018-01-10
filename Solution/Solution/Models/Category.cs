@@ -18,14 +18,17 @@ namespace Solution.Models
         public Category()
         {
             this.Assignments = new HashSet<Assignment>();
+            this.SubCategories = new HashSet<SubCategory>();
         }
     
-        public int ID { get; set; }
+        public int Id { get; set; }
         public int Segment_ID { get; set; }
         public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Assignment> Assignments { get; set; }
         public virtual Segment Segment { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SubCategory> SubCategories { get; set; }
     }
 }

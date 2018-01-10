@@ -15,10 +15,9 @@ namespace Solution.Controllers
     public class AdminController : Controller
     {
         //DB connection
-        private SFI_DBEntities db = new SFI_DBEntities();
+        private SfiDbEntities db = new SfiDbEntities();
         
         // GET: Admin
-        // test
         public ActionResult Index()
         {
             //Check to see if the user is logged in
@@ -32,6 +31,21 @@ namespace Solution.Controllers
             {
                 return RedirectToAction("/Index", "Login", new { area = "" });
             }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index([Bind(Include = "Id,URL")] StartPageMovie startPageMovie)
+        {
+            if (ModelState.IsValid)
+            {
+                startPageMovie.URL = Regex.Replace(startPageMovie.URL, @"watch\W\w\W", "embed/");
+                db.StartPageMovies.Add(startPageMovie);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(startPageMovie);
         }
 
         //New segment
@@ -115,12 +129,18 @@ namespace Solution.Controllers
         public ActionResult DeleteSegment(int id)
         {
             Segment segment = db.Segments.Find(id);
-            var categories = db.Categories.Where(x => x.Segment_ID == segment.ID);
+            var categories = db.Categories.Where(x => x.Segment_ID == segment.Id);
             List<Assignment> assigment = new List<Assignment>();
             foreach (var item in categories)
             {
-                assigment.AddRange(db.Assignments.Where(x => x.Categories_ID == item.ID));
+                assigment.AddRange(db.Assignments.Where(x => x.Categories_ID == item.Id));
             }
+            List<SubCategory> subCategory = new List<SubCategory>();
+            foreach (var item in categories)
+            {
+                subCategory.AddRange(db.SubCategories.Where(x => x.Category_ID == item.Id));
+            }
+            db.SubCategories.RemoveRange(subCategory);
             db.Assignments.RemoveRange(assigment);
             db.Categories.RemoveRange(categories);
             db.Segments.Remove(segment);
@@ -140,8 +160,8 @@ namespace Solution.Controllers
             //Join segmentnamn och motsvarande kategorier för lista i newCategories
             var join = (from c in db.Categories
                         join s in db.Segments
-                        on c.Segment_ID equals s.ID
-                        select new JoinModel { categoryName = c.Name, segmentName = s.Name, categoryID = c.ID, segmentID=s.ID}).ToList();
+                        on c.Segment_ID equals s.Id
+                        select new JoinModel { categoryName = c.Name, segmentName = s.Name, categoryID = c.Id, segmentID=s.Id}).ToList();
             ViewBag.join = join;
             return View();
         }
@@ -214,11 +234,107 @@ namespace Solution.Controllers
         public ActionResult DeleteCategory(int id)
         {
             Category category = db.Categories.Find(id);
-            var assignments = db.Assignments.Where(x => x.Categories_ID == category.ID);
+            var assignments = db.Assignments.Where(x => x.Categories_ID == category.Id);
+            var subCategories = db.SubCategories.Where(x => x.Category_ID == category.Id);
+            db.SubCategories.RemoveRange(subCategories);
             db.Assignments.RemoveRange(assignments);
             db.Categories.Remove(category);
             db.SaveChanges();
             return RedirectToAction("newCategory","Admin");
+        }
+
+
+        public ActionResult NewSubCategory()
+        {
+
+            //Hämta segmentnamn till dopdown i newCategories
+            var categoriesName = (from c in db.Categories
+                               orderby c.Name
+                               select c).ToList();
+            ViewBag.categoriesName = categoriesName;
+
+            //Join segmentnamn och motsvarande kategorier för lista i newCategories
+            var join = (from s in db.SubCategories
+                        join c in db.Categories
+                        on s.Category_ID equals c.Id
+                        select new JoinModel { subCategoryName = s.Name, subCategoryId = s.Id, categoryName = c.Name, categoryID = c.Id}).ToList();
+            ViewBag.join = join;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult NewSubCategory(SubCategory subCategory)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    db.SubCategories.Add(subCategory);
+                    db.SaveChanges();
+                    return RedirectToAction("newSubCategory", "Admin");
+                }
+                //TODO: Add exception, maybe custom error page? 
+                catch (Exception)
+                {
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+            return View();
+        }
+
+        public ActionResult EditSubCategory(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            SubCategory subCategory = db.SubCategories.Find(id);
+            if (subCategory == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.Category_ID = new SelectList(db.Categories, "Id", "Name", subCategory.Category_ID);
+            return View(subCategory);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditSubCategory([Bind(Include = "Id,Category_ID,Name")] SubCategory subCategory)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(subCategory).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("NewSubCategory", "Admin");
+            }
+            ViewBag.Category_ID = new SelectList(db.Categories, "Id", "Name", subCategory.Category_ID);
+            return View(subCategory);
+        }
+
+        public ActionResult DeleteSubCategory(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            SubCategory subCategory = db.SubCategories.Find(id);
+            if (subCategory == null)
+            {
+                return HttpNotFound();
+            }
+            return View(subCategory);
+        }
+
+        [HttpPost, ActionName("DeleteSubCategory")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteSubCategory(int id)
+        {
+            SubCategory subCategory = db.SubCategories.Find(id);
+            var assignments = db.Assignments.Where(x => x.SubCategories_ID == subCategory.Id);
+            db.Assignments.RemoveRange(assignments);
+            db.SubCategories.Remove(subCategory);
+            db.SaveChanges();
+            return RedirectToAction("NewSubCategory", "Admin");
         }
 
 
@@ -234,10 +350,15 @@ namespace Solution.Controllers
                                select s).ToList();
             ViewBag.categoryName = categoryName;
 
+            var subCategoryName = (from s in db.SubCategories
+                                orderby s.Name
+                                select s).ToList();
+            ViewBag.subCategoryName = subCategoryName;
+
             var joinAssignmentsOnCategories = (from a in db.Assignments
                         join c in db.Categories
-                        on a.Categories_ID equals c.ID
-                        select new JoinModelAssignments { categoryName = c.Name, categoryID = c.ID, assignmentID = a.ID, assignmentAudio = a.Audio_File, assignmentType = a.Assignment_Type, assignmentCorrectAnswer = a.Correct_Answer, assignmentAnswerOne = a.Answer_One, assignmentAnswerTwo = a.Answer_Two, assignmentAnswerThree = a.Answer_Three, assignmentAnswerFour = a.Answer_Four, assignmentAnswerFive = a.Answer_Five, assignmentAnswerSix = a.Answer_Six }).ToList();
+                        on a.Categories_ID equals c.Id
+                        select new JoinModelAssignments { categoryName = c.Name, categoryID = c.Id, assignmentID = a.Id, assignmentAudio = a.Audio_File, assignmentTitle = a.Assignment_Title, assignmentType = a.Assignment_Type, assignmentCorrectAnswer = a.Correct_Answer, assignmentAnswerOne = a.Answer_One, assignmentAnswerTwo = a.Answer_Two, assignmentAnswerThree = a.Answer_Three, assignmentAnswerFour = a.Answer_Four, assignmentAnswerFive = a.Answer_Five, assignmentAnswerSix = a.Answer_Six }).ToList();
             ViewBag.joinAssignmentsOnCategories = joinAssignmentsOnCategories;
 
             return View();
@@ -286,13 +407,13 @@ namespace Solution.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Categories_ID = new SelectList(db.Categories, "ID", "Name", assignment.Categories_ID);
+            ViewBag.Categories_ID = new SelectList(db.Categories, "Id", "Name", assignment.Categories_ID);
             return View(assignment);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditAssignments([Bind(Include = "ID,Categories_ID,Assignment_Type,Audio_File,Answer_One,Answer_Two,Answer_Three,Answer_Four,Answer_Five,Answer_Six,Correct_Answer")] Assignment assignment)
+        public ActionResult EditAssignments([Bind(Include = "Id,Categories_ID,Assignment_Type,Audio_File,Assignment_Title,Answer_One,Answer_Two,Answer_Three,Answer_Four,Answer_Five,Answer_Six,Correct_Answer")] Assignment assignment)
         {
             if (ModelState.IsValid)
             {

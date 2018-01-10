@@ -14,10 +14,12 @@ namespace Solution.Models
     
     public partial class Assignment
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
         public int Categories_ID { get; set; }
+        public Nullable<int> SubCategories_ID { get; set; }
         public string Assignment_Type { get; set; }
         public string Audio_File { get; set; }
+        public string Assignment_Title { get; set; }
         public string Answer_One { get; set; }
         public string Answer_Two { get; set; }
         public string Answer_Three { get; set; }
@@ -27,5 +29,6 @@ namespace Solution.Models
         public string Correct_Answer { get; set; }
     
         public virtual Category Category { get; set; }
+        public virtual SubCategory SubCategory { get; set; }
     }
 }

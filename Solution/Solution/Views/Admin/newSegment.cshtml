@@ -12,6 +12,7 @@
     <ul>
         <li style="background-color: #111">@Html.ActionLink("Segment", "newSegment", "Admin")</li>
         <li>@Html.ActionLink("Kategorier", "newCategory", "Admin")</li>
+        <li>@Html.ActionLink("Underkategori", "newSubCategory", "Admin")</li>
         <li>@Html.ActionLink("Uppgifter", "newAssignment", "Admin")</li>
         <li style="float:right">@Html.ActionLink("Logga ut", "Index", "Login")</li>
     </ul>
@@ -50,7 +51,7 @@
                 </div>
             </div>
         }
-        <table class="table">
+        <table class="table table-striped">
             <tr>
                 <th>
                     Namn <!--@Html.DisplayNameFor(model => model.Name)-->
@@ -74,8 +75,8 @@
                     @item.URL
                 </td>
                 <td>
-                    @Html.ActionLink("Ändra", "EditSegment", new { id = item.ID }) |
-                    @Html.ActionLink("Radera", "DeleteSegment", new { id = item.ID })
+                    @Html.ActionLink("Ändra", "EditSegment", new { id = item.Id }) |
+                    @Html.ActionLink("Radera", "DeleteSegment", new { id = item.Id })
                 </td>
             </tr>
 }
