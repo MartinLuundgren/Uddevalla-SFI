@@ -11,8 +11,6 @@ namespace Solution.Controllers
     public class HomeController : Controller
     {
         //Db connection 
-        //
-        //
         private SfiDbEntities db = new SfiDbEntities();
 
         public ActionResult Index()
@@ -156,7 +154,7 @@ namespace Solution.Controllers
                                   where a.Assignment_Type == "Spela in"
                                   && a.Categories_ID == id
                                   orderby Guid.NewGuid()
-                                  select a).Take(6).ToList();
+                                  select a).Take(4).ToList();
                 getAssignments.AddRange(getDoing);
                 getAssignments.AddRange(getHearing);
             }
@@ -171,7 +169,7 @@ namespace Solution.Controllers
                                 where a.Assignment_Type == "Spela in"
                                 && a.SubCategories_ID == id
                                 orderby Guid.NewGuid()
-                                select a).Take(6).ToList();
+                                select a).Take(4).ToList();
                 getAssignments.AddRange(getDoing);
                 getAssignments.AddRange(getHearing);
             }
