@@ -359,7 +359,7 @@ namespace Solution.Controllers
                         join c in db.Categories
                         on a.Categories_ID equals c.Id
                         select new JoinModelAssignments { categoryName = c.Name, categoryID = c.Id, assignmentID = a.Id, assignmentAudio = a.Audio_File, assignmentTitle = a.Assignment_Title, assignmentType = a.Assignment_Type, assignmentCorrectAnswer = a.Correct_Answer, assignmentAnswerOne = a.Answer_One, assignmentAnswerTwo = a.Answer_Two, assignmentAnswerThree = a.Answer_Three, assignmentAnswerFour = a.Answer_Four, assignmentAnswerFive = a.Answer_Five, assignmentAnswerSix = a.Answer_Six }).ToList();
-            ViewBag.joinAssignmentsOnCategories = joinAssignmentsOnCategories;
+            ViewBag.joinAssignmentsOnCategories = joinAssignmentsOnCategories.OrderBy(x => x.categoryName);
 
             return View();
         }
