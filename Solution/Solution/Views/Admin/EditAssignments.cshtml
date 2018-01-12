@@ -1,10 +1,10 @@
 ﻿@model Solution.Models.Assignment
 
 @{
-    ViewBag.Title = "EditAssignments";
+    ViewBag.Title = "Ändra uppgift";
 }
 
-<h2>EditAssignments</h2>
+<h2>Ändrar uppgift</h2>
 
 
 @using (Html.BeginForm())
@@ -12,7 +12,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Assignment</h4>
+        <h4>Uppgift</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
