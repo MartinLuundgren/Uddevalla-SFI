@@ -18,7 +18,8 @@ namespace Solution.Controllers
         public ActionResult Index()
         {
             ViewBag.Url = (from m in db.StartPageMovies
-                            select m.URL).FirstOrDefault();
+                           orderby m.Id
+                            select m.URL.Last());
             var getSegments = (from s in db.Segments
                                orderby s.Name
                                select s).ToList();
