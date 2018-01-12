@@ -40,7 +40,10 @@ namespace Solution.Controllers
             if (ModelState.IsValid)
             {
                 startPageMovie.URL = Regex.Replace(startPageMovie.URL, @"watch\W\w\W", "embed/");
-                db.StartPageMovies.Add(startPageMovie);
+                StartPageMovie s = db.StartPageMovies.FirstOrDefault(x => x.Id == startPageMovie.Id);
+                s.Id = startPageMovie.Id;
+                s.URL = startPageMovie.URL;
+                db.Entry(s).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
