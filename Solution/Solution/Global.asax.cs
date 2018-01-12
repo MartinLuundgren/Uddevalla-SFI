@@ -15,12 +15,11 @@ namespace Solution
             RouteConfig.RegisterRoutes(RouteTable.Routes);
         }
         //Global error
-        //protected void Application_Error(object sender, EventArgs e)
-        //{
-        //    Exception exception = Server.GetLastError();
-        //    Server.ClearError();
-        //    Response.Redirect("/Home/Error");
-        //}
-
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            Exception exception = Server.GetLastError();
+            Server.ClearError();
+            Response.Redirect("/Home/Error");
+        }
     }
 }

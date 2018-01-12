@@ -11,21 +11,34 @@ namespace Solution.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     
     public partial class Assignment
     {
         public int Id { get; set; }
+        [DisplayName("Kategori")]
         public int Categories_ID { get; set; }
+        [DisplayName("Underkategori")]
         public Nullable<int> SubCategories_ID { get; set; }
+        [DisplayName("Uppgiftstyp")]
         public string Assignment_Type { get; set; }
+        [DisplayName("Ljudfil")]
         public string Audio_File { get; set; }
+        [DisplayName("Rubrik")]
         public string Assignment_Title { get; set; }
+        [DisplayName("Alternativ 1")]
         public string Answer_One { get; set; }
+        [DisplayName("Alternativ 2")]
         public string Answer_Two { get; set; }
+        [DisplayName("Alternativ 3")]
         public string Answer_Three { get; set; }
+        [DisplayName("Alternativ 4")]
         public string Answer_Four { get; set; }
+        [DisplayName("Alternativ 5")]
         public string Answer_Five { get; set; }
+        [DisplayName("Alternativ 6")]
         public string Answer_Six { get; set; }
+        [DisplayName("Rätt svar")]
         public string Correct_Answer { get; set; }
     
         public virtual Category Category { get; set; }

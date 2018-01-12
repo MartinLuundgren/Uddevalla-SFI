@@ -10,6 +10,7 @@ namespace Solution.Models
 
         public string categoryName { get; set; }
         public int categoryID { get; set; } 
+        public string subCatName { get; set; }
         public string assignmentTitle { get; set; }
         public int assignmentID { get; set; }
         public string assignmentAudio { get; set; }

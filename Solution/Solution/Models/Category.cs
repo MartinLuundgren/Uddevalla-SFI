@@ -11,6 +11,7 @@ namespace Solution.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     
     public partial class Category
     {
@@ -22,7 +23,9 @@ namespace Solution.Models
         }
     
         public int Id { get; set; }
+        [DisplayName("ID")]
         public int Segment_ID { get; set; }
+        [DisplayName("Segment")]
         public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
