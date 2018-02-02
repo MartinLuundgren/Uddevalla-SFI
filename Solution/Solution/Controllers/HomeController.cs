@@ -150,12 +150,12 @@ namespace Solution.Controllers
                                 where a.Assignment_Type == "Svara rätt"
                                 && a.Categories_ID == id
                                 orderby Guid.NewGuid()
-                                select a).Take(6).ToList();
+                                select a).Take(7).ToList();
                 var getHearing = (from a in db.Assignments
                                   where a.Assignment_Type == "Spela in"
                                   && a.Categories_ID == id
                                   orderby Guid.NewGuid()
-                                  select a).Take(4).ToList();
+                                  select a).Take(5).ToList();
                 getAssignments.AddRange(getDoing);
                 getAssignments.AddRange(getHearing);
             }
@@ -166,6 +166,7 @@ namespace Solution.Controllers
                                    && a.SubCategories_ID == id
                                    orderby Guid.NewGuid()
                                    select a).Take(6).ToList();
+
                 var getHearing = (from a in db.Assignments
                                 where a.Assignment_Type == "Spela in"
                                 && a.SubCategories_ID == id

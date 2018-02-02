@@ -12,11 +12,11 @@ Välkommen @Session["Name"].ToString()
     
     <div class="form-horizontal">
         <hr />
+        <h5>Ändra videolänk för startsida</h5>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.URL, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.URL, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.URL, "", new { @class = "text-danger" })

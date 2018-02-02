@@ -4,7 +4,6 @@
     ViewBag.Title = "Radera kategori";
 }
 
-<h2>Raderar kategori</h2>
 
 <h3>Är du säker på att du vill fortsätta?</h3>
 <div>
@@ -33,7 +32,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-success" /> |
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
             @Html.ActionLink("Back to List", "Index")
         </div>
     }

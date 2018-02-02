@@ -12,6 +12,7 @@ namespace Solution.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
 
     public partial class Segment
     {
@@ -23,6 +24,7 @@ namespace Solution.Models
     
         public int Id { get; set; }
         public string URL { get; set; }
+        [Required]
         [DisplayName("Namn")]
         public string Name { get; set; }
     

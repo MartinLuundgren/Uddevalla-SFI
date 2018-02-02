@@ -4,8 +4,6 @@
     ViewBag.Title = "Radera segment";
 }
 
-<h2>Raderar segment</h2>
-
 <h3>Är du säker på att du vill fortsätta?</h3>
 <div>
     <h4>Segment:</h4>
@@ -33,7 +31,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-success" /> |
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
             @Html.ActionLink("Back to List", "Index")
         </div>
     }

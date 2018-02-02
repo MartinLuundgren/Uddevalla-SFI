@@ -81,7 +81,7 @@ namespace Solution.Controllers
                 {
                     try
                     {
-                        segment.URL = Regex.Replace(segment.URL, @"watch\W\w\W", "embed/");
+                        //segment.URL = Regex.Replace(segment.URL, @"watch\W\w\W", "embed/");
                         db.Segments.Add(segment);
                         db.SaveChanges();
                         return RedirectToAction("newSegment", "Admin");
@@ -131,7 +131,6 @@ namespace Solution.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    segment.URL = Regex.Replace(segment.URL, @"watch\W\w\W", "embed/");
                     db.Entry(segment).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("newSegment", "Admin");
@@ -327,7 +326,7 @@ namespace Solution.Controllers
                 var join = (from s in db.SubCategories
                             join c in db.Categories
                             on s.Category_ID equals c.Id
-                            select new JoinModel { subCategoryName = s.Name, subCategoryId = s.Id, categoryName = c.Name, categoryID = c.Id }).ToList();
+                            select new JoinModel { subCategoryName = s.Name, subCategoryURL = s.URL, subCategoryId = s.Id, categoryName = c.Name, categoryID = c.Id }).ToList();
                 ViewBag.join = join;
                 return View();
             }
@@ -391,7 +390,7 @@ namespace Solution.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditSubCategory([Bind(Include = "Id,Category_ID,Name")] SubCategory subCategory)
+        public ActionResult EditSubCategory([Bind(Include = "Id,Category_ID,URL,Name")] SubCategory subCategory)
         {
             if (Session["Name"] != null)
             {
