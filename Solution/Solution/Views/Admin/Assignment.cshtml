@@ -1,0 +1,122 @@
+﻿@model IEnumerable<Solution.Models.Assignment>
+
+@{
+    ViewBag.Title = "Uppgifter";
+}
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+    <a href="@Url.Action("Index", "Home")" class="navbar-brand">
+        <img src="~/Content/img/VUXLogo.png" alt="Company logo" width="80" height="50" />
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <br />
+                <a class="nav-link" href="@Url.Action("newSegment", "Admin")">Hantera Segment</a>
+            </li>
+            <li class="nav-item">
+                <br />
+                <a class="nav-link" href="@Url.Action("newCategory", "Admin")">Hantera Kategorier</a>
+            </li>
+            <li class="nav-item">
+                <br />
+                <a class="nav-link" href="@Url.Action("newSubCategory", "Admin")">Hantera underkategorier</a>
+            </li>
+            <li class="nav-item">
+                <br />
+                <a class="nav-link" href="@Url.Action("Assignment", "Admin")">Hantera uppgifter</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<br />
+<br />
+<h2>Hantera uppgifter</h2>
+<input type="button" value="Lägg till ny uppgift" class="btn-success" onclick="@("window.location.href='" + @Url.Action("newAssignment", "Admin") + "'");" />
+<br />
+<br />
+
+<table class="table table-responsive table-hover">
+    <tr>
+        <th>
+            Kategori
+        </th>
+        <th>
+            Underkategori
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Assignment_Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Audio_File)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Answer_One)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Answer_Two)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Answer_Three)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Answer_Four)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Answer_Five)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Answer_Six)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Correct_Answer)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Category.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SubCategory.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Assignment_Type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Audio_File)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Answer_One)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Answer_Two)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Answer_Three)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Answer_Four)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Answer_Five)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Answer_Six)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Correct_Answer)
+        </td>
+        <td>
+            @Html.ActionLink("Ändra", "EditAssignments", new { id=item.Id }) |
+            @Html.ActionLink("Ta bort", "DeleteAssignments", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

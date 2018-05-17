@@ -11,8 +11,8 @@ namespace Solution.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Category
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,9 +23,10 @@ namespace Solution.Models
         }
     
         public int Id { get; set; }
-        [DisplayName("ID")]
         public int Segment_ID { get; set; }
-        [DisplayName("Segment")]
+        [Display(Name = "Videolänk")]
+        public string URL { get; set; }
+        [Display(Name = "Namn")]
         public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

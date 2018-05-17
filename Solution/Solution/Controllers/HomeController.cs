@@ -55,8 +55,11 @@ namespace Solution.Controllers
             {
                 int id = int.Parse(category);
                 var viewSubCategory = (from s in db.SubCategories
+                                       join c in db.Categories
+                                       on s.Category_ID equals c.Id
                                        where s.Category_ID == id
-                                       select s).ToList();
+                                       select new JoinModelSubCategory { subCategories = s, categories = c }).ToList();
+
                 if (viewSubCategory.Count() > 0)
                 {
                     return View(viewSubCategory);

@@ -1,11 +1,28 @@
 ﻿@model IEnumerable<Solution.Models.Segment>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Välkommen";
 }
-    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="#">Uttal för alla</a>
-    </nav>
-    <br />
+
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+    <a href="@Url.Action("Index", "Home")" class="navbar-brand">
+        <img src="~/Content/img/VUXLogo.png" alt="Company logo" width="80" height="50" />
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <br />
+                <a class="nav-link" href="@Url.Action("Index", "Home")">Startsida</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<br />
+<br />
+<br />
 @if (ViewBag.Url != null)
 {
     <br />
@@ -14,10 +31,11 @@
         </div>
     <br />
 }
+<br />
     @using (Html.BeginForm("Category", "Home", FormMethod.Post))
     {
         foreach (var item in Model)
         {
-            <button class="btn btn-block btn-lg btn-primary" name="segment" value="@item.Id">@item.Name</button>
+            <button class="btn btn-block btn-lg btn-primary" name="segment" style="font-size : 22px; width: 100%; height: 60px"; value="@item.Id">@item.Name</button>
         }
     }

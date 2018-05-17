@@ -11,7 +11,6 @@ namespace Solution.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
 
     public partial class Segment
@@ -23,9 +22,9 @@ namespace Solution.Models
         }
     
         public int Id { get; set; }
+        [Display(Name = "Videolänk")]
         public string URL { get; set; }
-        [Required]
-        [DisplayName("Namn")]
+        [Display(Name = "Namn")]
         public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

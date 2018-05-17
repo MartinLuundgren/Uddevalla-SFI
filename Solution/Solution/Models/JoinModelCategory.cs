@@ -10,5 +10,6 @@ namespace Solution.Models
     {
        public Category categories{ get; set; }
        public Segment segment { get; set; }
+        
     }
 }

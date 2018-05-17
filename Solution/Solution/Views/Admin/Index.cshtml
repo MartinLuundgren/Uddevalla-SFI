@@ -1,5 +1,5 @@
 ﻿
-@model Solution.Models.StartPageMovie
+@model Solution.Models.StartPageMovy
 @{
     ViewBag.Title = "Start"; 
 }
@@ -34,7 +34,4 @@ Välkommen @Session["Name"].ToString()
         @Html.ActionLink("Lägg till nytt segment", "newSegment", "Admin", null, new { @class = "btn btn-primary btn-large btn-lg btn-block" })
         @Html.ActionLink("Lägg till ny kategori", "newCategory", "Admin", null, new { @class = "btn btn-primary btn-large btn-lg btn-block" })
         @Html.ActionLink("Lägg till ny underkategori", "newSubCategory", "Admin", null, new { @class = "btn btn-primary btn-large btn-lg btn-block" })
-        @Html.ActionLink("Lägg till nya uppgifter", "newAssignment", "Admin", null, new { @class = "btn btn-primary btn-large btn-lg btn-block" })
-
-        <!---->
-        <!---->
+        @Html.ActionLink("Lägg till nya uppgifter", "Assignment", "Admin", null, new { @class = "btn btn-primary btn-large btn-lg btn-block" })

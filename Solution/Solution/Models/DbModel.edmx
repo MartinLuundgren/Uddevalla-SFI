@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SfiDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="SfiModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Assignments">
           <Key>
             <PropertyRef Name="Id" />
@@ -29,9 +29,10 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Segment_ID" Type="int" Nullable="false" />
+          <Property Name="URL" Type="nvarchar(max)" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <EntityType Name="Login">
+        <EntityType Name="Logins">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -47,7 +48,7 @@
           <Property Name="URL" Type="nvarchar(max)" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <EntityType Name="StartPageMovie">
+        <EntityType Name="StartPageMovies">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -60,7 +61,6 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Category_ID" Type="int" Nullable="false" />
-          <Property Name="URL" Type="nvarchar(max)" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <Association Name="FK_Assignments_Categories">
@@ -111,12 +111,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="SfiDbModelStoreContainer">
+        <EntityContainer Name="SfiModelStoreContainer">
           <EntitySet Name="Assignments" EntityType="Self.Assignments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Logins" EntityType="Self.Logins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Segments" EntityType="Self.Segments" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="StartPageMovie" EntityType="Self.StartPageMovie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StartPageMovies" EntityType="Self.StartPageMovies" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SubCategories" EntityType="Self.SubCategories" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Assignments_Categories" Association="Self.FK_Assignments_Categories">
             <End Role="Categories" EntitySet="Categories" />
@@ -139,7 +139,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="SfiDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="SfiModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Assignment">
           <Key>
             <PropertyRef Name="Id" />
@@ -166,6 +166,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Segment_ID" Type="Int32" Nullable="false" />
+          <Property Name="URL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Assignments" Relationship="Self.FK_Assignments_Categories" FromRole="Categories" ToRole="Assignments" />
           <NavigationProperty Name="Segment" Relationship="Self.FK_Categories_Segments" FromRole="Categories" ToRole="Segments" />
@@ -188,7 +189,7 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Categories" Relationship="Self.FK_Categories_Segments" FromRole="Segments" ToRole="Categories" />
         </EntityType>
-        <EntityType Name="StartPageMovie">
+        <EntityType Name="StartPageMovy">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -201,7 +202,6 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Category_ID" Type="Int32" Nullable="false" />
-          <Property Name="URL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Assignments" Relationship="Self.FK_Assignments_SubCategories" FromRole="SubCategories" ToRole="Assignments" />
           <NavigationProperty Name="Category" Relationship="Self.FK_SubCategories_Categories" FromRole="SubCategories" ToRole="Categories" />
@@ -259,7 +259,7 @@
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Logins" EntityType="Self.Login" />
           <EntitySet Name="Segments" EntityType="Self.Segment" />
-          <EntitySet Name="StartPageMovies" EntityType="Self.StartPageMovie" />
+          <EntitySet Name="StartPageMovies" EntityType="Self.StartPageMovy" />
           <EntitySet Name="SubCategories" EntityType="Self.SubCategory" />
           <AssociationSet Name="FK_Assignments_Categories" Association="Self.FK_Assignments_Categories">
             <End Role="Categories" EntitySet="Categories" />
@@ -283,9 +283,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="SfiDbModelStoreContainer" CdmEntityContainer="SfiDbEntities">
+        <EntityContainerMapping StorageEntityContainer="SfiModelStoreContainer" CdmEntityContainer="SfiDbEntities">
           <EntitySetMapping Name="Assignments">
-            <EntityTypeMapping TypeName="SfiDbModel.Assignment">
+            <EntityTypeMapping TypeName="SfiModel.Assignment">
               <MappingFragment StoreEntitySet="Assignments">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Categories_ID" ColumnName="Categories_ID" />
@@ -304,17 +304,18 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Categories">
-            <EntityTypeMapping TypeName="SfiDbModel.Category">
+            <EntityTypeMapping TypeName="SfiModel.Category">
               <MappingFragment StoreEntitySet="Categories">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Segment_ID" ColumnName="Segment_ID" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Logins">
-            <EntityTypeMapping TypeName="SfiDbModel.Login">
-              <MappingFragment StoreEntitySet="Login">
+            <EntityTypeMapping TypeName="SfiModel.Login">
+              <MappingFragment StoreEntitySet="Logins">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
@@ -322,7 +323,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Segments">
-            <EntityTypeMapping TypeName="SfiDbModel.Segment">
+            <EntityTypeMapping TypeName="SfiModel.Segment">
               <MappingFragment StoreEntitySet="Segments">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="URL" ColumnName="URL" />
@@ -331,19 +332,18 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="StartPageMovies">
-            <EntityTypeMapping TypeName="SfiDbModel.StartPageMovie">
-              <MappingFragment StoreEntitySet="StartPageMovie">
+            <EntityTypeMapping TypeName="SfiModel.StartPageMovy">
+              <MappingFragment StoreEntitySet="StartPageMovies">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="URL" ColumnName="URL" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SubCategories">
-            <EntityTypeMapping TypeName="SfiDbModel.SubCategory">
+            <EntityTypeMapping TypeName="SfiModel.SubCategory">
               <MappingFragment StoreEntitySet="SubCategories">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Category_ID" ColumnName="Category_ID" />
-                <ScalarProperty Name="URL" ColumnName="URL" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>

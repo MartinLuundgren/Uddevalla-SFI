@@ -3,20 +3,37 @@
 @{
     ViewBag.Title = "Nytt segment";
 }
-<head>
-    <link href="~/navbar.css" rel="stylesheet" />
-</head>
 
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+    <a href="@Url.Action("Index", "Home")" class="navbar-brand">
+        <img src="~/Content/img/VUXLogo.png" alt="Company logo" width="80" height="50" />
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-<div class="navbar-fixed-top" style="position:fixed; top: 0; left: 0; right: 0; z-index:2">
-    <ul>
-        <li style="background-color: #111">@Html.ActionLink("Segment", "newSegment", "Admin")</li>
-        <li>@Html.ActionLink("Kategorier", "newCategory", "Admin")</li>
-        <li>@Html.ActionLink("Underkategori", "newSubCategory", "Admin")</li>
-        <li>@Html.ActionLink("Uppgifter", "newAssignment", "Admin")</li>
-        <li style="float:right">@Html.ActionLink("Logga ut", "Index", "Login")</li>
-    </ul>
-</div>
+    <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <br />
+                <a class="nav-link" href="@Url.Action("newSegment", "Admin")">Hantera Segment</a>
+            </li>
+            <li class="nav-item">
+                <br />
+                <a class="nav-link" href="@Url.Action("newCategory", "Admin")">Hantera Kategorier</a>
+            </li>
+            <li class="nav-item">
+                <br />
+                <a class="nav-link" href="@Url.Action("newSubCategory", "Admin")">Hantera underkategorier</a>
+            </li>
+            <li class="nav-item">
+                <br />
+                <a class="nav-link" href="@Url.Action("Assignment", "Admin")">Hantera uppgifter</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<br />
 <br />
         <h2>Lägg till nytt segment</h2>
 

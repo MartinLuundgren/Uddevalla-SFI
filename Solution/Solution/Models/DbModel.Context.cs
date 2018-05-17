@@ -29,7 +29,7 @@ namespace Solution.Models
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Login> Logins { get; set; }
         public virtual DbSet<Segment> Segments { get; set; }
-        public virtual DbSet<StartPageMovie> StartPageMovies { get; set; }
+        public virtual DbSet<StartPageMovy> StartPageMovies { get; set; }
         public virtual DbSet<SubCategory> SubCategories { get; set; }
     }
 }

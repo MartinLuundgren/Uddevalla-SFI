@@ -1,52 +1,59 @@
-﻿@model Solution.Models.Assignment
+﻿
+@model Solution.Models.Assignment
 
 @{
-    ViewBag.Title = "Ändra uppgift";
+    ViewBag.Title = "Ändra";
 }
-
-<h2>Ändra uppgift</h2>
-
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
+        <h4>Ändra uppgift</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Categories_ID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("Categories_ID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Categories_ID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.SubCategories_ID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("SubCategories_ID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.SubCategories_ID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Assignment_Type, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Assignment_Type, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Assignment_Type, "", new { @class = "text-danger" })
+                @Html.DropDownListFor(model => model.Categories_ID, ViewBag.Categories_ID as SelectList, "Välj Kategori", new {@class = "form-control" })
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-10">
-                <p>Välj ljudfil:</p>
+                @Html.DropDownListFor(model => model.SubCategories_ID, new SelectList(" "), "Välj underkategori ", new { @class = "form-control" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-10">
+                <p>Välj typ av uppgift</p>
+                @Html.RadioButtonFor(model => model.Assignment_Type, "Svara rätt")
+                <label for="radio1">Svara rätt</label>
+                <br />
+                @Html.RadioButtonFor(model => model.Assignment_Type, "Spela in")
+                <label for="radio2">Spela in</label>
+
+            </div>
+        </div>
+        <hr />
+        <div class="form-group">
+            <div class="col-md-10">
+                <p>Välj ny ljudfil:</p>
                 <input type="file" name="postedFile" />
             </div>
         </div>
-
+        <div class="form-group">
+            <div class="col-md-10">
+                <p>Nuvarande ljudfil:</p>
+                @Html.TextBoxFor(model => model.Audio_File, new { @class = "form-control", @readonly = true })
+                @Html.ValidationMessageFor(model => model.Audio_File, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <hr />
         <div class="form-group">
             @Html.LabelFor(model => model.Assignment_Title, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -119,10 +126,16 @@
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#Categories_ID").change(function () {
+            $.get("/Admin/GetSubCategories", { Categories_ID: $("#Categories_ID").val() }, function (data) {
+                $("#SubCategories_ID").empty();
+                $.each(data, function (index, row) {
+                    $("#SubCategories_ID").append("<option value='" + row.Id + "'>" + row.Name + "</option>")
+                });
+            });
+        })
+    });
+</script>

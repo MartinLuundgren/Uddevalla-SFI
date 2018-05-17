@@ -16,18 +16,36 @@
 }
 
 }
-<head>
-    <link href="~/navbar.css" rel="stylesheet" />
-</head>
-<div class="navbar-fixed-top" style="position:fixed; top: 0; left: 0; right: 0; z-index:2">
-    <ul>
-        <li>@Html.ActionLink("Segment", "newSegment", "Admin")</li>
-        <li style="background-color: #111">@Html.ActionLink("Kategorier", "newCategory", "Admin")</li>
-        <li>@Html.ActionLink("Underkategori", "newSubCategory", "Admin")</li>
-        <li>@Html.ActionLink("Uppgifter", "newAssignment", "Admin")</li>
-        <li style="float:right">@Html.ActionLink("Logga ut", "Index", "Login")</li>
-    </ul>
-</div>
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+    <a href="@Url.Action("Index", "Home")" class="navbar-brand">
+        <img src="~/Content/img/VUXLogo.png" alt="Company logo" width="80" height="50" />
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <br />
+                <a class="nav-link" href="@Url.Action("newSegment", "Admin")">Hantera Segment</a>
+            </li>
+            <li class="nav-item">
+                <br />
+                <a class="nav-link" href="@Url.Action("newCategory", "Admin")">Hantera Kategorier</a>
+            </li>
+            <li class="nav-item">
+                <br />
+                <a class="nav-link" href="@Url.Action("newSubCategory", "Admin")">Hantera underkategorier</a>
+            </li>
+            <li class="nav-item">
+                <br />
+                <a class="nav-link" href="@Url.Action("Assignment", "Admin")">Hantera uppgifter</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<br />
 <br />
 <h2>Lägg till ny kategori</h2>
 
@@ -52,6 +70,13 @@
                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
             </div>
         </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.URL, "Videolänk", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.URL, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.URL, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -68,7 +93,9 @@
         <th>
             Kategori <!--@Html.DisplayNameFor(model => model.Name)-->
         </th>
-        <th></th>
+        <th>
+            Videolänk <!--@Html.DisplayNameFor(model => model.URL)-->
+        </th>
     </tr>
 
     @foreach (var item in ViewBag.join)

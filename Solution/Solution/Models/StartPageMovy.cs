@@ -12,7 +12,7 @@ namespace Solution.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class StartPageMovie
+    public partial class StartPageMovy
     {
         public int Id { get; set; }
         public string URL { get; set; }

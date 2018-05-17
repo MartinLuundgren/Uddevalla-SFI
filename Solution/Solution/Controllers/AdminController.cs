@@ -33,14 +33,14 @@ namespace Solution.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(StartPageMovie startPageMovie)
+        public ActionResult Index(StartPageMovy startPageMovie)
         {
             if (Session["Name"] != null)
             {
                 var id = (from l in db.StartPageMovies
                             orderby l.Id descending
                             select l.Id).FirstOrDefault();
-                StartPageMovie s = db.StartPageMovies.Find(id);
+                StartPageMovy s = db.StartPageMovies.Find(id);
                 s.URL = Regex.Replace(startPageMovie.URL, @"watch\W\w\W", "embed/");
                 db.Entry(s).State = EntityState.Modified;
                 db.SaveChanges();
@@ -81,12 +81,12 @@ namespace Solution.Controllers
                 {
                     try
                     {
+                        //TODO: RegEx for URL 
                         //segment.URL = Regex.Replace(segment.URL, @"watch\W\w\W", "embed/");
                         db.Segments.Add(segment);
                         db.SaveChanges();
                         return RedirectToAction("newSegment", "Admin");
-                    }
-                    //TODO: Add exception, maybe custom error page? 
+                    } 
                     catch (Exception)
                     {
                         return RedirectToAction("Error", "Home");
@@ -316,7 +316,7 @@ namespace Solution.Controllers
         {
             if (Session["Name"] != null)
             {
-                //Hämta segmentnamn till dopdown i newCategories
+                //Hämta segmentnamn till dropdown i newCategories
                 var categoriesName = (from c in db.Categories
                                       orderby c.Name
                                       select c).ToList();
@@ -326,7 +326,7 @@ namespace Solution.Controllers
                 var join = (from s in db.SubCategories
                             join c in db.Categories
                             on s.Category_ID equals c.Id
-                            select new JoinModel { subCategoryName = s.Name, subCategoryURL = s.URL, subCategoryId = s.Id, categoryName = c.Name, categoryID = c.Id }).ToList();
+                            select new JoinModel { subCategoryName = s.Name, subCategoryId = s.Id, categoryName = c.Name, categoryID = c.Id }).ToList();
                 ViewBag.join = join;
                 return View();
             }
@@ -452,122 +452,114 @@ namespace Solution.Controllers
             }
         }
 
-
-        [HttpGet]
-        public ActionResult newAssignment()
+        public ActionResult Assignment()
         {
-            //Check to see if the user is logged in
             if (Session["Name"] != null)
             {
-                var assignments = (from s in db.Assignments
-                                   select s).ToList();
-                ViewBag.assignments = assignments;
-
-                var categoryName = (from s in db.Categories
-                                    orderby s.Name
-                                    select s).ToList();
-                ViewBag.categoryName = categoryName;
-
-                var subCategoryName = (from s in db.SubCategories
-                                       orderby s.Name
-                                       select s).ToList();
-                ViewBag.subCategoryName = subCategoryName;
-
-                var joinAssignmentsOnCategories = (from a in db.Assignments
-                                                   join c in db.Categories
-                                                   on a.Categories_ID equals c.Id
-                                                   select new JoinModelAssignments { categoryName = c.Name, categoryID = c.Id, subCatName = c.SubCategories.FirstOrDefault().Name, assignmentID = a.Id, assignmentAudio = a.Audio_File, assignmentTitle = a.Assignment_Title, assignmentType = a.Assignment_Type, assignmentCorrectAnswer = a.Correct_Answer, assignmentAnswerOne = a.Answer_One, assignmentAnswerTwo = a.Answer_Two, assignmentAnswerThree = a.Answer_Three, assignmentAnswerFour = a.Answer_Four, assignmentAnswerFive = a.Answer_Five, assignmentAnswerSix = a.Answer_Six }).ToList();
-
-                ViewBag.joinAssignmentsOnCategories = joinAssignmentsOnCategories.OrderBy(x => x.categoryName);
-
-                return View();
+                var assignments = db.Assignments.Include(a => a.Category).Include(a => a.SubCategory);
+                return View(assignments.ToList());
             }
-            //Else redirect the user back to the login page
             else
             {
                 return RedirectToAction("/Index", "Login", new { area = "" });
             }
         }
 
-        [HttpPost]
-        public ActionResult newAssignment(HttpPostedFileBase postedFile, Assignment assignment)
+        public ActionResult newAssignment()
         {
-            if (postedFile != null)
-            {
-                string path = Server.MapPath("~/Uploads/");
-                if (!Directory.Exists(path))
-                {
-                    Directory.CreateDirectory(path);
-                }
-
-                postedFile.SaveAs(path + Path.GetFileName(postedFile.FileName));
-                ViewBag.Message = "File uploaded successfully.";
-            }
-            assignment.Audio_File = postedFile.FileName;
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    db.Assignments.Add(assignment);
-                    db.SaveChanges();
-                    return RedirectToAction("newAssignment", "Admin");
-                }
-                //TODO: Add exception, maybe custom error page? 
-                catch (Exception)
-                {
-                    return RedirectToAction("Error","Home");
-                }
-            }
+            ViewBag.Categories_ID = new SelectList(db.Categories, "Id", "Name");
+            ViewBag.SubCategories_ID = new SelectList(db.SubCategories, "Id", "Name");
             return View();
         }
 
-        public ActionResult EditAssignments(int? id)
+        // POST: Assignments/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        public ActionResult newAssignment(HttpPostedFileBase postedFile, Assignment assignment)
         {
-            if (Session["Name"] != null)
+            //Audio file is requierd 
+            if (ModelState.IsValid)
             {
-                if (id == null)
+                if (postedFile != null)
                 {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    string path = Server.MapPath("~/Uploads/");
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+
+                    postedFile.SaveAs(path + Path.GetFileName(postedFile.FileName));
+                    ViewBag.Message = "File uploaded successfully.";
                 }
-                Assignment assignment = db.Assignments.Find(id);
-                if (assignment == null)
-                {
-                    return HttpNotFound();
-                }
-                ViewBag.Categories_ID = new SelectList(db.Categories, "Id", "Name", assignment.Categories_ID);
-                ViewBag.SubCategories_ID = new SelectList(db.SubCategories, "Id", "Name", assignment.SubCategories_ID);
-                return View(assignment);
+                assignment.Assignment_Title = "Rubrik";
+                assignment.Audio_File = postedFile.FileName;
+
+                db.Assignments.Add(assignment);
+                db.SaveChanges();
+                return RedirectToAction("Assignment");
             }
-            //Else redirect the user back to the login page
-            else
-            {
-                return RedirectToAction("/Index", "Login", new { area = "" });
-            }
+
+            ViewBag.Categories_ID = new SelectList(db.Categories, "Id", "Name", assignment.Categories_ID);
+            ViewBag.SubCategories_ID = new SelectList(db.SubCategories, "Id", "Name", assignment.SubCategories_ID);
+            return View(assignment);
         }
 
+
+
+        public ActionResult EditAssignments(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Assignment assignment = db.Assignments.Find(id);
+            if (assignment == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.Categories_ID = new SelectList(db.Categories, "Id", "Name", assignment.Categories_ID);
+            return View(assignment);
+        }
+
+        public JsonResult GetSubCategories(int Categories_ID)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            var subCategoriesList = db.SubCategories.Where(x => x.Category_ID == Categories_ID).ToList();
+            return Json(subCategoriesList, JsonRequestBehavior.AllowGet);
+        }
+
+        // POST: Assignments/
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditAssignments([Bind(Include = "Id,Categories_ID, SubCategories_ID,Assignment_Type,Audio_File,Assignment_Title,Answer_One,Answer_Two,Answer_Three,Answer_Four,Answer_Five,Answer_Six,Correct_Answer")] Assignment assignment)
+        public ActionResult EditAssignments(HttpPostedFileBase postedFile, Assignment assignment)
         {
-            //Check to see if the user is logged in
-            if (Session["Name"] != null)
+            //Audio file is requierd 
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
+                if (postedFile != null)
                 {
-                    db.Entry(assignment).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("newAssignment", "Admin");
+                    string path = Server.MapPath("~/Uploads/");
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+
+                    postedFile.SaveAs(path + Path.GetFileName(postedFile.FileName));
+                    assignment.Audio_File = postedFile.FileName;
                 }
-                ViewBag.Categories_ID = new SelectList(db.Categories, "ID", "Name", assignment.Categories_ID);
-                return View(assignment);
+                assignment.Assignment_Title = "Rubrik";
+
+                db.Entry(assignment).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Assignment");
             }
-            //Else redirect the user back to the login page
-            else
-            {
-                return RedirectToAction("/Index", "Login", new { area = "" });
-            }
+
+            ViewBag.Categories_ID = new SelectList(db.Categories, "Id", "Name", assignment.Categories_ID);
+            ViewBag.SubCategories_ID = new SelectList(db.SubCategories, "Id", "Name", assignment.SubCategories_ID);
+            return View(assignment);
         }
-        
+
         public ActionResult DeleteAssignments(int? id)
         {
             //Check to see if the user is logged in
@@ -602,13 +594,18 @@ namespace Solution.Controllers
                 Assignment assignment = db.Assignments.Find(id);
                 db.Assignments.Remove(assignment);
                 db.SaveChanges();
-                return RedirectToAction("newAssignment", "Admin");
+                return RedirectToAction("Assignment", "Admin");
             }
             //Else redirect the user back to the login page
             else
             {
                 return RedirectToAction("/Index", "Login", new { area = "" });
             }
+        }
+
+        public static void GetAssignments ()
+        {
+
         }
 
         //Dispose db 

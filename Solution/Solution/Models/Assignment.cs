@@ -11,34 +11,37 @@ namespace Solution.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Assignment
     {
         public int Id { get; set; }
-        [DisplayName("Kategori")]
+        [Required]
+        [Display(Name = "Kategori")]
         public int Categories_ID { get; set; }
-        [DisplayName("Underkategori")]
-        public Nullable<int> SubCategories_ID { get; set; }
-        [DisplayName("Uppgiftstyp")]
+        [Display(Name = "Underkategori")]
+        public Nullable <int> SubCategories_ID { get; set; }
+        [Required]
+        [Display(Name = "Typ av uppgift")]
         public string Assignment_Type { get; set; }
-        [DisplayName("Ljudfil")]
+        [Display(Name = "Ljudfil")]
         public string Audio_File { get; set; }
-        [DisplayName("Rubrik")]
+        [Display(Name = "Rubrik")]
         public string Assignment_Title { get; set; }
-        [DisplayName("Alternativ 1")]
+        [Display(Name = "Svarsalternativ 1")]
         public string Answer_One { get; set; }
-        [DisplayName("Alternativ 2")]
+        [Display(Name = "Svarsalternativ 2")]
         public string Answer_Two { get; set; }
-        [DisplayName("Alternativ 3")]
+        [Display(Name = "Svarsalternativ 3")]
         public string Answer_Three { get; set; }
-        [DisplayName("Alternativ 4")]
+        [Display(Name = "Svarsalternativ 4")]
         public string Answer_Four { get; set; }
-        [DisplayName("Alternativ 5")]
+        [Display(Name = "Svarsalternativ 5")]
         public string Answer_Five { get; set; }
-        [DisplayName("Alternativ 6")]
+        [Display(Name = "Svarsalternativ 6")]
         public string Answer_Six { get; set; }
-        [DisplayName("Rätt svar")]
+        [Required]
+        [Display(Name = "Rätt svar")]
         public string Correct_Answer { get; set; }
     
         public virtual Category Category { get; set; }

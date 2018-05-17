@@ -1,28 +1,42 @@
-﻿@model List <Solution.Models.SubCategory>
+﻿@model IEnumerable<Solution.Models.JoinModelSubCategory>
 @{
     ViewBag.Title = "SubCategory";
 }
-<!-- Kommetnar -->
-<head>
-    <link href="~/navbar.css" rel="stylesheet" />
-</head>
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand" href="@Url.Action("Index", "Home")">Startsida</a>
+    <a href="@Url.Action("Index", "Home")" class="navbar-brand">
+        <img src="~/Content/img/VUXLogo.png" alt="Company logo" width="80" height="50" />
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <br />
+                <a class="nav-link" href="@Url.Action("Index", "Home")">Startsida</a>
+            </li>
+        </ul>
+    </div>
 </nav>
-@if (Model.First().URL != null || Model.First().URL != "")
+<br />
+<br />
+<br />
+@if (Model.First().categories.URL != null)
 {
     <br />
-    <br />
     <div class="embed-responsive embed-responsive-16by9" style="max-width:700px; margin:0 auto">
-        <iframe class="embed-responsive-item" src="@Model.First().URL"></iframe>
+        <iframe class="embed-responsive-item" src="@Url.Content(Model.First().categories.URL)"></iframe>
     </div>
     <br />
 }
+<br />
+<br />
 
 @using (Html.BeginForm("Assignment", "Home", FormMethod.Post))
 {
     foreach (var item in Model)
     {
-        <button class="btn btn-block btn-lg btn-primary" name="SubCategory" value="@item.Id">@item.Name</button>
+        <button class="btn btn-block btn-lg btn-primary" name="SubCategory" value="@item.subCategories.Id" >@item.subCategories.Name</button>
     }
 }

@@ -17,8 +17,6 @@ namespace Solution.Models
     public partial class Login
     {
         public int Id { get; set; }
-        [Required]
-        [DisplayName("Användarnamn")]
         public string Name { get; set; }
         [DataType(DataType.Password)]
         [Required]
